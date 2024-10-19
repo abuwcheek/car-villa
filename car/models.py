@@ -34,6 +34,10 @@ class Brands(BaseModel):
      name = models.CharField(max_length=255)
      icon = models.ImageField(upload_to='brands/')
 
+     class Meta:
+          verbose_name = 'Brand'
+          verbose_name_plural = 'Brands'
+
 
      def __str__(self):
           return self.name
@@ -42,11 +46,11 @@ class Brands(BaseModel):
 
 class CarVilla(BaseModel):
      brand = models.ForeignKey(Brands, on_delete=models.CASCADE, related_name='brand_car')
-     category = models.ManyToManyField(Category, related_name='category_car')
+     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='category_car')
      model = models.CharField(max_length=255)
      year = models.IntegerField(default=0)
      description = models.TextField()
-     condition = models.CharField(max_length=255, verbose_name='qulayligi') ##qulayligi
+     condition = models.CharField(max_length=255, verbose_name='qulayligi') ##qulayligi konditsioner bormi, yoqmi
      price = models.IntegerField(default=0, verbose_name='narxi')
      percentage = models.FloatField(default=0, verbose_name='chegirma')
      image = models.ImageField(upload_to='car_images/')
