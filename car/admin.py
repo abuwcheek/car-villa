@@ -1,6 +1,6 @@
 from django.contrib import admin
-
-from .models import Category, Brands, CarVilla
+from django.utils.html import mark_safe
+from .models import Category, Brands, CarVilla, CarImage
 
 
 
@@ -22,9 +22,16 @@ class BrandsAdmin(admin.ModelAdmin):
      
 
 
+class CarImageInline(admin.StackedInline):
+    readonly_fields = ('get_image', 'updated_at')
+    model = CarImage
+    extra = 1
+
+
 
 @admin.register(CarVilla)
 class CarVillaAdmin(admin.ModelAdmin):
+     inlines = [CarImageInline]
      list_display = ('model', 'category', 'brand', 'year', 'price', 'views', 'created_at', 'is_active')
      list_display_links = ('model', 'category', 'brand')
      search_fields = ['id', 'model', 'price', 'views', 'created_at',]

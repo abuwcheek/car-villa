@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
+from django.utils.safestring import mark_safe
+from PIL import Image
 import uuid
 
 
@@ -77,3 +79,32 @@ class CarVilla(BaseModel):
                discount = (100 - self.percentage) / 100 * product_price
                return round(discount, 2)
           return self.get_price
+
+
+
+class CarImage(BaseModel):
+    carvilla = models.ForeignKey(CarVilla, on_delete=models.CASCADE, related_name='car_images')
+    image = models.ImageField(upload_to="car_images/")
+
+
+    
+    def __str__(self):
+          return f"{self.carvilla}"
+
+    @property
+    def image_url(self):
+          return self.image.url
+
+
+    @property
+    def get_image(self):
+          if not self.image.url:
+               return "No Image"
+          return mark_safe('<img src="{}" height="100"/>'.format(self.image.url))
+
+    def save(self, *args, **kwargs):
+          super().save(*args, **kwargs)
+          img = Image.open(self.image.path)
+          o_size = (405, 500)
+          img.thumbnail(o_size)
+          img.save(self.image.path, quality=50)
