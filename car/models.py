@@ -35,6 +35,12 @@ class Category(BaseModel):
 class Brands(BaseModel):
      name = models.CharField(max_length=255)
      icon = models.ImageField(upload_to='brands/')
+     
+     # mashhur yangiliklarni ajratib olish uchun, yani admin dan true qip qoysak ajratib boreveradi
+     is_featured = models.BooleanField(default=False) 
+     
+     # chiqorilgan yangilikladan bashqalarini chiqorish uchun
+     is_published = models.BooleanField(default=False)
 
      class Meta:
           verbose_name = 'Brand'
@@ -60,6 +66,13 @@ class CarVilla(BaseModel):
      dvigatel = models.CharField(max_length=255, verbose_name='matori')     ##elektrokarmi ili matormi 
      backer = models.CharField(max_length=255, verbose_name='karopkasi')    ##avtomatmi ili mexanikami
      views = models.IntegerField(default=0)
+     
+     # mashhur yangiliklarni ajratib olish uchun, yani admin dan true qip qoysak ajratib boreveradi
+     is_featured = models.BooleanField(default=False) 
+     
+     # chiqorilgan yangilikladan bashqalarini chiqorish uchun
+     is_published = models.BooleanField(default=False)
+
 
 
 
@@ -108,3 +121,34 @@ class CarImage(BaseModel):
           o_size = (405, 500)
           img.thumbnail(o_size)
           img.save(self.image.path, quality=50)
+
+
+
+class Testimonals(BaseModel):
+     image = models.ImageField(upload_to='testimonals_image/')
+     full_name = models.CharField(max_length=50)
+     country = models.TextField()
+     mini_desc = models.TextField()
+
+     class Meta:
+          verbose_name = 'Testimonal'
+          verbose_name_plural = 'Testimonals'
+
+     def __str__(self):
+          return self.full_name
+
+
+
+class About(BaseModel):
+     location = models.CharField(max_length=100)
+     phone_numara = models.CharField(max_length=15)
+     email = models.EmailField()
+
+     facebook = models.CharField(max_length=500)
+     instagram = models.CharField(max_length=100)
+     youtube = models.CharField(max_length=500)
+     telegram = models.CharField(max_length=100)
+
+
+     def __str__(self):
+          return 'About'
