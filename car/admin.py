@@ -54,6 +54,7 @@ class CarVillaAdmin(admin.ModelAdmin):
 class TestimonalsAdmin(admin.ModelAdmin):
      list_display = ('full_name', 'country', 'is_active', 'created_at')
      list_display_links = ('full_name', 'country')
+     list_editable = ['is_active']
 
 
 
