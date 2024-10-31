@@ -364,66 +364,29 @@
 				</div><!--/.section-header-->
 				<div class="row">
 					<div class="owl-carousel testimonial-carousel">
-						<div class="col-sm-3 col-xs-12">
+						{% for test in testimonal %}
+						<div class="card">
 							<div class="single-testimonial-box">
 								<div class="testimonial-description">
 									<div class="testimonial-info">
 										<div class="testimonial-img">
-											<img src="{% static 'assets/images/clients/c1.png' %}" alt="image of clients person" />
+											<img src="{{ test.image.url }}" alt="image of clients person" style="width: 150px; height: 150px;"/>
 										</div><!--/.testimonial-img-->
 									</div><!--/.testimonial-info-->
 									<div class="testimonial-comment">
 										<p>
-											Sed ut pers unde omnis iste natus error sit voluptatem accusantium dolor laudan rem aperiam, eaque ipsa quae ab illo inventore verit. 
+											{{ test.mini_desc }}
 										</p>
 									</div><!--/.testimonial-comment-->
 									<div class="testimonial-person">
-										<h2><a href="#">tomas lili</a></h2>
-										<h4>new york</h4>
+										<h2><a href="#" style="color: black;">< {{ test.full_name }} ></h2>
+										<h4 style="color: darkblue;">{{ test.country }}</h4>
 									</div><!--/.testimonial-person-->
 								</div><!--/.testimonial-description-->
 							</div><!--/.single-testimonial-box-->
 						</div><!--/.col-->
-						<div class="col-sm-3 col-xs-12">
-							<div class="single-testimonial-box">
-								<div class="testimonial-description">
-									<div class="testimonial-info">
-										<div class="testimonial-img">
-											<img src="{% static 'assets/images/clients/c2.png' %}" alt="image of clients person" />
-										</div><!--/.testimonial-img-->
-									</div><!--/.testimonial-info-->
-									<div class="testimonial-comment">
-										<p>
-											Sed ut pers unde omnis iste natus error sit voluptatem accusantium dolor laudan rem aperiam, eaque ipsa quae ab illo inventore verit. 
-										</p>
-									</div><!--/.testimonial-comment-->
-									<div class="testimonial-person">
-										<h2><a href="#">romi rain</a></h2>
-										<h4>london</h4>
-									</div><!--/.testimonial-person-->
-								</div><!--/.testimonial-description-->
-							</div><!--/.single-testimonial-box-->
-						</div><!--/.col-->
-						<div class="col-sm-3 col-xs-12">
-							<div class="single-testimonial-box">
-								<div class="testimonial-description">
-									<div class="testimonial-info">
-										<div class="testimonial-img">
-											<img src="{% static 'assets/images/clients/c3.png' %}" alt="image of clients person" />
-										</div><!--/.testimonial-img-->
-									</div><!--/.testimonial-info-->
-									<div class="testimonial-comment">
-										<p>
-											Sed ut pers unde omnis iste natus error sit voluptatem accusantium dolor laudan rem aperiam, eaque ipsa quae ab illo inventore verit. 
-										</p>
-									</div><!--/.testimonial-comment-->
-									<div class="testimonial-person">
-										<h2><a href="#">john doe</a></h2>
-										<h4>washington</h4>
-									</div><!--/.testimonial-person-->
-								</div><!--/.testimonial-description-->
-							</div><!--/.single-testimonial-box-->
-						</div><!--/.col-->
+						{% endfor %}
+						
 					</div><!--/.testimonial-carousel-->
 				</div><!--/.row-->
 			</div><!--/.container-->

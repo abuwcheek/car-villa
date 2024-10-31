@@ -16,3 +16,16 @@ def category_list(request):
           'ctg_list': ctg_list,
      }
      return render(request, 'base.html', context)
+
+
+
+
+# def testimonals(request):
+#      testimonal = Testimonals.objects.all()[:3]
+
+
+#      context = {
+#           'testimonal': testimonal,
+#      }
+#      return render(request, 'index.html', context)
+
