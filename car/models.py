@@ -90,7 +90,8 @@ class CarVilla(BaseModel):
           if self.percentage:
                product_price = self.get_price
                discount = (100 - self.percentage) / 100 * product_price
-               return round(discount, 2)
+               return round(discount)
+               
           return self.get_price
 
 

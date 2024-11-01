@@ -1,10 +1,20 @@
 from django.shortcuts import render
+from django.views import View
 from .models import Category, Brands, CarVilla, Testimonals, About
 
 
 
 def IndexView(request):
-     return render(request, 'index.html')
+     brands = Brands.objects.filter(is_active=True).all()
+     testimonal = Testimonals.objects.filter(is_active=True).order_by('?')
+     cars = CarVilla.objects.filter(is_active=True).all()
+
+     context = {
+          'brands': brands,
+          'testimonal': testimonal,
+          'cars': cars,
+     }
+     return render(request, 'index.html', context)
 
 
 
@@ -28,4 +38,3 @@ def category_list(request):
 #           'testimonal': testimonal,
 #      }
 #      return render(request, 'index.html', context)
-

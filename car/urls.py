@@ -4,5 +4,4 @@ from .views import IndexView
 
 urlpatterns = [
      path('', IndexView, name='index'),
-     # path('', testimonals, name='testimonalurl'),
 ]
