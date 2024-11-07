@@ -256,18 +256,3 @@ body {
 
 
 
-
-
-/* Kartalar */
-.card {
-  width: 100vh;
-  height: 200px;
-  background-color: #f2f2f2;
-  /* border-radius: 8px; */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  display: flex;
-  /* align-items: center; */
-  /* justify-content: center; */
-  /* text-align: center; */
-  font-size: 18px;
-}
