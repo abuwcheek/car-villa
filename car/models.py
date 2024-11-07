@@ -81,19 +81,10 @@ class CarVilla(BaseModel):
 
 
      @property
-     def get_price(self):
-          return self.price
-
-     
-     @property
      def get_new_price(self):
-          if self.percentage:
-               product_price = self.get_price
-               discount = (100 - self.percentage) / 100 * product_price
-               return round(discount)
-               
-          return self.get_price
-
+          if not self.percentage:
+               return round(self.price, 2)
+          return round(self.price * (100 - self.percentage)/100, 2)
 
 
 class CarImage(BaseModel):

@@ -157,49 +157,45 @@
 						<div class="col-md-3 col-sm-6">
 							<div class="single-footer-widget">
 								<div class="footer-logo">
-									<a href="">caruzb</a>
+									<a>caruzb</a>
 								</div>
-								<p>
-									Ased do eiusm tempor incidi ut labore et dolore magnaian aliqua. Ut enim ad minim veniam.
-								</p>
 								<div class="footer-contact">
-									<p>info@themesine.com</p>
-									<p>+1 (885) 2563154554</p>
+									<p style="padding: 10px 0 10px 0;">> {{ about.location }}</p>
+									<p style="padding: 0 0 10px 0;">> {{ about.email }}</p>
+									<p style="padding: 0 0 10px 0;">> {{ about.phone_numara }}</p>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-2 col-sm-6">
 							<div class="single-footer-widget">
-								<h2>categorys</h2>
+								<h2 class="footer-logo">categorys</h2>
 								<ul>
 									{% for ktg in kategoriyalar %}
-										<li><a href="#">{{ ktg.name }}</a></li>
+										<li><a href="#">> {{ ktg.name }}</a></li>
 									{% endfor %}
 								</ul>
 							</div>
 						</div>
 						<div class="col-md-3 col-xs-12">
 							<div class="single-footer-widget">
-								<h2>top brands</h2>
+								<h2 style="padding: 0 0 0 65px;" class="footer-logo">top brands</h2>
 								<div class="row">
 									<div class="col-md-7 col-xs-6">
 										<ul>
-											<li><a href="#">BMW</a></li>
-											<li><a href="#">lamborghini</a></li>
-											<li><a href="#">camaro</a></li>
-											<li><a href="#">audi</a></li>
-											<li><a href="#">infiniti</a></li>
-											<li><a href="#">nissan</a></li>
+											{% for br in brand %}
+											{% if forloop.counter < 7 %}
+												<li><a href="#">> {{ br.name }}</a></li>	
+											{% endif %}
+											{% endfor %}
 										</ul>
 									</div>
 									<div class="col-md-5 col-xs-6">
 										<ul>
-											<li><a href="#">ferrari</a></li>
-											<li><a href="#">porsche</a></li>
-											<li><a href="#">land rover</a></li>
-											<li><a href="#">aston martin</a></li>
-											<li><a href="#">mersedes</a></li>
-											<li><a href="#">opel</a></li>
+											{% for br in brand %}
+											  {% if forloop.counter > 7 %}
+											<li><a href="#">> {{ br.name }}</a></li>
+											{% endif %}
+											{% endfor %}
 										</ul>
 									</div>
 								</div>

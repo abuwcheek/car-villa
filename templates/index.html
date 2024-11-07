@@ -78,15 +78,15 @@
 										<div class="new-cars-txt">
 											<h2><a href="#">{{ car.model }}<span></span></a></h2>
 											<p>
-												{{ car.description }}
+												{{ car.description | truncatewords:20}}
 											</p>
 											<p class="new-cars-para2">
 												<div class="product-price">
-													{% if car.get_new_price %}
-													<span class="old-price"><del>{{ car.get_price }}$</del></span><br>
+													{% if car.percentage%}
+													<span class="old-price"><del>{{ car.price }}$</del></span><br>
 													<span>{{ car.get_new_price }}$</span>
 													{% else %}
-													<span>{{ car.get_price }}$</span>
+													<span>{{ car.price }}$</span>
 													{% endif %}
 												 </div>
 											</p>
@@ -126,8 +126,8 @@
 									</div>
 									<div class="featured-model-info">
 										<p>
-											model: {{ fcars.year }}
-											<span class="featured-mi-span">{{ fcars.dvigatel }}</span> 
+											model: {{ fcars.year }}  |
+											<span class="featured-mi-span">{{ fcars.dvigatel }}</span>|
 											<!-- <span class="featured-hp-span">{{ fcars.condition }}</span> -->
 											{{ fcars.backer }}
 										</p>
@@ -137,7 +137,8 @@
 									<h2><a href="#">{{ fcars.model }}</a></h2>
 									<h3>{{ fcars.price }}$</h3>
 									<p>
-										{{ fcars.description |truncatewords:15 }}
+										<!-- truncatewords:15 ==> matnni 15ta gap qilib qoyadi, undan kam bo'sa o'zgarmaydi  -->
+										{{ fcars.description |truncatewords:15 }}   
 									</p>
 								</div>
 							</div>
@@ -146,32 +147,36 @@
 						
 					</div>
 
-					<div class="row">
+<br>
+<br>
 
+					<div class="row">
+						{% for latcars in latest_cars %}
 						<div class="col-lg-3 col-md-4 col-sm-6">
 							<div class="single-featured-cars">
 								<div class="featured-img-box">
 									<div class="featured-cars-img">
-										<img src="{% static 'assets/images/featured-cars/fc4.png' %}" alt="cars">
+										<img src="{{ latcars.image.url }}" alt="cars">
 									</div>
 									<div class="featured-model-info">
 										<p>
-											model: 2017
-											<span class="featured-mi-span"> 3100 mi</span> 
-											<span class="featured-hp-span"> 240HP</span>
-											 automatic
+											model: {{ latcars.year }} |
+											<span class="featured-mi-span">{{ latcars.dvigatel }}</span> |
+											<!-- <span class="featured-hp-span"> 240HP</span> -->
+											 {{ latcars.backer }}
 										</p>
 									</div>
 								</div>
 								<div class="featured-cars-txt">
-									<h2><a href="#">infiniti <span>z5</span></a></h2>
-									<h3>$36,850</h3>
+									<h2><a href="#" class="aclass"> {{ latcars.model }} </a></h2>
+									<h3>{{ latcars.price }}$</h3>
 									<p>
-										Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non. 
+										{{ latcars.description | truncatewords:15 }}
 									</p>
 								</div>
 							</div>
 						</div>
+						{% endfor %}
 
 					</div>
 				</div>

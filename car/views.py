@@ -9,12 +9,14 @@ def IndexView(request):
      testimonal = Testimonals.objects.filter(is_active=True).order_by('?')
      cars = CarVilla.objects.filter(is_active=True).all()
      featured_cars = CarVilla.objects.filter(is_featured=True)[:4]
+     latest_cars = CarVilla.objects.filter(is_published=True)[:4]
 
      context = {
           'brands': brands,
           'testimonal': testimonal,
           'cars': cars,
           'featured_cars': featured_cars,
+          'latest_cars': latest_cars,
      }
      return render(request, 'index.html', context)
 

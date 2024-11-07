@@ -116,7 +116,13 @@ body {
      color: #fff;
      text-decoration: none;
    }
-   
+
+
+a:hover {
+    /* background-color: yellow; */
+    color: cornflowerblue;
+    font-size: 18px;
+}
    
    /* Social Media Icons */
 .social-media-list {
