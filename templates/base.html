@@ -85,7 +85,7 @@
 				                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
 				                    <i class="fa fa-bars"></i>
 				                </button>
-				                <a class="navbar-brand" href="">caruzb<span>
+				                <a class="navbar-brand">caruzb<span>
 								<img src="{% static 'assets/images/uzbbayroq.png' %}" alt="" style="width: 50px;">
 							 </span></a>
 
@@ -115,9 +115,6 @@
 			<div class="container">
 				<div class="welcome-hero-txt">
 					<h2>get your desired car in resonable price</h2>
-					<p>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore   magna aliqua. 
-					</p>
 					<button class="welcome-btn" onclick="window.location.href='#'">contact us</button>
 				</div>
 			</div>
@@ -171,7 +168,7 @@
 								<h2 class="footer-logo">categorys</h2>
 								<ul>
 									{% for ktg in kategoriyalar %}
-										<li><a href="#">> {{ ktg.name }}</a></li>
+										<li><a href="{% url 'categoryview' ktg.id %}">> {{ ktg.name }}</a></li>
 									{% endfor %}
 								</ul>
 							</div>
@@ -184,7 +181,7 @@
 										<ul>
 											{% for br in brand %}
 											{% if forloop.counter < 7 %}
-												<li><a href="#">> {{ br.name }}</a></li>	
+												<li><a href="{% url 'brandview' br.id %}">> {{ br.name }}</a></li>	
 											{% endif %}
 											{% endfor %}
 										</ul>
@@ -193,7 +190,7 @@
 										<ul>
 											{% for br in brand %}
 											  {% if forloop.counter > 7 %}
-											<li><a href="#">> {{ br.name }}</a></li>
+											<li><a href="{% url 'brandview' br.id %}">> {{ br.name }}</a></li>
 											{% endif %}
 											{% endfor %}
 										</ul>
