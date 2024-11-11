@@ -84,7 +84,7 @@ class CarVilla(BaseModel):
      def get_new_price(self):
           if not self.percentage:
                return round(self.price, 2)
-          return round(self.price * (100 - self.percentage)/100, 2)
+          return round(self.price * (100 - self.percentage)/100)
 
 
 class CarImage(BaseModel):
@@ -138,9 +138,23 @@ class About(BaseModel):
 
      facebook = models.CharField(max_length=500)
      instagram = models.CharField(max_length=100)
+     linkedin = models.CharField(max_length=500)
      youtube = models.CharField(max_length=500)
      telegram = models.CharField(max_length=100)
 
 
      def __str__(self):
           return 'About'
+
+
+
+
+class ContactUs(BaseModel):
+     name = models.CharField(max_length=50)
+     email = models.CharField(max_length=100)
+     number = models.CharField(max_length=15)
+     message = models.TextField()
+
+
+     def __str__(self):
+          return f'{self.name} --> {self.email}' 

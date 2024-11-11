@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import mark_safe
-from .models import Category, Brands, CarVilla, CarImage, Testimonals, About
+from .models import Category, Brands, CarVilla, CarImage, Testimonals, About, ContactUs
 
 
 
@@ -59,3 +59,4 @@ class TestimonalsAdmin(admin.ModelAdmin):
 
 
 admin.site.register(About)
+admin.site.register(ContactUs)
