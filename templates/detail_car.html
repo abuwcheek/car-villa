@@ -1,0 +1,68 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+	detail car
+{% endblock title %}
+
+
+{% block content %}
+
+
+     <!--new-cars start -->
+     <section id="new-cars" class="new-cars" style="background-color: cornflowerblue;">
+          <br>
+          <br>
+          <br>
+          <br>
+          <div class="container">
+               <div class="section-header">
+                    <h2>{{ detail_product.model }}</h2>
+               </div><!--/.section-header-->
+               <div class="new-cars-content">
+                    <div class="owl-carousel owl-theme" id="new-cars-carousel">
+
+                         <div class="new-cars-item">
+                              <div class="single-new-cars-item">
+                                   <div class="row">
+                                        <div class="col-md-7 col-sm-12">
+                                             <div class="new-cars-img">
+                                                  <img src="{{ detail_product.image.url }}" alt="img" style="border-radius: 15%;" />
+                                             </div><!--/.new-cars-img-->
+                                        </div>
+                                        <div class="col-md-5 col-sm-12">
+                                             <div class="new-cars-txt">
+                                                  <h1></h1>
+                                                  <p style="color: black;">
+                                                       {{ detail_product.description }}
+                                                  </p>
+                                                  <br>
+                                                  <br>
+                                                  <p class="new-detail_products-para2">
+                                                       <div class="product-price" style="color: darkblue;">Price: 
+                                                            {% if detail_product.percentage %}
+                                                            <span class="old-price"><del>{{ detail_product.price }}$</del></span><br>
+                                                            <span>{{ detail_product.get_new_price }}$</span>
+                                                            {% else %}
+                                                            <span>{{ detail_product.price }}$</span>
+                                                            {% endif %}
+                                                       </div>
+                                                  </p>
+                                             </div><!--/.new-cars-txt-->	
+                                        </div><!--/.col-->
+                                   </div><!--/.row-->
+                              </div><!--/.single-new-cars-item-->
+                         </div><!--/.new-cars-item-->
+
+                    </div><!--/#new-cars-carousel-->
+               </div><!--/.new-cars-content-->
+          </div><!--/.container-->
+
+     </section><!--/.new-cars-->
+     <!--new-cars end -->
+
+
+
+{% endblock content %}
