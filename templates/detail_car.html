@@ -41,12 +41,12 @@
                                                   <br>
                                                   <br>
                                                   <p class="new-detail_products-para2">
-                                                       <div class="product-price" style="color: darkblue;">Price: 
+                                                       <div class="product-price" style="color: darkblue;"><b> Old Price: </b>
                                                             {% if detail_product.percentage %}
                                                             <span class="old-price"><del>{{ detail_product.price }}$</del></span><br>
-                                                            <span>{{ detail_product.get_new_price }}$</span>
+                                                            <span><b> New Price: </b>{{ detail_product.get_new_price }}$</span>
                                                             {% else %}
-                                                            <span>{{ detail_product.price }}$</span>
+                                                            <span><b> Price: </b>{{ detail_product.price }}$</span>
                                                             {% endif %}
                                                        </div>
                                                   </p>

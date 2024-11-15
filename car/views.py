@@ -24,31 +24,20 @@ def IndexView(request):
 
 
 
-def category_list(request):
-     ctg_list = Category.objects.filter(is_active=True)
-
-     context = {
-          'ctg_list': ctg_list,
-     }
-     return render(request, 'base.html', context)
-
-
-
-
 def brandView(request, uuid):
-     brand = get_object_or_404(Brands, id=uuid)
-     brand_cars = brand.brand_car.all()
+     brand_view = get_object_or_404(Brands, id=uuid)
+     brand_cars = brand_view.brand_car.all()
 
 
      context = {
-          'brand': brand,
+          'brand_view': brand_view,
           'brand_cars': brand_cars,
      }
      return render(request, 'brand_cars.html', context)
 
 
 
-def categoryView(request, uuid, slug):
+def categoryView(request, uuid):
      category = get_object_or_404(Category, id=uuid)
      category_cars = category.category_car.all()
 
@@ -58,7 +47,6 @@ def categoryView(request, uuid, slug):
      }
 
      return render(request, 'category_cars.html', context)
-
 
 
 
