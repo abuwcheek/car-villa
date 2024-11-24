@@ -58,3 +58,10 @@ def detailView(request, uuid):
      }
      
      return render(request, 'detail_car.html', context)
+
+
+
+
+class ContactView(View):
+     def get(self, request):
+          return render(request, 'contact.html')

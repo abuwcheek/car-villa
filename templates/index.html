@@ -3,7 +3,7 @@
 
 
 {% block title %}
-	index
+	products
 {% endblock title %}
 
 
@@ -13,7 +13,8 @@
 	<div class="container">
 		<div class="welcome-hero-txt">
 			<h2>get your desired car in resonable price</h2>
-			<button class="welcome-btn" onclick="window.location.href='#'">contact us</button>
+			
+			<button><a href="{% url 'contactview' %}" class="btn btn-info" style="padding: 20px 70px; text-shadow: ;"> Contact Us </a></button>
 		</div>
 	</div>
 
@@ -22,11 +23,12 @@
 			<div class="col-md-12">
 				<div class="model-search-content">
 					<div class="row">
-						<input type="text" name="" id="">
-						<div class="col-md-2 col-sm-12">
-							<div class="single-model-search text-center">
-							</div>
-						</div>
+						<nav class="navbar navbar-light bg-light">
+							<form class="form-inline" style="padding: 0 0 0 400px;">
+							  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+							  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+							</form>
+						</nav>
 					</div>
 				</div>
 			</div>
@@ -102,7 +104,7 @@
 									<div class="new-cars-txt">
 										<h2><a>{{ car.model }}<span></span></a></h2>
 										<p>
-											{{ car.description | truncatewords:20}}
+											{{ car.description | truncatewords:20 }}
 										</p>
 										<p class="new-cars-para2">
 											<div class="product-price">
