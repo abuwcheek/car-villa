@@ -10,6 +10,7 @@ def IndexView(request):
      cars = CarVilla.objects.filter(is_active=True).all()
      featured_cars = CarVilla.objects.filter(is_featured=True)[:4]
      latest_cars = CarVilla.objects.filter(is_published=True)[:4]
+     category = Category.objects.filter(is_active=True)
 
 
      context = {
@@ -18,6 +19,7 @@ def IndexView(request):
           'cars': cars,
           'featured_cars': featured_cars,
           'latest_cars': latest_cars,
+          'category': category,
      }
      return render(request, 'index.html', context)
 
