@@ -72,7 +72,7 @@
                             <figure class="mb-30 img-hover-scale overflow-hidden">
                                 <img src="{{ br.icon.url }}" alt="" style="width: 150px; height: 110px">
                             </figure>
-                            <h5><a href="" style="text-align: center">{{ br.name }}</a></h5>
+                            <h5><a href="{% url 'brandview' br.id %}" style="text-align: center">{{ br.name }}</a></h5>
                         </div>
                         {% endfor %}
                     </div>
@@ -117,11 +117,11 @@
         </section>
         <section class="product-tabs pt-40 pb-30 wow fadeIn animated">
             <div class="container">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="nav-tab-one" data-bs-toggle="tab" data-bs-target="#tab-one" type="button" role="tab" aria-controls="tab-one" aria-selected="true">All Cars</button>
-                    </li>
-                </ul>
+                <div class="heading-tab d-flex">
+                    <div class="heading-tab-left wow fadeIn animated">
+                        <h3 class="section-title style-1 mb-30">All <span>Cars</span></h3>
+                    </div>
+                </div>
                 <!--End nav-tabs-->
                 <div class="tab-content wow fadeIn animated" id="myTabContent">
                     <div class="tab-pane fade show active" id="tab-one" role="tabpanel" aria-labelledby="tab-one">
@@ -131,7 +131,7 @@
                                 <div class="product-cart-wrap mb-30" style="width: 300px; height: 350px">
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
-                                            <a href="">
+                                            <a href="{% url 'detailview' car.id %}">
                                                 <img class="default-img" src="{{ car.image.url }}" style="width: 300px; height: 170px" alt="">
                                                 <img class="hover-img" src="{{ car.image.url }}" style="width: 300px; height: 170px" alt="">
                                             </a>
@@ -145,15 +145,15 @@
                                     </div><br>
                                     <div class="product-content-wrap">
                                         <div class="product-category">
-                                            <a href="">{{ car.category }}</a>
+                                            <a href="{% url 'categoryview' car.category.id %}">{{ car.category }}</a>
                                         </div>
-                                        <h2><a href="">{{ car.model }}</a></h2>
+                                        <h2><a href="{% url 'detailview' car.id %}">{{ car.model }}</a></h2>
                                         <div class="product-price" style="padding: 0 0 30px 0">
                                             {% if car.percentage %}
-												<span class="old-price"><del>{{ car.price }}$</del></span><br>
-												<span>{{ car.get_new_price }}$</span>
+												<span class="old-price"><del>Old price: {{ car.price }}$</del></span><br>
+												<span>New price: {{ car.get_new_price }}$</span>
 												{% else %}
-												<span>{{ car.price }}$</span>
+												<span>Price: {{ car.price }}$</span>
                                             {% endif %}
                                         </div>
                                         <div class="product-action-1 show">
@@ -205,7 +205,7 @@
                                 </div>
                             </div>
                             <div class="product-content-wrap">
-                                <h2><a href="">{{ lcars.model }}</a></h2>
+                                <h2><a href="{% url 'categoryview' lcars.id %}">{{ lcars.model }}</a></h2>
                                 <br>
                                 <div class="product-price">
                                     {% if lcars.percentage %}
@@ -227,14 +227,7 @@
             <div class="container">
                 <div class="heading-tab d-flex">
                     <div class="heading-tab-left wow fadeIn animated">
-                        <h3 class="section-title mb-35">Fetaured <span>Cars</span></h3>
-                    </div>
-                    <div class="heading-tab-right wow fadeIn animated">
-                        <ul class="nav nav-tabs right no-border" id="myTab-1" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="nav-tab-one-1" data-bs-toggle="tab" data-bs-target="#tab-one-1" type="button" role="tab" aria-controls="tab-one" aria-selected="true">Featured</button>
-                            </li>
-                        </ul>
+                        <h3 class="section-title style-1 mb-30">Fetaured <span>Cars</span></h3>
                     </div>
                 </div>
                 <div class="row">
@@ -253,7 +246,7 @@
                             <div class="tab-pane fade show active" id="tab-one-1" role="tabpanel" aria-labelledby="tab-one-1">
                                 <div class="carausel-4-columns-cover arrow-center position-relative">
                                     <div class="slider-arrow slider-arrow-2 carausel-4-columns-arrow" id="carausel-4-columns-arrows"></div>
-                                    <div class="carausel-4-columns carausel-arrow-center" id="carausel-4-columns">
+                                    <div class="carausel-4-columns carausel-arrow-center" id="carausel-4-columns" style="width: 1200px; height: 600px;">
                                         {% for fcars in featured_cars %}
                                         <div class="product-cart-wrap mb-30">
                                             <div class="product-img-action-wrap">
@@ -272,17 +265,16 @@
                                             </div>
                                             <div class="product-content-wrap">
                                                 <div class="product-category">
-                                                    <a href="shop-grid-right.html">{{ fcars.model }}</a>
+                                                    <a href="shop-grid-right.html">{{ fcars.brand }}</a>
                                                 </div>
-                                                <h2><a href="shop-product-right.html">Leather Watch Band</a></h2>
-                                                <div class="rating-result" title="90%">
-                                                    <span>
-                                                        <span>70%</span>
-                                                    </span>
-                                                </div>
+                                                <h2 style="padding: 10px 0 20px 0;"><a href="">{{ fcars.model }}</a></h2>
                                                 <div class="product-price">
-                                                    <span>$238.85 </span>
-                                                    <span class="old-price">$245.8</span>
+                                                    {% if fcars.percentage %}
+                                                    <span>{{ fcars.get_new_price }}$</span>
+                                                    <span class="old-price">{{ fcars.price }}$</span>
+                                                    {% else %}
+                                                    <span>{{ fcars.price }}$</span>
+                                                    {% endif %}
                                                 </div>
                                                 <div class="product-action-1 show">
                                                     <a aria-label="Add To Cart" class="action-btn hover-up" href="shop-cart.html"><i class="far fa-shopping-bag"></i></a>
@@ -769,10 +761,6 @@
         <section class="mb-60">
             <div class="container">
                 <div class="banner-bg wow fadeIn animated" style="background-image: url '{% static 'assets/imgs/banner/banner-8.jpg' %}'">
-                    <div class="banner-content">
-                        <h5 class="text-grey-4 mb-15">Shop Today’s Deals</h5>
-                        <h3 class="fw-600">Specialized storage for tourism</h3>
-                    </div>
                 </div>
             </div>
         </section>
@@ -789,145 +777,29 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 mb-sm-5 mb-md-0">
-                        <h4 class="section-title style-1 mb-30 wow fadeIn animated">Deals & Outlet</h4>
+                    <div class="col-lg-4 col-md-6 mb-sm-5 mb-md-0">
+                        <h4 class="section-title style-1 mb-30" >Top Selling</h4>
                         <div class="product-list-small wow fadeIn animated">
+                            {% for msell in most_sell %}
                             <article class="row align-items-center">
                                 <figure class="col-md-3 mb-0">
-                                    <a href="shop-product-right.html"><img src="{% static 'assets/imgs/shop/thumbnail-3.jpg' %}" alt=""></a>
+                                    <a href=""><img src="{{ msell.image.url }}" alt=""></a>
                                 </figure>
                                 <div class="col-md-9 pl-0">
                                     <h4 class="title-small">
-                                        <a href="shop-product-right.html">The World Caters to Average Editor's picked</a>
+                                        <a href="">{{ msell.model }}</a>
                                     </h4>
                                     <div class="product-price">
-                                        <span>$238.85 </span>
-                                        <span class="old-price">$245.8</span>
+                                        {% if msell.percentage %}
+                                        <span>{{ msell.get_new_price }}$</span>
+                                        <span class="old-price">{{ msell.price }}$</span>
+                                        {% else %}
+                                        <span>{{ msell.price }}$</span>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </article>
-                            <article class="row align-items-center">
-                                <figure class="col-md-3 mb-0">
-                                    <a href="shop-product-right.html"><img src="{% static 'assets/imgs/shop/thumbnail-4.jpg' %}" alt=""></a>
-                                </figure>
-                                <div class="col-md-9 pl-0">
-                                    <h4 class="title-small">
-                                        <a href="shop-product-right.html">The World Caters to Average Editor's picked</a>
-                                    </h4>
-                                    <div class="product-price">
-                                        <span>$238.85 </span>
-                                        <span class="old-price">$245.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="row align-items-center">
-                                <figure class="col-md-3 mb-0">
-                                    <a href="shop-product-right.html"><img src="{% static 'assets/imgs/shop/thumbnail-5.jpg' %}" alt=""></a>
-                                </figure>
-                                <div class="col-md-9 pl-0">
-                                    <h4 class="title-small">
-                                        <a href="shop-product-right.html">The World Caters to Average Editor's picked</a>
-                                    </h4>
-                                    <div class="product-price">
-                                        <span>$238.85 </span>
-                                        <span class="old-price">$245.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 mb-sm-5 mb-md-0">
-                        <h4 class="section-title style-1 mb-30 wow fadeIn animated">Top Selling</h4>
-                        <div class="product-list-small wow fadeIn animated">
-                            <article class="row align-items-center">
-                                <figure class="col-md-3 mb-0">
-                                    <a href="shop-product-right.html"><img src="{% static 'assets/imgs/shop/thumbnail-6.jpg' %}" alt=""></a>
-                                </figure>
-                                <div class="col-md-9 pl-0">
-                                    <h4 class="title-small">
-                                        <a href="shop-product-right.html">The World Caters to Average Editor's picked</a>
-                                    </h4>
-                                    <div class="product-price">
-                                        <span>$238.85 </span>
-                                        <span class="old-price">$245.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="row align-items-center">
-                                <figure class="col-md-3 mb-0">
-                                    <a href="shop-product-right.html"><img src="{% static 'assets/imgs/shop/thumbnail-7.jpg' %}" alt=""></a>
-                                </figure>
-                                <div class="col-md-9 pl-0">
-                                    <h4 class="title-small">
-                                        <a href="shop-product-right.html">The World Caters to Average Editor's picked</a>
-                                    </h4>
-                                    <div class="product-price">
-                                        <span>$238.85 </span>
-                                        <span class="old-price">$245.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="row align-items-center">
-                                <figure class="col-md-3 mb-0">
-                                    <a href="shop-product-right.html"><img src="{% static 'assets/imgs/shop/thumbnail-8.jpg' %}" alt=""></a>
-                                </figure>
-                                <div class="col-md-9 pl-0">
-                                    <h4 class="title-small">
-                                        <a href="shop-product-right.html">The World Caters to Average Editor's picked</a>
-                                    </h4>
-                                    <div class="product-price">
-                                        <span>$238.85 </span>
-                                        <span class="old-price">$245.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <h4 class="section-title style-1 mb-30 wow fadeIn animated">Hot Releases</h4>
-                        <div class="product-list-small wow fadeIn animated">
-                            <article class="row align-items-center">
-                                <figure class="col-md-3 mb-0">
-                                    <a href="shop-product-right.html"><img src="{% static 'assets/imgs/shop/thumbnail-9.jpg' %}" alt=""></a>
-                                </figure>
-                                <div class="col-md-9 pl-0">
-                                    <h4 class="title-small">
-                                        <a href="shop-product-right.html">The World Caters to Average Editor's picked</a>
-                                    </h4>
-                                    <div class="product-price">
-                                        <span>$238.85 </span>
-                                        <span class="old-price">$245.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="row align-items-center">
-                                <figure class="col-md-3 mb-0">
-                                    <a href="shop-product-right.html"><img src="{% static 'assets/imgs/shop/thumbnail-1.jpg' %}" alt=""></a>
-                                </figure>
-                                <div class="col-md-9 pl-0">
-                                    <h4 class="title-small">
-                                        <a href="shop-product-right.html">The World Caters to Average Editor's picked</a>
-                                    </h4>
-                                    <div class="product-price">
-                                        <span>$238.85 </span>
-                                        <span class="old-price">$245.8</span>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="row align-items-center">
-                                <figure class="col-md-3 mb-0">
-                                    <a href="shop-product-right.html"><img src="{% static 'assets/imgs/shop/thumbnail-2.jpg' %}" alt=""></a>
-                                </figure>
-                                <div class="col-md-9 pl-0">
-                                    <h4 class="title-small">
-                                        <a href="shop-product-right.html">The World Caters to Average Editor's picked</a>
-                                    </h4>
-                                    <div class="product-price">
-                                        <span>$238.85 </span>
-                                        <span class="old-price">$245.8</span>
-                                    </div>
-                                </div>
-                            </article>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

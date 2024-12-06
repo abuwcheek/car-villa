@@ -40,10 +40,10 @@ class CarImageInline(admin.StackedInline):
 @admin.register(CarVilla)
 class CarVillaAdmin(admin.ModelAdmin):
      inlines = [CarImageInline]
-     list_display = ('model', 'category', 'brand', 'year', 'price', 'views', 'created_at', 'is_active', 'is_featured', 'is_published' )
+     list_display = ('model', 'category', 'brand', 'year', 'price', 'views', 'created_at', 'is_active', 'is_featured', 'is_published', 'is_most_selling', )
      list_display_links = ('model', 'category', 'brand')
      search_fields = ['id', 'model', 'price', 'views', 'created_at',]
-     list_editable = ['is_active', 'is_featured', 'is_published']
+     list_editable = ['is_active', 'is_featured', 'is_published',  'is_most_selling', ]
      list_per_page = 20
      readonly_fields = ['views']
      list_filter = ['price', 'year', 'views']

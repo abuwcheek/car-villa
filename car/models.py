@@ -73,6 +73,9 @@ class CarVilla(BaseModel):
      # chiqorilgan yangilikladan bashqalarini chiqorish uchun
      is_published = models.BooleanField(default=False)
 
+     # eng ko'p sotilgan mahsulotlar uchun filter
+     is_most_selling = models.BooleanField(default=False)
+
 
 
 
