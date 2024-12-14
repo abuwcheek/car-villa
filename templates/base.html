@@ -67,7 +67,7 @@
             <div class="container">
                 <div class="header-wrap header-space-between">
                     <div class="logo logo-width-1">
-                       <a href="{% url 'index' %}" style="font-size: 30px">CarUzb<img src="{% static 'assets/imgs/gerb.jpg' %}" style="width: 60px" alt="logo"></a>
+                       <a href="{% url 'index' %}" style="font-size: 30px">CarUzb<img src="{% static 'assets/imgs/uzbbayroq.png' %}" style="width: 50px" alt="logo"></a>
                     </div>
                     <div class="search-style-2">
                         <form>
@@ -113,8 +113,8 @@
                                 <li>
                                     <a href="">About</a>
                                 </li>
-                                {% for ctg in category %}
-                                <li><a href="{% url 'categoryview' ctg.id %}">{{ ctg.name }}</a>
+                                {% for ktg in kategoriyalar %}
+                                <li><a href="{% url 'categoryview' ktg.id %}">{{ ktg.name }}</a>
                                 </li>
                                 {% endfor %}
                                 <li>
@@ -377,20 +377,21 @@
                             </div>
                             <h4 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h4>
                             <p class="wow fadeIn animated">
-                                <strong>Address: </strong>562 Wellington Road, Street 32, San Francisco
+                                <strong>Address: </strong>{{ about.location}}
                             </p>
                             <p class="wow fadeIn animated">
-                                <strong>Phone: </strong>+01 2222 365 /(+91) 01 2345 6789
+                                <strong>Phone: </strong>( {{ about.phone_numara }} )
                             </p>
                             <p class="wow fadeIn animated">
                                 <strong>Hours: </strong>10:00 - 18:00, Mon - Sat
                             </p>
                             <h4 class="mb-10 mt-20 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h4>
                             <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
-                                <a class="facebook" href="#"><i class="fab fa-facebook-f"></i></a>
-                                <a class="twitter" href="#"><i class="fab fa-twitter"></i></a>
-                                <a class="tumblr" href="#"><i class="fab fa-tumblr"></i></a>
-                                <a class="instagram" href="#"><i class="fab fa-instagram"></i></a>
+                                <a class="facebook" href="{{ about.facebook }}"><i class="fab fa-facebook-f"></i></a>
+                                <a class="twitter" href="{{ about.twitter }}"><i class="fab fa-twitter"></i></a>
+                                <a class="tumblr" href="{{ about.telegram }}"><i class="fab fa-telegram"></i></a>
+                                <a class="instagram" href="{{ about.instagram }}"><i class="fab fa-instagram"></i></a>
+                                <a class="instagram" href="{{ about.youtube }}"><i class="fab fa-youtube"></i></a>
                             </div>
                         </div>
                     </div>
@@ -470,8 +471,11 @@
     <script src="{% static 'assets/js/plugins/isotope.js' %}"></script>
     <script src="{% static 'assets/js/plugins/scrollup.js' %}"></script>
     <script src="{% static 'assets/js/plugins/jquery.vticker-min.js' %}"></script>
+    
+    
     <!-- Template  JS -->
     <script src="{% static 'assets/js/main.js' %}"></script>
+
 </body>
 
 </html>

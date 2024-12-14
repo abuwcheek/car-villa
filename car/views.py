@@ -41,7 +41,7 @@ def brandView(request, uuid):
 
 
 
-def categoryView(request, uuid):
+def categorydetailView(request, uuid):
      category = get_object_or_404(Category, id=uuid)
      category_cars = category.category_car.all()
 
@@ -50,7 +50,7 @@ def categoryView(request, uuid):
           'category_cars': category_cars,
      }
 
-     return render(request, 'category_cars.html', context)
+     return render(request, 'ctg_detail_list.html', context)
 
 
 
