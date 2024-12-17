@@ -61,7 +61,7 @@ def detailView(request, uuid):
           'detail_product': detail_product,
      }
      
-     return render(request, 'detail_car.html', context)
+     return render(request, 'detail_product.html', context)
 
 
 

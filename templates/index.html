@@ -128,7 +128,7 @@
                         <div class="row product-grid-4">
                             {% for car in cars %}
                             <div class="col-lg-3 col-md-4 col-12 col-sm-6">
-                                <div class="product-cart-wrap mb-30" style="width: 300px; height: 350px">
+                                <div class="product-cart-wrap mb-30" style="width: 300px; height: 390px">
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a href="{% url 'detailview' car.id %}">
@@ -147,7 +147,7 @@
                                         <div class="product-category">
                                             <a href="{% url 'categoryview' car.category.id %}">{{ car.category }}</a>
                                         </div>
-                                        <h2><a href="{% url 'detailview' car.id %}">{{ car.model }}</a></h2>
+                                        <h2><a href="{% url 'detailview' car.id %}">{{ car.model }}</a></h2><br>
                                         <div class="product-price" style="padding: 0 0 30px 0">
                                             {% if car.percentage %}
 												<span class="old-price"><del>Old price: {{ car.price }}$</del></span><br>
@@ -203,7 +203,7 @@
                                 <div class="product-badges product-badges-position product-badges-mrg">
                                     <span class="hot">Hot</span>
                                 </div>
-                            </div>
+                            </div><br>
                             <div class="product-content-wrap">
                                 <h2><a href="{% url 'detailview' lcars.id %}">{{ lcars.model }}</a></h2>
                                 <br>
@@ -246,14 +246,14 @@
                             <div class="tab-pane fade show active" id="tab-one-1" role="tabpanel" aria-labelledby="tab-one-1">
                                 <div class="carausel-4-columns-cover arrow-center position-relative">
                                     <div class="slider-arrow slider-arrow-2 carausel-4-columns-arrow" id="carausel-4-columns-arrows"></div>
-                                    <div class="carausel-4-columns carausel-arrow-center" id="carausel-4-columns" style="width: 1200px; height: 600px;">
+                                    <div class="carausel-4-columns carausel-arrow-center" id="carausel-4-columns">
                                         {% for fcars in featured_cars %}
-                                        <div class="product-cart-wrap mb-30">
+                                        <div class="product-cart-wrap mb-30" style="width: 300px; height: 350px">
                                             <div class="product-img-action-wrap">
                                                 <div class="product-img product-img-zoom">
                                                     <a>
-                                                        <img class="default-img" src="{{ fcars.image.url }}" alt="">
-                                                        <img class="hover-img" src="{{ fcars.image.url }}" alt="">
+                                                        <img class="default-img" src="{{ fcars.image.url }}" alt="" style="width: 270px; height: 130px">
+                                                        <img class="hover-img" src="{{ fcars.image.url }}" alt="" style="width: 270px; height: 130px">
                                                     </a>
                                                 </div>
                                                 <div class="product-action-1">
@@ -262,12 +262,12 @@
                                                 <div class="product-badges product-badges-position product-badges-mrg">
                                                     <span class="hot">Hot</span>
                                                 </div>
-                                            </div>
+                                            </div><br>
                                             <div class="product-content-wrap">
                                                 <div class="product-category">
                                                     <a href="{% url 'brandview' fcars.id %}">{{ fcars.brand }}</a>
                                                 </div>
-                                                <h2 style="padding: 10px 0 20px 0;"><a href="{% url 'detailview' fcars.id %}">{{ fcars.model }}</a></h2>
+                                                <h2 style="padding: 10px 0 20px 0;"><a href="{% url 'detailview' fcars.id %}">{{ fcars.model }}</a></h2><br>
                                                 <div class="product-price">
                                                     {% if fcars.percentage %}
                                                     <span>{{ fcars.get_new_price }}$</span>
