@@ -25,21 +25,21 @@
                     <div class="col-lg-12">
                         <div class="product-detail accordion-detail">
                             <div class="row mb-50">
-                                <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="col-md-6 col-sm-12 col-xs-12">
                                     <div class="detail-gallery">
                                         <span class="zoom-icon"><i class="fa fa-search-plus"></i></span>
                                         <!-- MAIN SLIDES -->
                                         <div class="product-image-slider">
-                                            {% for dpimage in detail_product.images.all %}
+                                            {% for image in detail_product.car_images.all %}
                                             <figure class="border-radius-10">
-                                                <img src="{{ dpimage.image_url}}" alt="product image">
+                                                <img src="{{ image.image_url }}" alt="product image">
                                             </figure>
                                             {% endfor %}
                                         </div>
                                         <!-- THUMBNAILS -->
                                         <div class="slider-nav-thumbnails pl-15 pr-15">
-                                            {% for dpimage in detail_product.images.all %}
-                                            <div><img src="{{ dpimage.image_url }}" alt="product image"></div>
+                                            {% for image in detail_product.car_images.all %}
+                                            <div><img src="{{ image.image_url }}" alt="product image"></div>
                                             {% endfor %}
                                         </div>
                                     </div>

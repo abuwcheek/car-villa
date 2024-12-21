@@ -61,7 +61,7 @@ class CarVilla(BaseModel):
      condition = models.CharField(max_length=255, verbose_name='qulayligi') ##qulayligi konditsioner bormi, yoqmi
      price = models.IntegerField(default=0, verbose_name='narxi')
      percentage = models.FloatField(default=0, verbose_name='chegirma')
-     image = models.ImageField(upload_to='car_images/')
+     # image = models.ImageField(upload_to='car_images/')
      videos = models.FileField(upload_to='car_videos/')
      dvigatel = models.CharField(max_length=255, verbose_name='matori')     ##elektrokarmi ili matormi 
      backer = models.CharField(max_length=255, verbose_name='karopkasi')    ##avtomatmi ili mexanikami

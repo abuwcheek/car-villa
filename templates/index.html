@@ -132,8 +132,8 @@
                                     <div class="product-img-action-wrap">
                                         <div class="product-img product-img-zoom">
                                             <a href="{% url 'detailview' car.id %}">
-                                                <img class="default-img" src="{{ car.image.url }}" style="width: 300px; height: 170px" alt="">
-                                                <img class="hover-img" src="{{ car.image.url }}" style="width: 300px; height: 170px" alt="">
+                                                <img class="default-img" src="{{ car.car_images.first.image_url }}" style="width: 300px; height: 170px" alt="">
+                                                <img class="hover-img" src="{{ car.car_images.last.image_url }}" style="width: 300px; height: 170px" alt="">
                                             </a>
                                         </div>
                                         <div class="product-action-1">
@@ -265,7 +265,7 @@
                                             </div><br>
                                             <div class="product-content-wrap">
                                                 <div class="product-category">
-                                                    <a href="{% url 'brandview' fcars.id %}">{{ fcars.brand }}</a>
+                                                    <a href="{% url 'brandview' fcars.brand.id %}">{{ fcars.brand }}</a>
                                                 </div>
                                                 <h2 style="padding: 10px 0 20px 0;"><a href="{% url 'detailview' fcars.id %}">{{ fcars.model }}</a></h2><br>
                                                 <div class="product-price">
