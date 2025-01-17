@@ -63,3 +63,16 @@ class LoginView(View):
           else:
                messages.warning(request, 'Parol yoki login xato')
                return render(request, 'accounts/login.html', {'form':form})
+
+
+class UserProfileView(View):
+     def get(self, request):
+          if request.user.is_authenticated:
+               user = User.objects.get(id=request.user.id)
+
+               context = {
+                    'user': user,
+               }
+               return render(request, 'accounts/myprofile.html', context)
+          messages.warning(request, 'Siz oldin tizimga kirishingiz kerak!')
+          return redirect('accounts:login')
