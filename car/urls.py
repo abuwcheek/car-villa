@@ -2,6 +2,7 @@ from django.urls import path
 from .views import IndexView, brandView, categorydetailView, detailView, ContactView
 
 
+
 urlpatterns = [
      path('', IndexView, name='index'),
      path('brand/<uuid:uuid>/', brandView, name='brandview'),

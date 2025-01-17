@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from .models import Category, Brands, CarVilla, Testimonals, About
+from django.contrib import messages
+from .models import Category, Brands, CarVilla, Testimonals, About, ContactUs
 
 
 
@@ -56,9 +57,11 @@ def categorydetailView(request, uuid):
 
 def detailView(request, uuid):
      detail_product = get_object_or_404(CarVilla, id=uuid)
+     related_product = CarVilla.objects.filter(is_featured=True).order_by('?')[:4]
 
      context = {
           'detail_product': detail_product,
+          'related_product': related_product,
      }
      
      return render(request, 'detail_product.html', context)
@@ -68,4 +71,19 @@ def detailView(request, uuid):
 
 class ContactView(View):
      def get(self, request):
-          return render(request, 'contact.html')
+          return render(request, 'contact_page.html')
+
+
+     def post(self, request):
+          contact = ContactUs()
+          data = request.POST
+
+          contact.full_name = data.get('full_name')
+          contact.email = data.get('email')
+          contact.telephone = data.get('telephone')
+          contact.message = data.get('message')
+
+          contact.save()
+
+          messages.success(request, "So'rovingiz yuborildi")
+          return redirect('contactview')

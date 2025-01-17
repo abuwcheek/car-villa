@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+	contact us
+{% endblock title %}
+
+{% block content %}
+
+
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="{% url 'index' %}" rel="nofollow">Home</a>
+                    <span></span> Contact Us
+                </div>
+            </div>
+        </div>
+        <section class="mt-50 pt-50 pb-50">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-10 m-auto">
+                        <div class="contact-from-area  padding-20-row-col wow tmFadeInUp">
+                            <h3 class="mb-10 text-center" style="padding: 30px; font-family: Bahnschrift;">Sizning fikringiz biz uchun muhim!</h3>
+                            <form class="contact-form-style text-center" id="contact-form" action="#" method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-6">
+                                        <div class="input-style mb-20">
+                                            <input name="full_name" placeholder="Full name" required="required" data-validation-required-message="Ism kiritilishi shart" >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="input-style mb-20">
+                                            <input name="telephone" placeholder="Your Phone" type="tel" required="required" data-validation-required-message="Raqam kiritilishi shart" >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="input-style mb-20">
+                                            <input name="email" placeholder="Your Email" type="text" required="required" data-validation-required-message="Email kiritilishi shart" >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="textarea-style mb-30">
+                                            <textarea name="message" placeholder="Message" type="text" required="required" data-validation-required-message="Message kiritilishi shart" ></textarea>
+                                        </div>
+                                        <button class="submit submit-auto-width" type="submit">Send message</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <p class="form-messege"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+{% endblock content %}
+
+
+{% block script %}
+    <script src="{% static 'assets/js/plugins/leaflet.js' %}"></script>
+{% endblock script %}

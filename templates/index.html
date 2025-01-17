@@ -189,12 +189,12 @@
                     <div class="slider-arrow slider-arrow-2 carausel-6-columns-arrow" id="carausel-6-columns-2-arrows"></div>
                     <div class="carausel-6-columns carausel-arrow-center" id="carausel-6-columns-3">
                         {% for lcars in latest_cars %}
-                        <div class="product-cart-wrap small hover-up" style="width: 200px; height: 350px">
+                        <div class="product-cart-wrap small hover-up" style="width: 300px; height: 370px">
                             <div class="product-img-action-wrap">
                                 <div class="product-img product-img-zoom">
                                     <a>
-                                        <img class="default-img" src="{{ lcars.image.url }}" style="width: 400px; height: 170px" alt="">
-                                        <img class="hover-img" src="{{ lcars.image.url }}" style="width: 400px; height: 170px" alt="">
+                                        <img class="default-img" src="{{ lcars.car_images.first.image_url }}" style="width: 300px; height: 170px" alt="">
+                                        <img class="hover-img" src="{{ lcars.car_images.last.image_url }}" style="width: 300px; height: 170px" alt="">
                                     </a>
                                 </div>
                                 <div class="product-action-1">
@@ -248,12 +248,12 @@
                                     <div class="slider-arrow slider-arrow-2 carausel-4-columns-arrow" id="carausel-4-columns-arrows"></div>
                                     <div class="carausel-4-columns carausel-arrow-center" id="carausel-4-columns">
                                         {% for fcars in featured_cars %}
-                                        <div class="product-cart-wrap mb-30" style="width: 300px; height: 350px">
+                                        <div class="product-cart-wrap mb-30" style="width: 300px; height: 330px">
                                             <div class="product-img-action-wrap">
                                                 <div class="product-img product-img-zoom">
                                                     <a>
-                                                        <img class="default-img" src="{{ fcars.image.url }}" alt="" style="width: 270px; height: 130px">
-                                                        <img class="hover-img" src="{{ fcars.image.url }}" alt="" style="width: 270px; height: 130px">
+                                                        <img class="default-img" src="{{ fcars.car_images.first.image_url }}" alt="" style="width: 270px; height: 130px">
+                                                        <img class="hover-img" src="{{ fcars.car_images.last.image_url }}" alt="" style="width: 270px; height: 130px">
                                                     </a>
                                                 </div>
                                                 <div class="product-action-1">
@@ -267,7 +267,7 @@
                                                 <div class="product-category">
                                                     <a href="{% url 'brandview' fcars.brand.id %}">{{ fcars.brand }}</a>
                                                 </div>
-                                                <h2 style="padding: 10px 0 20px 0;"><a href="{% url 'detailview' fcars.id %}">{{ fcars.model }}</a></h2><br>
+                                                <h2 style="padding: 10px 0 20px 0;"><a href="{% url 'detailview' fcars.id %}">{{ fcars.model }}</a></h2>
                                                 <div class="product-price">
                                                     {% if fcars.percentage %}
                                                     <span>{{ fcars.get_new_price }}$</span>
@@ -783,7 +783,7 @@
                             {% for msell in most_sell %}
                             <article class="row align-items-center">
                                 <figure class="col-md-3 mb-0">
-                                    <a><img src="{{ msell.image.url }}" alt=""></a>
+                                    <a><img src="{{ msell.car_images.first.image_url }}" alt=""></a>
                                 </figure>
                                 <div class="col-md-9 pl-0">
                                     <h4 class="title-small">

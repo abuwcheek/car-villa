@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+	user register
+{% endblock title %}
+
+
+{% block content %}
+
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="{% url 'index' %}" rel="nofollow">Home</a>
+                    <span></span> Register
+                </div>
+            </div>
+        </div>
+        <section class="pt-150 pb-150">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-10 m-auto">
+                        <div class="row">
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-6">
+                                <div class="login_wrap widget-taber-content p-30 background-white border-radius-5">
+                                    <div class="padding_eight_all bg-white">
+                                        <div class="heading_s1">
+                                            <h3 class="mb-30" style="margin-left: 130px">Create an Account</h3>
+                                        </div>
+                                        <p class="mb-50 font-sm">
+                                        </p>
+                                        <form method="POST" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <b>{{ form.as_p }}</b>
+                                            <br>
+                                            <input type="submit" value="SUBMIT & REGISTER" class="btn btn-info" style="">
+                                        </form>
+                                        <div class="divider-text-center mt-15 mb-15">
+                                            <span> or</span>
+                                        </div>
+                                        <ul class="btn-login list_none text-center mb-15">
+                                            <li><a href="#" class="btn btn-facebook hover-up"><i class="fab fa-facebook-f mr-10"></i>Facebook</a></li>
+                                            <li><a href="#" class="btn btn-google hover-up"><i class="fab fa-google mr-10"></i>Google</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+{% endblock content %}

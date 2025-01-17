@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.text import slugify
 from django.utils.safestring import mark_safe
@@ -86,7 +87,7 @@ class CarVilla(BaseModel):
      @property
      def get_new_price(self):
           if not self.percentage:
-               return round(self.price, 2)
+               return self.price
           return round(self.price * (100 - self.percentage)/100)
 
 
@@ -141,6 +142,7 @@ class About(BaseModel):
 
      facebook = models.CharField(max_length=500)
      instagram = models.CharField(max_length=100)
+     twitter = models.CharField(max_length=500)
      linkedin = models.CharField(max_length=500)
      youtube = models.CharField(max_length=500)
      telegram = models.CharField(max_length=100)
@@ -153,11 +155,16 @@ class About(BaseModel):
 
 
 class ContactUs(BaseModel):
-     name = models.CharField(max_length=50)
+     full_name = models.CharField(max_length=50)
      email = models.CharField(max_length=100)
-     number = models.CharField(max_length=15)
+     telephone = models.CharField(max_length=15)
      message = models.TextField()
 
 
+     def clean_telephone(self):
+          if len(self.telephone) > 13 and len(self.telephone) < 9:
+               raise ValidationError('Raqam xato kiritilgan')
+
+
      def __str__(self):
-          return f'{self.name} --> {self.email}' 
+          return f'{self.full_name} --> {self.email} --> {self.created_at}'

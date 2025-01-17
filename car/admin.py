@@ -58,5 +58,13 @@ class TestimonalsAdmin(admin.ModelAdmin):
 
 
 
+@admin.register(ContactUs)
+class ContactusAdmin(admin.ModelAdmin):
+     list_display = ('full_name', 'email', 'created_at', 'is_active', )
+     list_display_links = ('full_name', 'email')
+     list_editable = ['is_active']
+     search_fields = ['id', 'email', 'created_at',]
+
+
+
 admin.site.register(About)
-admin.site.register(ContactUs)
