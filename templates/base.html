@@ -80,7 +80,7 @@
             <div class="container">
                 <div class="header-wrap header-space-between">
                     <div class="logo logo-width-1">
-                       <a href="{% url 'index' %}" style="font-size: 30px">CarUzb<img src="{% static 'assets/imgs/uzbbayroq.png' %}" style="width: 50px" alt="logo"></a>
+                       <a href="{% url 'index' %}" style="font-size: 30px; text-decoration: none">CarUzb<img src="{% static 'assets/imgs/uzbbayroq.png' %}" style="width: 50px" alt="logo"></a>
                     </div>
                     <div class="search-style-2">
                         <form>
@@ -120,18 +120,18 @@
                     </div>
                     <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block main-menu-light-white hover-boder hover-boder-white">
                         <nav>
-                            <ul style="padding-left: 330px">
-                                <li><a class="active" href="{% url 'index' %}">Home</a>
+                            <ul style="padding-left: 330px;">
+                                <li><a class="active" href="{% url 'index' %}" style=" text-decoration: none; font-weight: bold">Home</a>
                                 </li>
                                 <li>
-                                    <a href="">About</a>
+                                    <a href="" style=" text-decoration: none; font-weight: bold">About</a>
                                 </li>
                                 {% for ktg in kategoriyalar %}
-                                <li><a href="{% url 'categoryview' ktg.id %}">{{ ktg.name }}</a>
+                                <li><a href="{% url 'categoryview' ktg.id %}" style=" text-decoration: none; font-weight: bold">{{ ktg.name }}</a>
                                 </li>
                                 {% endfor %}
                                 <li>
-                                    <a href="{% url 'contactview' %}">Contact</a>
+                                    <a href="{% url 'contactview' %}" style=" text-decoration: none; font-weight: bold; ">Contact</a>
                                 </li>
                             </ul>
                         </nav>
