@@ -68,8 +68,12 @@
                                         <li><a href="#">РУССКИЙ</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="{% url 'users:register' %}">Sign Up</a></li>
-                                <li><a href="{% url 'users:login' %}">Log In</a></li>
+                                {% if user.is_authenticated %}
+                                    <li><a href="#">Log Out</a></li>
+                                {% else %}
+                                    <li><a href="{% url 'users:register' %}">Sign Up</a></li>
+                                    <li><a href="{% url 'users:login' %}">Log In</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>
@@ -102,11 +106,13 @@
                                     <span class="pro-count blue">2</span>
                                 </a>
                             </div>
+                            {% if user.is_authenticated %}
                             <div class="header-action-icon-2">
                                 <a href="{% url 'users:myprofile' %}">
                                     <img alt="wowy" src="{% static 'assets/imgs/theme/icons/icon-user.svg' %}">
                                 </a>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

@@ -58,3 +58,30 @@ class UserRegisterForm(forms.ModelForm):
             img.save(user.image_user.path)
 
         return user
+
+
+class UserUpdateForm(forms.ModelForm):
+    first_name = forms.CharField(widget=TextInput(attrs={'class': 'validate', 'placeholder': 'Abdullo'}))
+    last_name = forms.CharField(widget=TextInput(attrs={'class': 'validate', 'placeholder': 'Istamov'}))
+    phone = forms.CharField(widget=TextInput(attrs={'class': 'validate', 'placeholder': '+998937151034'}))
+    image_user = forms.ImageField()
+
+
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'phone', 'image_user')
+
+    def save(self, commit=True):
+        user = super().save(commit)
+
+        #    save funksiyani return dan oldin yozsayam bo'ladi hozir yozsayam bo'ladi
+        user.save()
+        # image resize
+
+        img = Image.open(user.image_user.path)
+        if img.height > 500 or img.width > 500:
+            new_img = (500, 500)
+            img.thumbnail(new_img)
+            img.save(user.image_user.path)
+
+        return user

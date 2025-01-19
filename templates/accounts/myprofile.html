@@ -52,10 +52,10 @@
                                     <div class="tab-pane fade active show" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h5 class="mb-0">Hello Rayan! </h5>
+                                                <h5 class="mb-0" style="text-align: center; font-size: 30px">Salom {{ user.username }}! </h5>
                                             </div>
                                             <div class="card-body">
-                                                <p>From your account dashboard. you can easily check &amp; view your <a href="#">recent orders</a>, manage your <a href="#">shipping and billing addresses</a> and <a href="#">edit your password and account details.</a></p>
+                                                <p style="font-size: 20px">Hozir biz sizning shaxsiy kabinetingizdamiz</p>
                                             </div>
                                         </div>
                                     </div>
@@ -164,20 +164,43 @@
                                                 <h5>Account Details</h5>
                                             </div>
                                             <div class="card-body">
-                                                <p>Already have an account? <a href="page-login-register.html">Log in instead!</a></p>
-                                                <form method="post" name="enq">
+                                                {% if user.image_user %}
+                                                    <img src="{{ user.image_user.url }}" style="width: 200px; height: 200px; border-radius: 60%;">
+                                                {% else %}
+                                                    <img src="{% static 'assets/imgs/user.png' %}" alt="" style="width: 200px; height: 200px; border-radius: 60%;">
+                                                {% endif %}
+                                                <form method="post" enctype="multipart/form-data">
+                                                    {% csrf_token %}
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
-                                                            <label>First Name <span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="name" type="text">
+                                                            <table border="1" style="border-collapse: collapse;">
+                                                            <tr>
+                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px">First Name*</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td>{{ user.first_name }}</td>
+                                                            </tr>
+                                                            </table>
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label>Last Name <span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="phone">
+                                                            <table border="1" style="border-collapse: collapse;">
+                                                            <tr>
+                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px; font-family: Bahnschrift">Last Name*</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td>{{ user.last_name }}</td>
+                                                            </tr>
+                                                            </table>
                                                         </div>
                                                         <div class="form-group col-md-12">
-                                                            <label>Display Name <span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="dname" type="text">
+                                                            <table border="1" style="border-collapse: collapse;">
+                                                            <tr>
+                                                            <td style="font-weight: bold; color: #146c43; font-family: Bahnschrift">Display Name*</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td></td>
+                                                            </tr>
+                                                            </table>
                                                         </div>
                                                         <div class="form-group col-md-12">
                                                             <label>Email Address <span class="required">*</span></label>

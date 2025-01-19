@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import login, logout
-from .forms import CastumAuthForm, UserRegisterForm
+from .forms import CastumAuthForm, UserRegisterForm, UserUpdateForm
 from django.contrib import messages
 from PIL import Image
 from django.db.models import Q
@@ -74,5 +74,34 @@ class UserProfileView(View):
                     'user': user,
                }
                return render(request, 'accounts/myprofile.html', context)
-          messages.warning(request, 'Siz oldin tizimga kirishingiz kerak!')
-          return redirect('accounts:login')
+          else:
+               messages.warning(request, 'Siz oldin tizimga kirishingiz kerak!')
+               return redirect('accounts:login')
+
+
+
+class UpdateUserView(View):
+     form = UserUpdateForm
+     def get(self, request):
+          if request.user.is_authenticated:
+               user = User.objects.get(id=request.user.id)
+               context = {
+                    'form': self.form(instance=user)
+               }
+               return render(request, 'accounts/update_profile.html', context)
+          messages.warning(request, 'Siz avval tizimga kirishingiz kerak')
+          return redirect('users:login')
+
+
+     def post(self, request):
+          user_form = self.form(data=request.POST, files=request.FILES, instance=request.user)
+          if user_form.is_valid():
+               user_form.save()
+               messages.success(request, 'Profile yangilandi')
+               return redirect('account:myprofile')
+
+          messages.warning(request, 'Profile yangilanmadi')
+          context={
+               'form':user_form,
+               }
+          return render(request, 'accounts/update_profile.html', context)
