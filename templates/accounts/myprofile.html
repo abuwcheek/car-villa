@@ -150,7 +150,7 @@
                                                     </div>
                                                     <div class="card-body">
                                                         <address>4299 Express Lane<br>
-                                                            Sarasota, <br>FL 34249 USA <br>Phone: 1.941.227.4444</address>
+                                                            Sarasota, <br>FL 34249 USA <br>Phone: 1.941.220.4444</address>
                                                         <p>Sarasota</p>
                                                         <a href="#" class="btn-small">Edit</a>
                                                     </div>
@@ -172,13 +172,23 @@
                                                 <form method="post" enctype="multipart/form-data">
                                                     {% csrf_token %}
                                                     <div class="row">
+                                                        <div class="form-group col-md-12">
+                                                            <table border="1" style="border-collapse: collapse;">
+                                                            <tr>
+                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px">Username*</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td style="font-size: 20px">{{ user.username }}</td>
+                                                            </tr>
+                                                            </table>
+                                                        </div>
                                                         <div class="form-group col-md-6">
                                                             <table border="1" style="border-collapse: collapse;">
                                                             <tr>
                                                             <td style="font-weight: bold; color: #146c43; font-size: 17px">First Name*</td>
                                                             </tr>
                                                             <tr>
-                                                            <td>{{ user.first_name }}</td>
+                                                            <td style="font-size: 20px">{{ user.first_name }}</td>
                                                             </tr>
                                                             </table>
                                                         </div>
@@ -188,39 +198,61 @@
                                                             <td style="font-weight: bold; color: #146c43; font-size: 17px; font-family: Bahnschrift">Last Name*</td>
                                                             </tr>
                                                             <tr>
-                                                            <td>{{ user.last_name }}</td>
+                                                            <td style="font-size: 20px">{{ user.last_name }}</td>
                                                             </tr>
                                                             </table>
                                                         </div>
                                                         <div class="form-group col-md-12">
                                                             <table border="1" style="border-collapse: collapse;">
                                                             <tr>
-                                                            <td style="font-weight: bold; color: #146c43; font-family: Bahnschrift">Display Name*</td>
+                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px; font-family: Bahnschrift">Display Name*</td>
                                                             </tr>
                                                             <tr>
-                                                            <td></td>
+                                                            <td style="font-size: 20px"></td>
                                                             </tr>
                                                             </table>
                                                         </div>
                                                         <div class="form-group col-md-12">
-                                                            <label>Email Address <span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="email" type="email">
+                                                            <table border="1" style="border-collapse: collapse;">
+                                                            <tr>
+                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px; font-family: Bahnschrift">Email Adress*</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td style="font-size: 20px">{{ user.email }}</td>
+                                                            </tr>
+                                                            </table>
                                                         </div>
                                                         <div class="form-group col-md-12">
-                                                            <label>Current Password <span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="password" type="password">
+                                                            <table border="1" style="border-collapse: collapse;">
+                                                            <tr>
+                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px; font-family: Bahnschrift">Phone Numara*</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td style="font-size: 20px">{{ user.phone }}</td>
+                                                            </tr>
+                                                            </table>
                                                         </div>
                                                         <div class="form-group col-md-12">
-                                                            <label>New Password <span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="npassword" type="password">
+                                                            <table border="1" style="border-collapse: collapse;">
+                                                            <tr>
+                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px; font-family: Bahnschrift">Last Login*</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td style="font-size: 20px">{{ user.last_login }}</td>
+                                                            </tr>
+                                                            </table>
                                                         </div>
                                                         <div class="form-group col-md-12">
-                                                            <label>Confirm Password <span class="required">*</span></label>
-                                                            <input required="" class="form-control square" name="cpassword" type="password">
+                                                            <table border="1" style="border-collapse: collapse;">
+                                                            <tr>
+                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px; font-family: Bahnschrift">Profile date*</td>
+                                                            </tr>
+                                                            <tr>
+                                                            <td style="font-size: 20px">{{ user.date_joined }}</td>
+                                                            </tr>
+                                                            </table>
                                                         </div>
-                                                        <div class="col-md-12">
-                                                            <button type="submit" class="btn btn-fill-out submit" name="submit" value="Submit">Save</button>
-                                                        </div>
+                                                        <a href="" class="btn btn-outline-info" style="padding: 15px 30px;">Update Profile</a>
                                                     </div>
                                                 </form>
                                             </div>
