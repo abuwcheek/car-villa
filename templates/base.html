@@ -43,8 +43,8 @@
                     <div class="col-xl-3 col-lg-4">
                         <div class="header-info">
                             <ul>
-                                <li><a href="#">{{ about.phone_numara }}</a></li>
-                                <li><i class="fa fa-map-marker-alt mr-5"></i><a target="_blank" href="">{{ about.location }}</a></li>
+                                <li><a>{{ about.phone_numara }}</a></li>
+                                <li><i class="fa fa-map-marker-alt mr-5"></i><a target="_blank">{{ about.location }}</a></li>
                             </ul>
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                         <div class="header-info header-info-right">
                             <ul>
                                 <li>
-                                    <a class="language-dropdown-active" href="#"> <i class="fa fa-globe-americas"></i> English <i class="fa fa-chevron-down"></i></a>
+                                    <a class="language-dropdown-active"> <i class="fa fa-globe-americas"></i> English <i class="fa fa-chevron-down"></i></a>
                                     <ul class="language-dropdown">
                                         <li><a href="#">Français</a></li>
                                         <li><a href="#">Deutsch</a></li>
@@ -71,7 +71,7 @@
                                     </ul>
                                 </li>
                                 {% if user.is_authenticated %}
-                                    <li><a href="#">Log Out</a></li>
+                                    <li><a href="#" style="text-decoration: #5f3f3f">Log Out</a></li>
                                 {% else %}
                                     <li><a href="{% url 'users:register' %}">Sign Up</a></li>
                                     <li><a href="{% url 'users:login' %}">Log In</a></li>

@@ -86,7 +86,7 @@ class UpdateUserView(View):
           if request.user.is_authenticated:
                user = User.objects.get(id=request.user.id)
                context = {
-                    'form': self.form(instance=user)
+                    'forma': self.form(instance=user)
                }
                return render(request, 'accounts/update_profile.html', context)
           messages.warning(request, 'Siz avval tizimga kirishingiz kerak')
@@ -98,10 +98,10 @@ class UpdateUserView(View):
           if user_form.is_valid():
                user_form.save()
                messages.success(request, 'Profile yangilandi')
-               return redirect('account:myprofile')
+               return redirect('users:myprofile')
 
           messages.warning(request, 'Profile yangilanmadi')
           context={
-               'form':user_form,
+               'forma':user_form,
                }
           return render(request, 'accounts/update_profile.html', context)

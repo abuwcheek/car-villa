@@ -13,7 +13,7 @@ class BaseModel(models.Model):
 
 
 class User(AbstractUser):
-    phone = models.CharField(max_length=15, null=True, blank=True)
+    phone = models.CharField(max_length=13, null=True, blank=True)
     image_user = models.ImageField(upload_to='user_avatar/', null=True, blank=True,
                                    validators=[FileExtensionValidator(allowed_extensions=('png', 'jpg', 'heic', 'jpeg', 'svg', 'img'))])
 
