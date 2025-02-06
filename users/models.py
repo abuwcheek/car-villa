@@ -16,6 +16,8 @@ class User(AbstractUser):
     phone = models.CharField(max_length=13, null=True, blank=True)
     image_user = models.ImageField(upload_to='user_avatar/', null=True, blank=True,
                                    validators=[FileExtensionValidator(allowed_extensions=('png', 'jpg', 'heic', 'jpeg', 'svg', 'img'))])
+    user_location = models.CharField(max_length=200, null=True, blank=True)
+
 
     @property
     def full_name(self):

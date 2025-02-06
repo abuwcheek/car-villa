@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import login, logout
-from .forms import CastumAuthForm, UserRegisterForm, UserUpdateForm
+from .forms import CastumAuthForm, UserRegisterForm, UserUpdateForm, PasswordChangeForm
 from django.contrib import messages
 from PIL import Image
 from django.db.models import Q
@@ -65,6 +65,13 @@ class LoginView(View):
                return render(request, 'accounts/login.html', {'form':form})
 
 
+class LogoutView(View):
+     def get(self, request):
+          logout(request)
+          messages.warning(request, 'Tizimdan chiqtingiz')
+          return redirect('index')
+
+
 class UserProfileView(View):
      def get(self, request):
           if request.user.is_authenticated:
@@ -105,3 +112,34 @@ class UpdateUserView(View):
                'forma':user_form,
                }
           return render(request, 'accounts/update_profile.html', context)
+
+
+
+class PasswordChangeView(View):
+     changeform = PasswordChangeForm
+
+     def get(self, request):
+          if request.user.is_authenticated:
+               user = User.objects.get(id=request.user.id)
+
+               context = {
+                    'changeform': self.changeform,
+               }
+               return render(request, 'accounts/change_password.html', context)
+          else:
+               messages.warning(request, 'Siz avval login qilishingiz kerak')
+               return redirect('users:login')
+
+     def post(self, request):
+          password_form = self.changeform(data=request.POST, instance=request.user)
+          if password_form.is_valid():
+               password_form.save()
+               login(request, request.user)
+               messages.success(request, 'Password yangilandi')
+               return redirect('users:updateuser')
+          
+          messages.warning(request, 'Password yangilanmadi')
+          context = {
+               'changeform': self.changeform,
+          }
+          return render(request, 'accounts/change_password.html', context)

@@ -42,7 +42,7 @@
                                             <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="fa fa-user-edit mr-15"></i>Account details</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="page-login-register.html"><i class="fa fa-lock mr-15"></i>Logout</a>
+                                            <a class="nav-link" href="{% url 'users:logout' %}"><i class="fa fa-lock mr-15"></i>Logout</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -208,7 +208,7 @@
                                                             <td style="font-weight: bold; color: #146c43; font-size: 17px; font-family: Bahnschrift">Location*</td>
                                                             </tr>
                                                             <tr>
-                                                            <td style="font-size: 20px"></td>
+                                                            <td style="font-size: 20px">{{ user.user_location }}</td>
                                                             </tr>
                                                             </table>
                                                         </div>
