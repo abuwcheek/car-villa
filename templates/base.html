@@ -73,8 +73,8 @@
                                 {% if user.is_authenticated %}
                                     <li><a href="{% url 'users:logout' %}" style="text-decoration: #5f3f3f">Log Out</a></li>
                                 {% else %}
-                                    <li><a href="{% url 'users:register' %}">Sign Up</a></li>
-                                    <li><a href="{% url 'users:login' %}">Log In</a></li>
+                                    <li><a href="{% url 'users:register' %}" style="text-decoration: none;">Sign Up</a></li>
+                                    <li><a href="{% url 'users:login' %}" style="text-decoration: none;">Log In</a></li>
                                 {% endif %}
                             </ul>
                         </div>
@@ -97,9 +97,9 @@
                     <div class="header-action-right">
                         <div class="header-action-2">
                             <div class="header-action-icon-2">
-                                <a href="">
+                                <a href="{% url 'order:favorite' %}">
                                     <img class="svgInject" alt="wowy" src="{% static 'assets/imgs/theme/icons/icon-heart.svg' %}">
-                                    <span class="pro-count blue">4</span>
+                                    <span class="pro-count blue">{{ sevimlilar }}</span>
                                 </a>
                             </div>
                             <div class="header-action-icon-2">
