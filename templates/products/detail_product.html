@@ -94,8 +94,11 @@
                                                 <a href="#" class="qty-up"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
                                             </div>
                                             <div class="product-extra-link2">
-                                                <button type="submit" class="button button-add-to-cart">Add to cart</button>
-                                                <a aria-label="Add To Wishlist" class="action-btn hover-up" href="shop-wishlist.html"><i class="far fa-heart"></i></a>
+                                                <form action="{% url 'order:addtofavorite' %}" method="post">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="product_id" value="{{ product.id }}"><br>
+                                                    <button type="submit" class="button button-add-to-cart" style="margin: 0 0 80% 20px;"><i class="far fa-heart"></i></button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

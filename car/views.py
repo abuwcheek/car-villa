@@ -24,7 +24,7 @@ def IndexView(request):
           'latest_cars': latest_cars,
           'most_sell': most_sell,
      }
-     return render(request, 'index.html', context)
+     return render(request, 'products/index.html', context)
 
 
 
@@ -38,7 +38,7 @@ def brandView(request, uuid):
           'brand_view': brand_view,
           'brand_cars': brand_cars,
      }
-     return render(request, 'brand_cars.html', context)
+     return render(request, 'products/brand_cars.html', context)
 
 
 
@@ -51,7 +51,7 @@ def categorydetailView(request, uuid):
           'category_cars': category_cars,
      }
 
-     return render(request, 'ctg_detail_list.html', context)
+     return render(request, 'products/ctg_detail_list.html', context)
 
 
 
@@ -64,14 +64,14 @@ def detailView(request, uuid):
           'related_product': related_product,
      }
      
-     return render(request, 'detail_product.html', context)
+     return render(request, 'products/detail_product.html', context)
 
 
 
 
 class ContactView(View):
      def get(self, request):
-          return render(request, 'contact_page.html')
+          return render(request, 'products/contact_page.html')
 
 
      def post(self, request):

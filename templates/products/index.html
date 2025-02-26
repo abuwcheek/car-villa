@@ -72,7 +72,7 @@
                             <figure class="mb-30 img-hover-scale overflow-hidden">
                                 <img src="{{ br.icon.url }}" alt="" style="width: 150px; height: 110px">
                             </figure>
-                            <h5><a href="{% url 'brandview' br.id %}" style="text-align: center">{{ br.name }}</a></h5>
+                            <h5><a href="{% url 'brandview' br.id %}" style="text-align: center; text-decoration: none;">{{ br.name }}</a></h5>
                         </div>
                         {% endfor %}
                     </div>
@@ -137,7 +137,7 @@
                                             </a>
                                         </div>
                                         <div class="product-action-1">
-                                            <a aria-label="Add To Wishlist" class="action-btn hover-up" href=""><i class="far fa-heart"></i></a>
+                                            <a aria-label="Add To Wishlist" class="action-btn hover-up" href="{% url 'order:addtofavorite' %}?product_id={{car.id}}"><i class="far fa-heart"></i></a>
                                         </div>
                                         <div class="product-badges product-badges-position product-badges-mrg">
                                             <span class="hot">Hot</span>
@@ -145,7 +145,7 @@
                                     </div><br>
                                     <div class="product-content-wrap">
                                         <div class="product-category">
-                                            <a href="{% url 'categoryview' car.category.id %}">{{ car.category }}</a>
+                                            <a href="{% url 'categoryview' car.category.id %}" style="text-decoration: none;">{{ car.category }}</a>
                                         </div>
                                         <h2><a href="{% url 'detailview' car.id %}">{{ car.model }}</a></h2><br>
                                         <div class="product-price" style="padding: 0 0 30px 0">
@@ -157,7 +157,7 @@
                                             {% endif %}
                                         </div>
                                         <div class="product-action-1 show">
-                                            <a aria-label="Add To Cart" class="action-btn hover-up" href="shop-cart.html"><i class="far fa-shopping-bag"></i></a>
+                                            <a aria-label="Add To Cart" class="action-btn hover-up" href="{% url 'order:addtoshopcart' car.id %}"><i class="far fa-shopping-bag"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -265,7 +265,7 @@
                                             </div><br>
                                             <div class="product-content-wrap">
                                                 <div class="product-category">
-                                                    <a href="{% url 'brandview' fcars.brand.id %}">{{ fcars.brand }}</a>
+                                                    <a href="{% url 'brandview' fcars.brand.id %}" style="text-decoration: none;">{{ fcars.brand }}</a>
                                                 </div>
                                                 <h2 style="padding: 10px 0 20px 0;"><a href="{% url 'detailview' fcars.id %}">{{ fcars.model }}</a></h2>
                                                 <div class="product-price">
@@ -277,7 +277,7 @@
                                                     {% endif %}
                                                 </div>
                                                 <div class="product-action-1 show">
-                                                    <a aria-label="Add To Cart" class="action-btn hover-up" href="shop-cart.html"><i class="far fa-shopping-bag"></i></a>
+                                                    <a aria-label="Add To Cart" class="action-btn hover-up" href="{% url 'order:addtoshopcart' fcars.id %}"><i class="far fa-shopping-bag"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -787,7 +787,7 @@
                                 </figure>
                                 <div class="col-md-9 pl-0">
                                     <h4 class="title-small">
-                                        <a href="{% url 'detailview' msell.id %}" style="text-decoration: #0a58ca">{{ msell.model }}</a>
+                                        <a href="{% url 'detailview' msell.id %}" style="text-decoration: none;">{{ msell.model }}</a>
                                     </h4>
                                     <div class="product-price">
                                         {% if msell.percentage %}

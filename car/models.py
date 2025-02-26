@@ -153,7 +153,6 @@ class About(BaseModel):
 
 
 
-
 class ContactUs(BaseModel):
      full_name = models.CharField(max_length=50)
      email = models.CharField(max_length=100)

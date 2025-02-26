@@ -1,34 +1,74 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import JsonResponse
 from django.views import View
 from django.contrib import messages
-from django.db.models import Q
-from .models import Sevimlilar
+from .models import Sevimlilar, AddToShopCart
 from car.models import CarVilla
 
+class AddToFavoriteView(View):
+    def get(self, request):
+        user = request.user
+        url = request.META.get('HTTP_REFERER')
+        product_id = request.GET.get('product_id')
 
-class AddToSevimlilarView(View):
-     def get(self, request):
-          user = request.user
-          url = request.META.get('HTTP_REFERER')
-          product = request.GET.get('product_id')
-          product = CarVilla.objects.get(id=product)
-          Sevimlilar.objects.create(user=user, product=product)
-          messages.success(request, 'Mahsulot sevimlilarga qo\'shildi')
-          return redirect(url)
+        if not product_id:
+            messages.error(request, "Mahsulot ID si topilmadi!")
+            return redirect(url)
 
+        product = get_object_or_404(CarVilla, id=product_id)
 
+        # ✅ Wishlistda bor yoki yo‘qligini tekshirish
+        favorite, created = Sevimlilar.objects.get_or_create(user=user, product=product)
 
-class FavoriteView(View):
-     def get(self, request):
-          user = request.user
-          if not user.is_authenticated:
-               messages.warning(request, "Siz oldin Login qilishingiz kerak")
-               return redirect('users:login')
+        if not created:
+            messages.warning(request, "Bu mahsulot allaqachon sevimlilarda bor!")
+        else:
+            messages.success(request, "Mahsulot sevimlilarga qo‘shildi!")
 
-          sevimlilar = Sevimlilar.objects.filter(user=user)
-          context = {
-               'sevimlilar': sevimlilar,
-          } 
-          return render(request, 'products/shop-wishlist.html', context)
+        return redirect(url)
 
 
+
+class FavoriteListView(View):
+    def get(self, request):
+        user = request.user
+        sevimlilist = Sevimlilar.objects.filter(user=user)
+        context = {
+            'sevimlilist': sevimlilist,
+        }
+        return render(request, 'order/shop-wishlist.html', context)
+
+
+
+class RemoveProductInFavoriteView(View):
+    def get(self, request, uuid):
+        user = request.user
+        url = request.META.get('HTTP_REFERER', 'order:favoritelist')  # Orqaga qaytarish
+
+        # `get()` o‘rniga `filter().first()` ishlatamiz
+        favorite = Sevimlilar.objects.filter(user=user, id=uuid).first()
+
+        if favorite:
+            favorite.delete()
+            messages.success(request, "Mahsulot sevimlilardan o‘chirildi!")
+        else:
+            messages.warning(request, "Bu mahsulot sevimlilarda mavjud emas!")
+
+        return redirect(url)
+
+
+
+class AddToShopCartView(View):
+    def get(self, request, uuid):
+        url = request.META.get('HTTP_REFERER')  # Qayerdan kelinganini olish
+        user = request.user
+        product = get_object_or_404(CarVilla, id=uuid)  # Mahsulotni olish
+        
+        # 🔥 Mahsulot allaqachon qo‘shilganmi, tekshiramiz
+        if AddToShopCart.objects.filter(user=user, product=product).exists():
+            messages.warning(request, "Bu mahsulot allaqachon savatchaga qo'shilgan!")
+        else:
+            AddToShopCart.objects.create(user=user, product=product)
+            messages.success(request, "Mahsulot savatchaga qo'shildi!")
+
+        return redirect(url)

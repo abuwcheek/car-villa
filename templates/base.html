@@ -94,10 +94,11 @@
                             <button type="submit"> <i class="far fa-search"></i> </button>
                         </form>
                     </div>
+                    {% if user.is_authenticated %}
                     <div class="header-action-right">
                         <div class="header-action-2">
                             <div class="header-action-icon-2">
-                                <a href="{% url 'order:favorite' %}">
+                                <a href="{% url 'order:favoritelist' %}">
                                     <img class="svgInject" alt="wowy" src="{% static 'assets/imgs/theme/icons/icon-heart.svg' %}">
                                     <span class="pro-count blue">{{ sevimlilar }}</span>
                                 </a>
@@ -105,9 +106,10 @@
                             <div class="header-action-icon-2">
                                 <a class="mini-cart-icon" href="">
                                     <img alt="wowy" src="{% static 'assets/imgs/theme/icons/icon-cart.svg' %}">
-                                    <span class="pro-count blue">2</span>
+                                    <span class="pro-count blue">{{ shopcartproduct_count }}</span>
                                 </a>
                             </div>
+                            {% endif %}
                             {% if user.is_authenticated %}
                             <div class="header-action-icon-2">
                                 <a href="{% url 'users:myprofile' %}">
@@ -220,7 +222,7 @@
         <div class="mobile-header-wrapper-inner">
             <div class="mobile-header-top">
                 <div class="mobile-header-logo">
-                    <a href="index.html"><img src="{% static 'assets/imgs/theme/logo-default.png' %}" alt="logo"></a>
+                    <a href="/"><img src="{% static 'assets/imgs/theme/logo-default.png' %}" alt="logo"></a>
                 </div>
                 <div class="mobile-menu-close close-style-wrap close-style-position-inherit">
                     <button class="close-style search-close">
