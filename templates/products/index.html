@@ -198,7 +198,7 @@
                                     </a>
                                 </div>
                                 <div class="product-action-1">
-                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="" tabindex="0"><i class="far fa-heart"></i></a>
+                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="{% url 'order:addtofavorite' %}?product_id={{lcars.id}}" tabindex="0"><i class="far fa-heart"></i></a>
                                 </div>
                                 <div class="product-badges product-badges-position product-badges-mrg">
                                     <span class="hot">Hot</span>
@@ -257,7 +257,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="product-action-1">
-                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href=""><i class="far fa-heart"></i></a>
+                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="{% url 'order:addtofavorite' %}?product_id={{fcars.id}}"><i class="far fa-heart"></i></a>
                                                 </div>
                                                 <div class="product-badges product-badges-position product-badges-mrg">
                                                     <span class="hot">Hot</span>

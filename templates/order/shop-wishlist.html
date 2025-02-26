@@ -15,8 +15,7 @@
      <div class="page-header breadcrumb-wrap">
          <div class="container">
              <div class="breadcrumb">
-                 <a href="{% url 'index' %}" rel="nofollow">Home</a>
-                 <span></span> Shop Cart
+                 <a href="{% url 'index' %}" rel="nofollow" style="text-decoration: none;">Home</a>
                  <span></span> Wishlist
              </div>
          </div>
@@ -49,9 +48,31 @@
                                      <td class="text-center" data-title="Stock">
                                          <span class="color3 font-weight-bold">askmasllmas</span>
                                      </td>
-                                     
-                                     <td class="btn btn-rounded btn-sm"><a href="{% url 'order:addtoshopcart' like.product.id %}">Add to cart</a><i class="far fa-shopping-bag mr-5"></i></td>
-                                     <td class="action" data-title="Remove"><a href="{% url 'order:removeproduct' like.product.id %}"><i class="fa fa-trash-alt"></i></a></td>
+                                     <style>
+                                        .cart-button {
+                                            display: inline-flex;
+                                            align-items: center;
+                                            padding: 8px 12px;
+                                            border-radius: 20px; /* Yumaloq shakl */
+                                            transition: background-color 0.3s ease;
+                                        }
+                                    
+                                        .cart-button:hover {
+                                            background-color: #007bff; /* Ko'k fon */
+                                            color: white !important;
+                                        }
+                                    
+                                        .cart-button i {
+                                            margin-left: 5px; /* Ikonka va matn orasida masofa */
+                                        }
+                                    </style>
+                                    
+                                    <td class="text-center" data-title="Action">
+                                        <a href="{% url 'order:addtoshopcart' like.product.id %}" class="cart-button text-primary">
+                                            Add to cart <i class="far fa-shopping-bag"></i>
+                                        </a>
+                                    </td>
+                                    <td class="action" data-title="Remove"><a href="{% url 'order:removeproduct' like.id %}"><i class="fa fa-trash-alt"></i></a></td>
                                  </tr>
                                 {% endfor %}
                              </tbody>

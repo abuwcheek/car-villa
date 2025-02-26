@@ -14,7 +14,7 @@
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
-                    <a href="{% url 'index' %}" rel="nofollow">Home</a>
+                    <a href="{% url 'index' %}" rel="nofollow" style="text-decoration: none;">Home</a>
                     <span></span> {{ category.name }}
                 </div>
             </div>
@@ -80,7 +80,7 @@
                                             </a>
                                         </div>
                                         <div class="product-action-1">
-                                            <a aria-label="Add To Wishlist" class="action-btn hover-up" href=""><i class="far fa-heart"></i></a>
+                                            <a aria-label="Add To Wishlist" class="action-btn hover-up" href="{% url 'order:addtofavorite' %}?product_id={{ctg_cars.id}}"><i class="far fa-heart"></i></a>
                                         </div>
                                         <div class="product-badges product-badges-position product-badges-mrg">
                                             <span class="hot">Hot</span>
@@ -88,7 +88,7 @@
                                     </div><br>
                                     <div class="product-content-wrap">
                                         <div class="product-category">
-                                            <a href="{% url 'brandview' ctg_cars.brand.id %}">{{ ctg_cars.brand }}</a>
+                                            <a href="{% url 'brandview' ctg_cars.brand.id %}" style="text-decoration: none;">{{ ctg_cars.brand }}</a>
                                         </div>
                                         <h2><a href="{% url 'detailview' ctg_cars.id %}">{{ ctg_cars.model }}</a></h2>
                                         <div class="product-price">

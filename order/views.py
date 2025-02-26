@@ -40,21 +40,11 @@ class FavoriteListView(View):
 
 
 
-class RemoveProductInFavoriteView(View):
-    def get(self, request, uuid):
-        user = request.user
-        url = request.META.get('HTTP_REFERER', 'order:favoritelist')  # Orqaga qaytarish
-
-        # `get()` o‘rniga `filter().first()` ishlatamiz
-        favorite = Sevimlilar.objects.filter(user=user, id=uuid).first()
-
-        if favorite:
-            favorite.delete()
-            messages.success(request, "Mahsulot sevimlilardan o‘chirildi!")
-        else:
-            messages.warning(request, "Bu mahsulot sevimlilarda mavjud emas!")
-
-        return redirect(url)
+def remove_wishlist_product(request, uuid):
+    sevimli_remove = get_object_or_404(Sevimlilar, id=uuid)
+    sevimli_remove.delete()
+    messages.info(request, "Mahsulot sevimlilardan o'chirildi!")
+    return redirect('order:favoritelist')
 
 
 

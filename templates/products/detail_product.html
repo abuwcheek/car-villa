@@ -13,8 +13,8 @@
         <div class="page-header breadcrumb-wrap">
             <div class="container">
                 <div class="breadcrumb">
-                    <a href="{% url 'index' %}" rel="nofollow">Home</a>
-                    <span></span><a href="{% url 'brandview' detail_product.brand.id %}" rel="nofollow">{{ detail_product.brand.name }}</a>
+                    <a href="{% url 'index' %}" rel="nofollow" style="text-decoration: none;">Home</a>
+                    <span></span><a href="{% url 'brandview' detail_product.brand.id %}" rel="nofollow" style="text-decoration: none;">{{ detail_product.brand.name }}</a>
                     <span></span> {{ detail_product.model }}
                 </div>
             </div>
@@ -50,7 +50,7 @@
                                         <h2 class="title-detail">{{ detail_product.model }}</h2>
                                         <div class="product-detail-rating">
                                             <div class="pro-details-brand">
-                                                <span> Category: <a href="{% url 'categoryview' detail_product.id %}">{{ detail_product.category.name }}</a></span>
+                                                <span> Category: <a href="{% url 'categoryview' detail_product.category.id %}" style="text-decoration: none;">{{ detail_product.category.name }}</a></span>
                                             </div>
                                         </div>
                                         <div class="clearfix product-price-cover">
@@ -62,7 +62,7 @@
                                                     <ins><span class="text-brand">Hozirgi Narxi: {{ detail_product.get_new_price }}$</span></ins>
                                                 {% endif %}
 
-                                                <span class="save-price  font-md color3 ml-15">Skidka: {{ detail_product.percentage}}%</span>
+                                                <span class="save-price  font-md color3 ml-15">Chegirma: {{ detail_product.percentage}}%</span>
                                             </div>
                                         </div>
                                         <div class="bt-1 border-color-1 mt-15 mb-15"></div>
@@ -94,7 +94,7 @@
                                                 <a href="#" class="qty-up"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
                                             </div>
                                             <div class="product-extra-link2">
-                                                <form action="{% url 'order:addtofavorite' %}" method="post">
+                                                <form action="{% url 'order:addtofavorite' %}?product_id={{detail_product.id}}" method="get">
                                                     {% csrf_token %}
                                                     <input type="hidden" name="product_id" value="{{ product.id }}"><br>
                                                     <button type="submit" class="button button-add-to-cart" style="margin: 0 0 80% 20px;"><i class="far fa-heart"></i></button>
@@ -169,7 +169,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="product-action-1">
-                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html" tabindex="0"><i class="far fa-heart"></i></a>
+                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="{% url 'order:addtofavorite' %}?product_id={{rela_product.id}}" tabindex="0"><i class="far fa-heart"></i></a>
                                                 </div>
                                                 <div class="product-badges product-badges-position product-badges-mrg">
                                                     <span class="hot">Hot</span>
