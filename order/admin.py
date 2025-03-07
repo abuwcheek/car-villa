@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Sevimlilar, AddToShopCart
+from .models import Sevimlilar, AddToShopCart, Payment
 
 
 
@@ -18,3 +18,10 @@ class AddToShopCartAdmin(admin.ModelAdmin):
      list_display_links = ['user', 'product']
      search_fields = ['user', 'product', 'quantity']
      lis_per_page = 10
+
+
+
+@admin.register(Payment)
+class PaymentAdmin(admin.ModelAdmin):
+     list_display = ['country', 'address', 'phone', 'total']
+     list_display_links = ['country', 'phone']

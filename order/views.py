@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.views import View
 from django.contrib import messages
+from django.db.models import Q
 from .models import Sevimlilar, AddToShopCart
 from car.models import CarVilla
 
@@ -43,7 +44,7 @@ class FavoriteListView(View):
 def remove_wishlist_product(request, uuid):
     sevimli_remove = get_object_or_404(Sevimlilar, id=uuid)
     sevimli_remove.delete()
-    messages.info(request, "Mahsulot sevimlilardan o'chirildi!")
+    messages.info(request, "Mahsulot sevimlilardan o‘chirildi!")
     return redirect('order:favoritelist')
 
 
@@ -56,9 +57,39 @@ class AddToShopCartView(View):
         
         # 🔥 Mahsulot allaqachon qo‘shilganmi, tekshiramiz
         if AddToShopCart.objects.filter(user=user, product=product).exists():
-            messages.warning(request, "Bu mahsulot allaqachon savatchaga qo'shilgan!")
+            messages.warning(request, "Bu mahsulot allaqachon savatchaga qo‘shilgan!")
         else:
             AddToShopCart.objects.create(user=user, product=product)
-            messages.success(request, "Mahsulot savatchaga qo'shildi!")
+            messages.success(request, "Mahsulot savatchaga qo‘shildi!")
 
         return redirect(url)
+
+
+
+class ShopCartProductView(View):
+    def get(self, request):
+        user = request.user
+        orders = AddToShopCart.objects.filter(Q(user=user) & Q(status=False))
+        context = {
+            'orders': orders
+        }
+        return render(request, 'order/shop-cart.html', context)
+
+
+
+def delete_shop_cart(request, uuid):
+    order = AddToShopCart.objects.get(id=uuid)
+    order.delete()
+    messages.info(request, "Mahsulot o‘chirildi")
+    return redirect('order:shop-cart')
+
+
+
+class ShopAddress(View):
+    def get(self, request):
+        user = request.user
+        orders = AddToShopCart.objects.filter(Q(user=user) & Q(status=False))
+        context = {
+            'orders': orders
+        }
+        return render(request, 'order/shop-address.html', context)

@@ -1,4 +1,4 @@
-{% load static %}
+ {% load static %}
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
@@ -102,7 +102,7 @@
                                 </a>
                             </div>
                             <div class="header-action-icon-2">
-                                <a class="mini-cart-icon" href="">
+                                <a class="mini-cart-icon" href="{% url 'order:shop-cart' %}">
                                     <img alt="wowy" src="{% static 'assets/imgs/theme/icons/icon-cart.svg' %}">
                                     <span class="pro-count blue">{{ shopcartproduct_count }}</span>
                                 </a>
@@ -505,7 +505,6 @@
 
     {% block script %}
     {% endblock script %}
-    
     
     <script src="{% static 'assets/js/main.js' %}"></script>
 
