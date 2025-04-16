@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.contrib import messages
-from .models import Category, Brands, CarVilla, Testimonals, About, ContactUs
+from .models import Category, Brands, CarVilla, ProductView, Testimonals, About, ContactUs
 
 
 
@@ -58,6 +58,13 @@ def categorydetailView(request, uuid):
 def detailView(request, uuid):
      detail_product = get_object_or_404(CarVilla, id=uuid)
      related_product = CarVilla.objects.filter(is_featured=True).order_by('?')[:4]
+     if request.user.is_authenticated:
+          view, created = ProductView.objects.get_or_create(user=request.user, product=detail_product)
+
+          if created:
+               detail_product.views += 1
+               detail_product.save()
+
 
      context = {
           'detail_product': detail_product,

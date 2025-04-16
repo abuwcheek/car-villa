@@ -42,7 +42,7 @@ class UserRegisterView(View):
 class LoginView(View):
      def get(self, request):
           if request.user.is_authenticated:
-               messages.warning(request, 'Siz tizimdan chiqishingiz kerak')
+               messages.warning(request, 'Siz oldin tizimdan chiqishingiz kerak')
                return redirect('index')
 
           form = CastumAuthForm

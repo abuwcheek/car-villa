@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import mark_safe
-from .models import Category, Brands, CarVilla, CarImage, Testimonals, About, ContactUs
+from .models import Category, Brands, CarVilla, ProductView,  CarImage, Testimonals, About, ContactUs
 
 
 
@@ -47,6 +47,13 @@ class CarVillaAdmin(admin.ModelAdmin):
      list_per_page = 20
      readonly_fields = ['views']
      list_filter = ['price', 'year', 'views']
+
+
+
+@admin.register(ProductView)
+class ProductViewAdmin(admin.ModelAdmin):
+     list_display = ('id', 'user', 'product', 'created_at')
+     list_display_links = ('id', 'user', 'product', 'created_at')
 
 
 

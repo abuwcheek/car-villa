@@ -1,0 +1,71 @@
+﻿{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+	user shop address
+{% endblock title %}
+
+
+{% block content %} 
+
+
+
+    <main class="main">
+        <div class="page-header breadcrumb-wrap">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="{% url 'index' %}" rel="nofollow">Home</a>
+                    <span></span> <a href="{% url 'order:shop-address' %}">Shop Address</a>
+                    <span></span> Cart Total
+                </div>
+            </div>
+        </div>
+        <section class="mt-60 mb-60">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="border p-md-4 p-30 border-radius-10 cart-totals">
+                                    <div class="heading_s1 mb-3">
+                                        <h4>Cart Totals</h4>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="cart_total_label">Cart Subtotal</td>
+                                                    <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">{{ total }}$</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cart_total_label">Shipping</td>
+                                                    <td class="cart_total_amount"> <i class="ti-gift mr-5"></i> Free Shipping</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="cart_total_label">Total</td>
+                                                    <td class="cart_total_amount"><strong><span class="font-xl fw-900 text-brand">{{ total }}$</span></strong></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <a href="#" class="btn btn-rounded"> <i class="fa fa-share-square mr-10"></i> Proceed To CheckOut</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+
+{% endblock content %} 
+
+
+{% block script %}
+<script src="{% static 'assets/js/plugins/jquery.vts ' %}"></script> 
+<script src="{% static 'assets/js/plugins/jquery.theia.sticky.js' %}"></script> 
+<script src="{% static 'assets/js/shop.js' %}"></script>
+<!-- Template  JS -->
+{% endblock script %}

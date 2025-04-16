@@ -3,28 +3,35 @@ from django.http import JsonResponse
 from django.views import View
 from django.contrib import messages
 from django.db.models import Q
-from .models import Sevimlilar, AddToShopCart
+from .models import Sevimlilar, AddToShopCart, Payment
+from .forms import ShopAddressForm
 from car.models import CarVilla
+
+
 
 class AddToFavoriteView(View):
     def get(self, request):
         user = request.user
-        url = request.META.get('HTTP_REFERER')
-        product_id = request.GET.get('product_id')
+        if user.is_authenticated:
+            url = request.META.get('HTTP_REFERER')
+            product_id = request.GET.get('product_id')
 
-        if not product_id:
-            messages.error(request, "Mahsulot ID si topilmadi!")
-            return redirect(url)
+            if not product_id:
+                messages.error(request, "Mahsulot ID si topilmadi!")
+                return redirect(url)
 
-        product = get_object_or_404(CarVilla, id=product_id)
+            product = get_object_or_404(CarVilla, id=product_id)
 
-        # ✅ Wishlistda bor yoki yo‘qligini tekshirish
-        favorite, created = Sevimlilar.objects.get_or_create(user=user, product=product)
+            # ✅ Wishlistda bor yoki yo‘qligini tekshirish
+            favorite, created = Sevimlilar.objects.get_or_create(user=user, product=product)
 
-        if not created:
-            messages.warning(request, "Bu mahsulot allaqachon sevimlilarda bor!")
+            if not created:
+                messages.warning(request, "Bu mahsulot allaqachon sevimlilarda bor!")
+            else:
+                messages.success(request, "Mahsulot sevimlilarga qo‘shildi!")
         else:
-            messages.success(request, "Mahsulot sevimlilarga qo‘shildi!")
+            messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
+            return redirect('users:login')
 
         return redirect(url)
 
@@ -33,13 +40,15 @@ class AddToFavoriteView(View):
 class FavoriteListView(View):
     def get(self, request):
         user = request.user
-        sevimlilist = Sevimlilar.objects.filter(user=user)
-        context = {
-            'sevimlilist': sevimlilist,
-        }
-        return render(request, 'order/shop-wishlist.html', context)
-
-
+        if user.is_authenticated:
+            sevimlilist = Sevimlilar.objects.filter(user=user)
+            context = {
+                'sevimlilist': sevimlilist,
+            }
+            return render(request, 'order/shop-wishlist.html', context)
+        else:
+            messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
+            return redirect('users:login')
 
 def remove_wishlist_product(request, uuid):
     sevimli_remove = get_object_or_404(Sevimlilar, id=uuid)
@@ -53,27 +62,37 @@ class AddToShopCartView(View):
     def get(self, request, uuid):
         url = request.META.get('HTTP_REFERER')  # Qayerdan kelinganini olish
         user = request.user
-        product = get_object_or_404(CarVilla, id=uuid)  # Mahsulotni olish
-        
-        # 🔥 Mahsulot allaqachon qo‘shilganmi, tekshiramiz
-        if AddToShopCart.objects.filter(user=user, product=product).exists():
-            messages.warning(request, "Bu mahsulot allaqachon savatchaga qo‘shilgan!")
-        else:
-            AddToShopCart.objects.create(user=user, product=product)
-            messages.success(request, "Mahsulot savatchaga qo‘shildi!")
+        if user.is_authenticated:
+            product = get_object_or_404(CarVilla, id=uuid)  # Mahsulotni olish
+            
+            # 🔥 Mahsulot allaqachon qo‘shilganmi, tekshiramiz
+            if AddToShopCart.objects.filter(user=user, product=product).exists():
+                messages.warning(request, "Bu mahsulot allaqachon savatchaga qo‘shilgan!")
+            else:
+                cart_item = AddToShopCart.objects.create(user=user, product=product)
+                cart_item.save()
+                messages.success(request, "Mahsulot savatchaga qo‘shildi!")
 
-        return redirect(url)
+            return redirect(url)
+        else:
+            messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
+            return redirect('users:login')
 
 
 
 class ShopCartProductView(View):
     def get(self, request):
         user = request.user
-        orders = AddToShopCart.objects.filter(Q(user=user) & Q(status=False))
-        context = {
-            'orders': orders
-        }
-        return render(request, 'order/shop-cart.html', context)
+        if user.is_authenticated:
+            orders = AddToShopCart.objects.filter(Q(user=user) & Q(status=False))
+            context = {
+                'orders': orders
+            }
+            return render(request, 'order/shop-cart.html', context)
+        else:
+            messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
+            return redirect('users:login')
+
 
 
 
@@ -85,11 +104,70 @@ def delete_shop_cart(request, uuid):
 
 
 
-class ShopAddress(View):
+class ShopAddressView(View):
     def get(self, request):
+        user=request.user
+        if user.is_authenticated:
+            form = ShopAddressForm()
+            context = {
+                'form': form
+            }
+            return render(request, 'order/shop-address.html', context)
+        else:
+            messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
+            return redirect('users:login')
+
+
+
+    def post(self, request):
         user = request.user
-        orders = AddToShopCart.objects.filter(Q(user=user) & Q(status=False))
-        context = {
-            'orders': orders
-        }
-        return render(request, 'order/shop-address.html', context)
+        if user.is_authenticated:
+            orders = AddToShopCart.objects.filter(Q(user=user) & Q(status=False))
+        
+            form = ShopAddressForm(request.POST)
+            if form.is_valid():
+                payment = form.save(commit=False)
+                for order in orders:
+                    payment.order.add(order)
+                payment.save()
+
+                return redirect('order:payment', uuid=payment.id)
+            else:
+                messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
+                return redirect('users:login')
+
+
+
+
+class PaymentView(View):
+    def get(self, request, uuid):
+        user=request.user
+        if user.is_authenticated:
+            total = 0
+            payment = Payment.objects.get(id=uuid)
+            for order in payment.order.all().filter(status=False):
+                total += order.product.get_new_price * order.quantity
+
+            context = {
+                'total': total
+            }
+            return render(request, 'order/cart-total.html', context)
+        else:
+            messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
+            return redirect('users:login')
+
+
+    
+    def post(self, request, uuid):
+        user=request.user
+        if user.is_authenticated:
+            payment = Payment.objects.get(id=uuid)
+            for order in payment.order.all():
+                order.status = True
+                order.save()
+
+            messages.success(request, "Mahsulotlar yuborildi")
+            return redirect('order:favoritelist')
+        else:
+            messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
+            return redirect('users:login')

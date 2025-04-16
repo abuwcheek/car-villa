@@ -4,6 +4,7 @@ from django.utils.text import slugify
 from django.utils.safestring import mark_safe
 from PIL import Image
 import uuid
+from users.models import User
 
 
 class BaseModel(models.Model):
@@ -89,6 +90,18 @@ class CarVilla(BaseModel):
           if not self.percentage:
                return self.price
           return round(self.price * (100 - self.percentage)/100)
+
+
+
+class ProductView(BaseModel):
+     user = models.ForeignKey(User, on_delete=models.CASCADE)
+     product = models.ForeignKey(CarVilla, on_delete=models.CASCADE)
+     created_at = models.DateTimeField(auto_now_add=True)
+
+
+     def __str__(self):
+          return f'{self.user} views {self.product}'
+
 
 
 class CarImage(BaseModel):
