@@ -100,7 +100,7 @@
                                         {% endif %}
                                         </div>
                                         <div class="product-action-1 show">
-                                            <a aria-label="Add To Cart" class="action-btn hover-up" href=""><i class="far fa-shopping-bag"></i></a>
+                                            <a aria-label="Add To Cart" class="action-btn hover-up" href="{% url 'order:addtoshopcart' ctg_cars.id %}"><i class="fa-solid fa-cart-plus"></i></a>
                                         </div>
                                     </div>
                                 </div>
