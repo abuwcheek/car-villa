@@ -14,9 +14,10 @@ class SevimlilarAdmin(admin.ModelAdmin):
 
 @admin.register(AddToShopCart)
 class AddToShopCartAdmin(admin.ModelAdmin):
-     list_display = ['user', 'product', 'quantity']
+     list_display = ['user', 'product', 'quantity', 'created_at', 'status', 'is_active']
      list_display_links = ['user', 'product']
      search_fields = ['user', 'product', 'quantity']
+     list_editable = ['status', 'is_active']
      lis_per_page = 10
 
 

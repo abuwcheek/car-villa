@@ -9,7 +9,7 @@ def index_processor(request):
 
     if request.user.is_authenticated:
         sevimlilar = request.user.author_sevimlilar.all().count()
-        shopcartproduct_count = request.user.author_shopcart.filter(status=False).all().count()
+        shopcartproduct_count = request.user.author_shopcart.filter(status="to'lanmagan").all().count()
 
 
     context={

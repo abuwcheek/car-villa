@@ -34,6 +34,7 @@
                                         <th scope="col">Quantity</th>
                                         <th scope="col">Subtotal</th>
                                         <th scope="col">Remove</th>
+                                        <th scope="col">Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,20 +56,32 @@
                                             <span style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">{{ order.product.get_new_price }}$</span>
                                         </td>
                                         <td class="action" data-title="Remove"><a href="{% url 'order:delete-shop-cart' order.id %}" class="text-muted"><i class="fa fa-trash-alt"></i></a></td>
+                                        <td class="action" data-title="Status">{{ order.status }}</td>
                                     </tr>
                                     {% endfor %}
                                     <tr>
-                                        <td colspan="6" class="text-end">
+                                        <td colspan="7" class="text-end">
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         
-                        <div class="cart-action text-end">
-                            <a class="btn btn-rounded" href="{% url 'order:shop-address' %}"><i class="far fa-cart-plus mr-5"></i>Continue Shopping</a>
-                        </div>
-                
+                        {% if orders.count > 0 %}
+                            <div class="d-flex justify-content-end gap-3">
+                                <div class="cart-action">
+                                    <a class="btn btn-rounded btn-danger" href="{% url 'order:clear-cart' %}">
+                                        <i class="fa-solid fa-trash"></i> Clear Cart
+                                    </a>
+                                </div>
+                                <div class="cart-action">
+                                    <a class="btn btn-rounded btn-success" href="{% url 'order:shop-address' %}">
+                                        <i class="fa-solid fa-circle-right"></i> Continue Shopping
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+                        
                     </div>
                 </div>
                 

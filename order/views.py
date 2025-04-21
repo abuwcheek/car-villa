@@ -84,7 +84,7 @@ class ShopCartProductView(View):
     def get(self, request):
         user = request.user
         if user.is_authenticated:
-            orders = AddToShopCart.objects.filter(Q(user=user) & Q(status=False))
+            orders = AddToShopCart.objects.filter(Q(user=user))
             context = {
                 'orders': orders
             }
@@ -101,6 +101,24 @@ def delete_shop_cart(request, uuid):
     order.delete()
     messages.info(request, "Mahsulot o‘chirildi")
     return redirect('order:shop-cart')
+
+
+
+def clear_cart(request):
+    user = request.user
+    if user.is_authenticated:
+        orders = AddToShopCart.objects.filter(Q(user=user) & Q(status="to'lanmagan"))
+        if not orders:
+            messages.warning(request, "Savatcha bo'sh")
+            return redirect('order:shop-cart')
+        
+        for order in orders:
+            order.delete()
+        messages.info(request, "Savatcha tozalandi")
+        return redirect('order:shop-cart')
+    else:
+        messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
+        return redirect('users:login')
 
 
 

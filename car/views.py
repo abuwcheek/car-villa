@@ -100,18 +100,18 @@ class ContactView(View):
 
 class SearchView(View):
      def get(self, request):
-               query = request.GET.get('search')
-               print(query)
-               if not query:
-                    return redirect('indexview')
+          query = request.GET.get('search')
+          print(query)
+          if not query:
+               return redirect('indexview')
 
-               search_result = CarVilla.objects.all().filter(Q(model__icontains = query) | Q(description__icontains = query))
-               if not search_result:
-                    messages.warning(request, "So'rov bo'yicha ma'lumot topilmadi")
-                    return redirect('indexview')
+          search_result = CarVilla.objects.all().filter(Q(model__icontains = query) | Q(description__icontains = query))
+          if not search_result:
+               messages.warning(request, "So'rov bo'yicha ma'lumot topilmadi")
+               return redirect('indexview')
 
-               context = {
-                    'searchnews': search_result 
-               }
-               messages.info(request, 'Siz izlagan xabarlar')
-               return render(request, 'products/search.html', context)
+          context = {
+               'searchnews': search_result 
+          }
+          messages.info(request, 'Siz izlagan xabarlar')
+          return render(request, 'products/search.html', context)
