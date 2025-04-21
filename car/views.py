@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.contrib import messages
+from django.db.models import Q
 from .models import Category, Brands, CarVilla, ProductView, Testimonals, About, ContactUs
 
 
@@ -94,3 +95,23 @@ class ContactView(View):
 
           messages.success(request, "So'rovingiz yuborildi")
           return redirect('contactview')
+
+
+
+class SearchView(View):
+     def get(self, request):
+               query = request.GET.get('search')
+               print(query)
+               if not query:
+                    return redirect('indexview')
+
+               search_result = CarVilla.objects.all().filter(Q(model__icontains = query) | Q(description__icontains = query))
+               if not search_result:
+                    messages.warning(request, "So'rov bo'yicha ma'lumot topilmadi")
+                    return redirect('indexview')
+
+               context = {
+                    'searchnews': search_result 
+               }
+               messages.info(request, 'Siz izlagan xabarlar')
+               return render(request, 'products/search.html', context)

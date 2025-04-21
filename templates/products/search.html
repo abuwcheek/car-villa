@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block title %}
+	ctg products
+{% endblock title %}
+
+
+{% block content %}
+
+    
+    <main class="main">
+        <section class="mt-60 mb-60">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="shop-product-fillter">
+                            <div class="totall-product">
+                                <p> We found <strong class="text-brand">{{ category_cars.count }}</strong> items for you!</p>
+                            </div>
+                        </div>
+                        <div class="row product-grid-3">
+                            {% for search in searchnews %}
+                            <div class="col-lg-3 col-md-4">
+                                <div class="product-cart-wrap mb-30" style="width: 300px; height: 360px;">
+                                    <div class="product-img-action-wrap">
+                                        <div class="product-img product-img-zoom">
+                                            <a href="">
+                                                <img class="default-img" src="{{ search.car_images.first.image_url }}" style="width: 300px; height: 170px;" alt="">
+                                                <img class="hover-img" src="{{ search.car_images.last.image_url }}" style="width: 300px; height: 170px;"  alt="">
+                                            </a>
+                                        </div>
+                                        <div class="product-action-1">
+                                            <a aria-label="Add To Wishlist" class="action-btn hover-up" href="{% url 'order:addtofavorite' %}?product_id={{search.id}}"><i class="far fa-heart"></i></a>
+                                        </div>
+                                        <div class="product-badges product-badges-position product-badges-mrg">
+                                            <span class="hot">Hot</span>
+                                        </div>
+                                    </div><br>
+                                    <div class="product-content-wrap">
+                                        <div class="product-category">
+                                            <a href="{% url 'brandview' search.brand.id %}" style="text-decoration: none;">{{ search.brand }}</a>
+                                        </div>
+                                        <h2><a href="{% url 'detailview' search.id %}">{{ search.model }}</a></h2>
+                                        <div class="product-price">
+                                        {% if search.percentage %}
+                                        <span class="old-price">Old price: {{ search.price }}$</span><br>
+                                        <span>New price: {{ search.get_new_price }}$</span>
+                                        {% else %}
+                                        <span>Price: {{ search.price }}$</span>
+                                        {% endif %}
+                                        </div>
+                                        <div class="product-action-1 show">
+                                            <a aria-label="Add To Cart" class="action-btn hover-up" href="{% url 'order:addtoshopcart' search.id %}"><i class="fa-solid fa-cart-plus"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <!--pagination-->
+                        <div class="pagination-area mt-15 mb-md-5 mb-lg-0">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-start">
+                                    <li class="page-item active"><a class="page-link" href="#">01</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">02</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">03</a></li>
+                                    <li class="page-item"><a class="page-link dot" href="#">...</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">16</a></li>
+                                    <li class="page-item"><a class="page-link" href="#"><i class="fa fa-angle-right"></i> </a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+{% endblock content %}
+
+{% block script %}
+    <script src="{% static 'assets/js/plugins/jquery.theia.sticky.js' %}"></script>
+{% endblock script %}

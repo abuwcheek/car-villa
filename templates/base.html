@@ -88,8 +88,8 @@
                        <a href="{% url 'index' %}" style="font-size: 30px; text-decoration: none">CarUzb<img src="{% static 'assets/imgs/uzbbayroq.png' %}" style="width: 50px" alt="logo"></a>
                     </div>
                     <div class="search-style-2">
-                        <form>
-                            <input type="text" placeholder="Search for items…">
+                        <form action="{% url 'searchview' %}" method="get">
+                            <input name="search" type="query" placeholder="Search for items…">
                             <button type="submit"><i class="fa-brands fa-searchengin"></i></button>
                         </form>
                     </div>
