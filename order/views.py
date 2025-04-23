@@ -3,6 +3,8 @@ from django.http import JsonResponse
 from django.views import View
 from django.contrib import messages
 from django.db.models import Q
+from django.utils.timezone import now
+from datetime import timedelta
 from .models import Sevimlilar, AddToShopCart, Payment
 from .forms import ShopAddressForm
 from car.models import CarVilla
@@ -62,6 +64,7 @@ class AddToShopCartView(View):
     def get(self, request, uuid):
         url = request.META.get('HTTP_REFERER')  # Qayerdan kelinganini olish
         user = request.user
+        
         if user.is_authenticated:
             product = get_object_or_404(CarVilla, id=uuid)  # Mahsulotni olish
             
@@ -69,8 +72,10 @@ class AddToShopCartView(View):
             if AddToShopCart.objects.filter(user=user, product=product).exists():
                 messages.warning(request, "Bu mahsulot allaqachon savatchaga qo‘shilgan!")
             else:
-                cart_item = AddToShopCart.objects.create(user=user, product=product)
-                cart_item.save()
+                # ✅ Instansiyani yaratamiz va majburiy bazaga saqlaymiz
+                cart_item = AddToShopCart(user=user, product=product)
+                cart_item.save(using='default')  # To‘g‘ri bazaga saqlash
+                
                 messages.success(request, "Mahsulot savatchaga qo‘shildi!")
 
             return redirect(url)
@@ -125,55 +130,60 @@ def clear_cart(request):
     else:
         messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
         return redirect('users:login')
-
-
+    
+    
 
 class ShopAddressView(View):
     def get(self, request):
-        user=request.user
+        user = request.user
         if user.is_authenticated:
             form = ShopAddressForm()
-            context = {
-                'form': form
-            }
+            context = {'form': form}
             return render(request, 'order/shop-address.html', context)
+        else:
+            messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
+            return redirect('users:login')
+
+    def post(self, request):
+        user = request.user
+        if user.is_authenticated:
+            orders = AddToShopCart.objects.filter(user=user, status="to'lanmagan")
+
+            form = ShopAddressForm(request.POST)
+            if form.is_valid():
+                payment = form.save(commit=False)
+                payment.user = user  # foydalanuvchini qo‘shib qo‘y
+
+                # 🛠 Avval payment obyektini saqlab olamiz, shunda u default bazaga tushadi
+                payment.save()
+
+                for order in orders:
+                    if order._state.db is None:
+                        order.save(using='default')
+                    payment.order.add(order)  # endi bu xato bermaydi
+
+                messages.success(request, "Manzil muvaffaqiyatli saqlandi!")
+                return redirect('order:payment', uuid=payment.id)
+            else:
+                messages.warning(request, "Manzil ma'lumotlari noto‘g‘ri kiritildi!")
+                return redirect('order:shop-address')  # login emas, shop-address ga qaytarsin
         else:
             messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
             return redirect('users:login')
 
 
 
-    def post(self, request):
-        user = request.user
-        if user.is_authenticated:
-            orders = AddToShopCart.objects.filter(Q(user=user) & Q(status="to'lanmagan"))
-        
-            form = ShopAddressForm(request.POST)
-            if form.is_valid():
-                payment = form.save(commit=False)
-                for order in orders:
-                    payment.order.add(order)
-                payment.save()
-
-                return redirect('order:payment', uuid=payment.id)
-            else:
-                messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
-                return redirect('users:login')
-
-
-
-
 class PaymentView(View):
     def get(self, request, uuid):
-        user=request.user
+        user = request.user
         if user.is_authenticated:
-            total = 0
-            payment = Payment.objects.get(id=uuid)
-            for order in payment.order.all().filter(status=False):
-                total += order.product.get_new_price * order.quantity
+            payment = get_object_or_404(Payment, id=uuid)
+
+            total = sum(order.product.get_new_price * order.quantity for order in payment.order.all())
 
             context = {
-                'total': total
+                'payment': payment,
+                'total': total,
             }
             return render(request, 'order/cart-total.html', context)
         else:
@@ -181,17 +191,31 @@ class PaymentView(View):
             return redirect('users:login')
 
 
-    
+
+class CompletePaymentView(View):
     def post(self, request, uuid):
-        user=request.user
+        user = request.user
         if user.is_authenticated:
-            payment = Payment.objects.get(id=uuid)
+            payment = get_object_or_404(Payment, id=uuid)
+
+            # ⏱ 5 daqiqalik vaqt tekshiruvi
+            if now() - payment.created_at > timedelta(minutes=5):
+                messages.warning(request, "To‘lov vaqti tugadi. Iltimos, qaytadan urinib ko‘ring.")
+                return redirect('order:shop-cart')
+
+            total = sum(order.product.get_new_price * order.quantity for order in payment.order.all())
+
+            context = {
+                'payment': payment,
+                'total': total,
+            }
+            
             for order in payment.order.all():
-                order.status = True
+                order.status = "tasdiqlangan"
                 order.save()
 
-            messages.success(request, "Mahsulotlar yuborildi")
-            return redirect('order:favoritelist')
+            messages.success(request, "To‘lov muvaffaqiyatli yakunlandi!")
+            return render(request, 'order/shop-cart.html', context)
         else:
             messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
             return redirect('users:login')

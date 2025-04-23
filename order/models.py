@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.timezone import now
 from car.models import BaseModel
 
 
@@ -46,12 +47,23 @@ class Payment(BaseModel):
      country = models.TextField()
      address = models.TextField()
      phone = models.CharField(max_length=13)
+     payment_method = models.CharField(max_length=20, choices=[
+          ("cash", "Naqd"),
+          ("card", "Karta"),
+          ("click", "Click"),
+          ("payme", "Payme"),
+     ], default="card")
+     plastic_card = models.CharField(max_length=16, blank=True, null=True)
+     card_name = models.CharField(max_length=50, blank=True, null=True)
+     expiration_date = models.DateTimeField(default=now)
+     payment_check = models.FileField(upload_to='payment_check', blank=True, null=True)
+
 
 
      def __str__(self):
-          return self.order
+          return f"Payment ID: {self.id}"
 
-     
+
      @property
      def total(self):
           total = 0 

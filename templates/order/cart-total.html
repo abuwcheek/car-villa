@@ -24,6 +24,7 @@
         <section class="mt-60 mb-60">
             <div class="container">
                 <div class="row">
+                    <h1 style="padding: 30px; color: darkblue;">To'lov jarayoni 5 daqiqadan oshmasligi kerak</h1>
                     <div class="col-12">
                             <div class="col-lg-6 col-md-12">
                                 <div class="border p-md-4 p-30 border-radius-10 cart-totals">
@@ -45,10 +46,14 @@
                                                     <td class="cart_total_label">Total</td>
                                                     <td class="cart_total_amount"><strong><span class="font-xl fw-900 text-brand">{{ total }}$</span></strong></td>
                                                 </tr>
+                                                <tr>
+                                                    <td class="cart_total_label">Plastic Card</td>
+                                                    <td class="cart_total_amount"><strong><span class="font-xl fw-900 text-brand">8600312986594881</span>(Abdullo Istamov)</strong></td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
-                                    <a href="#" class="btn btn-rounded"> <i class="fa fa-share-square mr-10"></i> Proceed To CheckOut</a>
+                                    <a href="{% url 'order:shop-cart' %}" class="btn btn-rounded"> <i class="fa fa-share-square mr-10"></i> Proceed To CheckOut</a>
                                 </div>
                             </div>
                         </div>
