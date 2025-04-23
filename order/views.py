@@ -84,15 +84,21 @@ class ShopCartProductView(View):
     def get(self, request):
         user = request.user
         if user.is_authenticated:
+            user = request.user
             orders = AddToShopCart.objects.filter(Q(user=user))
+
+            total = 0
+            for item in orders:
+                total += item.product.get_new_price * item.quantity
+
             context = {
-                'orders': orders
+                'orders': orders,
+                'total': total,
             }
             return render(request, 'order/shop-cart.html', context)
         else:
             messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
             return redirect('users:login')
-
 
 
 
@@ -140,7 +146,7 @@ class ShopAddressView(View):
     def post(self, request):
         user = request.user
         if user.is_authenticated:
-            orders = AddToShopCart.objects.filter(Q(user=user) & Q(status=False))
+            orders = AddToShopCart.objects.filter(Q(user=user) & Q(status="to'lanmagan"))
         
             form = ShopAddressForm(request.POST)
             if form.is_valid():

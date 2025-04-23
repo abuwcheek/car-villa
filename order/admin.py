@@ -24,5 +24,5 @@ class AddToShopCartAdmin(admin.ModelAdmin):
 
 @admin.register(Payment)
 class PaymentAdmin(admin.ModelAdmin):
-     list_display = ['country', 'address', 'phone', 'total']
-     list_display_links = ['country', 'phone']
+     list_display = ['id', 'country', 'address', 'phone', 'total']
+     list_display_links = ['country', 'address']

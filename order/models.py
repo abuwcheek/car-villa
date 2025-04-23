@@ -20,7 +20,7 @@ class Sevimlilar(BaseModel):
 class AddToShopCart(BaseModel):
      user = models.ForeignKey('users.User', on_delete=models.CASCADE, related_name='author_shopcart')
      product = models.ForeignKey('car.CarVilla', on_delete=models.CASCADE, related_name='shopcart_product')
-     quantity = models.PositiveIntegerField(default=1)
+     quantity = models.PositiveIntegerField(default=1, max_length=3)
 
      STATUS_CHOICES = [
      ("to'lanmagan", "To'lanmagan"),

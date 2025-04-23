@@ -68,6 +68,11 @@
                         </div>
                         
                         {% if orders.count > 0 %}
+                            <div class="cart-action">
+                                <a class="btn btn-outline-success">
+                                    <i class="fa-solid fa-money-check-dollar"></i> Umumiy to'lov: {{ total }}$
+                                </a>
+                            </div>
                             <div class="d-flex justify-content-end gap-3">
                                 <div class="cart-action">
                                     <a class="btn btn-rounded btn-danger" href="{% url 'order:clear-cart' %}">

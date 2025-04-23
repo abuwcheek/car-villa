@@ -50,7 +50,7 @@
                                         <h2 class="title-detail">{{ detail_product.model }}</h2>
                                         <div class="product-detail-rating">
                                             <div class="pro-details-brand">
-                                                <span> Category: <a href="{% url 'categoryview' detail_product.category.id %}" style="text-decoration: none;">{{ detail_product.category.name }}</a></span>
+                                                <span style="font-weight: bold;">Category:</span> <a href="{% url 'categoryview' detail_product.category.id %}" style="text-decoration: none;">{{ detail_product.category.name }}</a>
                                             </div>
                                         </div>
                                         <div class="clearfix product-price-cover">
@@ -62,7 +62,7 @@
                                                     <ins><span class="text-brand">Hozirgi Narxi: {{ detail_product.get_new_price }}$</span></ins>
                                                 {% endif %}
 
-                                                <span class="save-price  font-md color3 ml-15">Chegirma: {{ detail_product.percentage}}%</span>
+                                                <span class="save-price  font-md color3 ml-15"></span>
                                             </div>
                                         </div>
                                         <div class="bt-1 border-color-1 mt-15 mb-15"></div>
@@ -70,7 +70,7 @@
                                         <div class="product_sort_info font-xs mb-30">
                                             <ul>
                                                 <li><i class="fa-solid fa-eye fa-beat-fade"></i>{{ detail_product.views }}</li>
-                                                <li class="mb-10"><i class="far fa-paper-plane mr-5 text-brand"></i> 30 Day Return Policy</li>
+                                                <li class="mb-10" style="font-weight: bold;"> Chegirma:  {{ detail_product.percentage}}%</li>
                                                 <li><i class="far fa-address-card mr-5 text-brand"></i> Cash on Delivery available</li>
                                             </ul>
                                         </div>
@@ -88,19 +88,30 @@
                                         </div>
                                         <div class="bt-1 border-color-1 mt-30 mb-30"></div>
                                         <div class="detail-extralink">
-                                            <div class="detail-qty border radius">
-                                                <a href="#" class="qty-down"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
-                                                <span class="qty-val">1</span>
-                                                <a href="#" class="qty-up"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
-                                            </div>
+                                            <form action="{% url 'order:addtoshopcart' detail_product.id %}" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="quantity" id="hidden-qty" value="1">
+                                            
+                                                <div class="detail-qty border radius">
+                                                    <a href="#" class="qty-down"><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                                                    <span class="qty-val" id="qty-val">1</span>
+                                                    <a href="#" class="qty-up"><i class="fa fa-caret-up" aria-hidden="true"></i></a>
+                                                </div>
+                                            
+                                                <button type="submit" class="button button-add-to-cart mt-3">
+                                                    <i class="fas fa-shopping-cart"></i> Savatchaga
+                                                </button>
+                                            </form>
+                                            
                                             <div class="product-extra-link2">
                                                 <form action="{% url 'order:addtofavorite' %}?product_id={{detail_product.id}}" method="get">
                                                     {% csrf_token %}
-                                                    <input type="hidden" name="product_id" value="{{ product.id }}"><br>
+                                                    <input type="hidden" name="product_id" value="{{ detail_product.id }}"><br>
                                                     <button type="submit" class="button button-add-to-cart" style="margin: 0 0 80% 20px;"><i class="far fa-heart"></i></button>
                                                 </form>
                                             </div>
                                         </div>
+                                        
                                     </div>
                                     <!-- Detail Info -->
                                 </div>

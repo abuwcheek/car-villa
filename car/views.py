@@ -103,15 +103,15 @@ class SearchView(View):
           query = request.GET.get('search')
           print(query)
           if not query:
-               return redirect('indexview')
+               return redirect('index')
 
           search_result = CarVilla.objects.all().filter(Q(model__icontains = query) | Q(description__icontains = query))
           if not search_result:
                messages.warning(request, "So'rov bo'yicha ma'lumot topilmadi")
-               return redirect('indexview')
+               return redirect('index')
 
           context = {
                'searchnews': search_result 
           }
-          messages.info(request, 'Siz izlagan xabarlar')
+          messages.info(request, 'Siz izlagan mahsulot topildi')
           return render(request, 'products/search.html', context)
