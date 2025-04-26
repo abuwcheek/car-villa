@@ -8,6 +8,8 @@ from datetime import timedelta
 from .models import Sevimlilar, AddToShopCart, Payment
 from .forms import ShopAddressForm
 from car.models import CarVilla
+from .models import AddToShopCart, Sevimlilar, Payment
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -51,6 +53,8 @@ class FavoriteListView(View):
         else:
             messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
             return redirect('users:login')
+        
+
 
 def remove_wishlist_product(request, uuid):
     sevimli_remove = get_object_or_404(Sevimlilar, id=uuid)
@@ -70,12 +74,11 @@ class AddToShopCartView(View):
             
             # 🔥 Mahsulot allaqachon qo‘shilganmi, tekshiramiz
             if AddToShopCart.objects.filter(user=user, product=product).exists():
-                messages.warning(request, "Bu mahsulot allaqachon savatchaga qo‘shilgan!")
+                messages.warning(request, "Bu mahsulot allaqachon savatchada mavjud!")
             else:
                 # ✅ Instansiyani yaratamiz va majburiy bazaga saqlaymiz
                 cart_item = AddToShopCart(user=user, product=product)
                 cart_item.save(using='default')  # To‘g‘ri bazaga saqlash
-                
                 messages.success(request, "Mahsulot savatchaga qo‘shildi!")
 
             return redirect(url)
@@ -90,7 +93,7 @@ class ShopCartProductView(View):
         user = request.user
         if user.is_authenticated:
             user = request.user
-            orders = AddToShopCart.objects.filter(Q(user=user))
+            orders = AddToShopCart.objects.filter(Q(user=user), Q(status="to'lanmagan"))
 
             total = 0
             for item in orders:
@@ -108,9 +111,9 @@ class ShopCartProductView(View):
 
 
 def delete_shop_cart(request, uuid):
-    order = AddToShopCart.objects.get(id=uuid)
+    order = get_object_or_404(AddToShopCart, id=uuid, user=request.user)
     order.delete()
-    messages.info(request, "Mahsulot o‘chirildi")
+    messages.info(request, "Mahsulot savatchadan o‘chirildi!")
     return redirect('order:shop-cart')
 
 
@@ -123,9 +126,9 @@ def clear_cart(request):
             messages.warning(request, "Savatcha bo'sh")
             return redirect('order:shop-cart')
         
-        for order in orders:
-            order.delete()
-        messages.info(request, "Savatcha tozalandi")
+        if orders.exists():
+            orders.delete()
+            messages.info(request, "Savatcha tozalandi!")
         return redirect('order:shop-cart')
     else:
         messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
@@ -173,12 +176,11 @@ class ShopAddressView(View):
 
 
 
-class PaymentView(View):
+class CheckoutPaymentView(View):
     def get(self, request, uuid):
         user = request.user
         if user.is_authenticated:
             payment = get_object_or_404(Payment, id=uuid)
-
             total = sum(order.product.get_new_price * order.quantity for order in payment.order.all())
 
             context = {
@@ -187,35 +189,29 @@ class PaymentView(View):
             }
             return render(request, 'order/cart-total.html', context)
         else:
-            messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
+            messages.warning(request, "Siz oldin tizimga kirishingiz kerak!")
             return redirect('users:login')
 
-
-
-class CompletePaymentView(View):
     def post(self, request, uuid):
         user = request.user
         if user.is_authenticated:
             payment = get_object_or_404(Payment, id=uuid)
+            cart_items = AddToShopCart.objects.filter(user=user, status="to'lanmagan")
 
-            # ⏱ 5 daqiqalik vaqt tekshiruvi
-            if now() - payment.created_at > timedelta(minutes=5):
-                messages.warning(request, "To‘lov vaqti tugadi. Iltimos, qaytadan urinib ko‘ring.")
+            if not cart_items.exists():
+                messages.warning(request, "Savatcha bo‘sh yoki mahsulot allaqachon sotib olingan!")
                 return redirect('order:shop-cart')
 
-            total = sum(order.product.get_new_price * order.quantity for order in payment.order.all())
+            cart_items.update(status="tasdiqlangan")
+            payment.order.update(status="tasdiqlangan")
+            payment.save()
 
-            context = {
-                'payment': payment,
-                'total': total,
-            }
-            
-            for order in payment.order.all():
-                order.status = "tasdiqlangan"
-                order.save()
+            # Savatchani tozalash
+            cart_items.delete()
 
-            messages.success(request, "To‘lov muvaffaqiyatli yakunlandi!")
-            return render(request, 'order/shop-cart.html', context)
+            messages.success(request, "Mahsulotlar sotib olindi va savatcha tozalandi!")
+            return redirect('index')
+
         else:
-            messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
+            messages.warning(request, "Ro‘yxatdan o‘tmasdan bu amalni bajara olmaysiz!")
             return redirect('users:login')

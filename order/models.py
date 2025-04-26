@@ -1,7 +1,8 @@
 from django.db import models
 from django.utils.timezone import now
 from car.models import BaseModel
-
+from car.models import CarVilla
+from users.models import User
 
 
 class Sevimlilar(BaseModel):
@@ -19,27 +20,30 @@ class Sevimlilar(BaseModel):
 
 
 class AddToShopCart(BaseModel):
-     user = models.ForeignKey('users.User', on_delete=models.CASCADE, related_name='author_shopcart')
-     product = models.ForeignKey('car.CarVilla', on_delete=models.CASCADE, related_name='shopcart_product')
-     quantity = models.PositiveIntegerField(default=1, max_length=3)
+     user = models.ForeignKey('users.User', on_delete=models.CASCADE, related_name="author_shopcart")
+     product = models.ForeignKey('car.CarVilla', on_delete=models.CASCADE, related_name="shopcart_product")
+     quantity = models.PositiveIntegerField(default=1)
 
      STATUS_CHOICES = [
-     ("to'lanmagan", "To'lanmagan"),
-     ("tasdiqlangan", "Tasdiqlangan"),
-     ("jo'natilgan", "Jo'natilgan"),
-     ("yetkazilgan", "Yetkazilgan"),
-     ("bekor qilingan", "Bekor qilingan"),
-     ("qaytarilgan", "Qaytarilgan"),
+          ("to'lanmagan", "To'lanmagan"),
+          ("tasdiqlangan", "Tasdiqlangan"),
+          ("jo'natilgan", "Jo'natilgan"),
+          ("yetkazilgan", "Yetkazilgan"),
+          ("bekor qilingan", "Bekor qilingan"),
+          ("qaytarilgan", "Qaytarilgan"),
      ]
-
+     
      status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="to'lanmagan")
 
      class Meta:
           unique_together = ("user", "product")
 
      def __str__(self):
-          return f'{self.user} - {self.product} - {self.quantity}'
+          return f"{self.user.username} - {self.product.model} - {self.quantity} ({self.status})"
 
+     @property
+     def total_price(self):
+          return self.product.get_new_price * self.quantity
 
 
 class Payment(BaseModel):

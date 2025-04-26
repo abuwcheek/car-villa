@@ -25,7 +25,7 @@ def IndexView(request):
           'latest_cars': latest_cars,
           'most_sell': most_sell,
      }
-     return render(request, 'products/index.html', context)
+     return render(request, 'index.html', context)
 
 
 
