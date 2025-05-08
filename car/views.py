@@ -79,7 +79,7 @@ def detailView(request, uuid):
 
 class ContactView(View):
      def get(self, request):
-          return render(request, 'products/contact_page.html')
+          return render(request, 'contact_page.html')
 
 
      def post(self, request):
