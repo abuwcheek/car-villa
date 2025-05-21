@@ -177,41 +177,22 @@ class ShopAddressView(View):
 
 
 class CheckoutPaymentView(View):
-    def get(self, request, uuid):
-        user = request.user
-        if user.is_authenticated:
-            payment = get_object_or_404(Payment, id=uuid)
-            total = sum(order.product.get_new_price * order.quantity for order in payment.order.all())
+    def post(self, request):
+        payment_check = request.FILES.get("paymentCheck")
+        
+        # ✅ Fayl yuklangan bo‘lsa, Payment yaratish
+        if payment_check:
+            payment = Payment.objects.create(
+                country=request.POST["country"],
+                address=request.POST["address"],
+                phone=request.POST["phone"],
+                payment_method=request.POST["payment_method"],
+                plastic_card=request.POST.get("plastic_card", ""),
+                card_name=request.POST.get("card_name", ""),
+                payment_check=payment_check,
+            )
+        
+        # ✅ Sotib olingan mahsulotlarni kartadan o‘chirish
+        request.session.pop("cart_items", None)
 
-            context = {
-                'payment': payment,
-                'total': total,
-            }
-            return render(request, 'order/cart-total.html', context)
-        else:
-            messages.warning(request, "Siz oldin tizimga kirishingiz kerak!")
-            return redirect('users:login')
-
-    def post(self, request, uuid):
-        user = request.user
-        if user.is_authenticated:
-            payment = get_object_or_404(Payment, id=uuid)
-            cart_items = AddToShopCart.objects.filter(user=user, status="to'lanmagan")
-
-            if not cart_items.exists():
-                messages.warning(request, "Savatcha bo‘sh yoki mahsulot allaqachon sotib olingan!")
-                return redirect('order:shop-cart')
-
-            cart_items.update(status="tasdiqlangan")
-            payment.order.update(status="tasdiqlangan")
-            payment.save()
-
-            # Savatchani tozalash
-            cart_items.delete()
-
-            messages.success(request, "Mahsulotlar sotib olindi va savatcha tozalandi!")
-            return redirect('index')
-
-        else:
-            messages.warning(request, "Ro‘yxatdan o‘tmasdan bu amalni bajara olmaysiz!")
-            return redirect('users:login')
+        return redirect("index")

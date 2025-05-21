@@ -7,8 +7,6 @@
 
 {% block content %}  
 
-<form action="{% url 'index' %}" method="POST">
-    {% csrf_token %}
 
     <main class="main">
         <div class="page-header breadcrumb-wrap">
@@ -27,38 +25,29 @@
                     <h1 style="padding: 30px; color: darkblue;"> To‘lov jarayoni 5 daqiqadan oshmasligi kerak</h1>
                     <div class="col-12">
                         <div class="col-lg-6 col-md-12">
-                            <div class="border p-md-4 p-30 border-radius-10 cart-totals">
-                                <div class="heading_s1 mb-3">
-                                    <h4>Cart Totals</h4>
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <tbody>
-                                            <tr>
-                                                <td class="cart_total_label">Cart Subtotal</td>
-                                                <td class="cart_total_amount"><span class="font-lg fw-900 text-brand">{{ total }}$</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="cart_total_label">Shipping</td>
-                                                <td class="cart_total_amount"> <i class="ti-gift mr-5"></i> Free Shipping</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="cart_total_label">Total</td>
-                                                <td class="cart_total_amount"><strong><span class="font-xl fw-900 text-brand">{{ total }}$</span></strong></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="cart_total_label">Plastic Card</td>
-                                                <td class="cart_total_amount"><strong><span class="font-xl fw-900 text-brand">8600312986594881</span>(Abdullo Istamov)</strong></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                
-                                <!-- ✅ Checkout tugmasi – Endi form ichida -->
-                                <button type="submit" class="btn btn-rounded">
-                                    <i class="fa fa-share-square mr-10"></i> Proceed To CheckOut
-                                </button>
-                            </div>
+                            <form action="{% url 'order:checkout-payment' %}" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <table class="table">
+                                    <tbody>
+                                        <tr>
+                                            <td class="cart_total_label">Cart Subtotal</td>
+                                            <td class="cart_total_amount">{{ total }}$</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cart_total_label">Plastic Card</td>
+                                            <td class="cart_total_amount">{{ plastic_card }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="cart_total_label">Payment check</td>
+                                            <td class="cart_total_amount">
+                                                <input type="file" id="paymentCheck" name="paymentCheck" accept=".jpg,.jpeg,.png,.pdf">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <button type="submit" class="btn btn-rounded">Proceed To CheckOut</button>
+                            </form>
                         </div>
                     </div>
                 </div>

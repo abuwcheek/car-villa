@@ -26,30 +26,26 @@ class AddToShopCartAdmin(admin.ModelAdmin):
 
 @admin.register(Payment)
 class PaymentAdmin(admin.ModelAdmin):
-     list_display = ['id', 'country', 'address', 'phone', 'payment_method', 'plastic_card', 'card_name', 'expiration_date', 'total', 'ordered_products', 'created_at', 'payment_check_link', 'is_active']
-     list_display_links = ['id', 'country', 'address']
-     list_editable = ['payment_method', 'is_active']
-     search_fields = ['country', 'address', 'phone', 'payment_method', 'plastic_card', 'card_name']
-     list_filter = ['country', 'address', 'phone', 'payment_method', 'plastic_card', 'card_name']
+     list_display = ["id", "ordered_by", "country", "address", "phone", "payment_method", "plastic_card", "card_name", "expiration_date", "payment_check_link", "created_at", "is_active"]
+     list_display_links = ["id", "country", "address"]
+     list_editable = ["payment_method", "plastic_card", "card_name", "expiration_date", "is_active"]
+     search_fields = ["country", "address", "phone", "payment_method"]
+     list_filter = ["payment_method"]
      list_per_page = 10
 
-     
-     def ordered_products(self, obj):
-          if obj.order.exists():  # 🛠 Mahsulotlar borligini tekshirish
-               return ", ".join([f"{o.product.model} (x{o.quantity})" for o in obj.order.all()])
-          return "Mahsulotlar yo'q"  # 🔥 Agar mahsulot yo‘q bo‘lsa
-     
-     ordered_products.short_description = "Tanlangan mahsulotlar"
+     def ordered_by(self, obj):
+          """Buyurtmani bergan foydalanuvchini ko‘rsatish"""
+          return obj.order.user if obj.order.user else "Noma'lum"
 
-
-     from django.utils.html import format_html
+     ordered_by.short_description = "Buyurtmachi"
 
      def payment_check_link(self, obj):
-          if obj.payment_check:
-               return format_html(
-                    '<a href="{}" target="_blank" download>Chekni yuklab olish</a>',
-                    obj.payment_check.url
-               )
+          """Admin panelda yuklangan fayl yoki rasmni ko‘rsatish"""
+          if obj.payment_check and obj.payment_check.url:
+               content_type = getattr(obj.payment_check.file, "content_type", "")
+               if content_type.startswith("image"):
+                    return format_html('<img src="{}" width="100" height="100" style="border-radius:5px;" />', obj.payment_check.url)
+               return format_html('<a href="{}" target="_blank" download>Chekni yuklab olish</a>', obj.payment_check.url)
           return "Chek yuklanmagan"
-     payment_check_link.allow_tags = True  # ✅ HTML havola ishlashi uchun
+
      payment_check_link.short_description = "To‘lov Cheki"
