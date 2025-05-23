@@ -49,17 +49,17 @@ class AddToShopCart(BaseModel):
 
 
 def validate_file_extension(value):
-     """Faqat rasm va PDF fayllarga ruxsat berish"""
      allowed_formats = ["image/jpeg", "image/png", "application/pdf"]
      if hasattr(value.file, "content_type") and value.file.content_type not in allowed_formats:
           raise ValidationError("Faqat JPEG, PNG yoki PDF fayllarni yuklash mumkin!")
 
 
+
 class Payment(BaseModel):
-     order = models.ManyToManyField("AddToShopCart", related_name="payment")
-     country = models.TextField()
-     address = models.TextField()
-     phone = models.CharField(max_length=13)
+     order = models.ManyToManyField(AddToShopCart, related_name="payment")
+     country = models.CharField(max_length=50)       # max_length qo‘shildi
+     address = models.CharField(max_length=255)      # max_length qo‘shildi
+     phone = models.CharField(max_length=13)         # max_length qo‘shildi
      payment_method = models.CharField(max_length=20, choices=[
           ("cash", "Naqd"),
           ("card", "Karta"),

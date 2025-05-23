@@ -63,7 +63,7 @@
         </section>
         <section class="popular-categories bg-grey-9 section-padding-60">
             <div class="container wow fadeIn animated">
-                <h3 class="section-title mb-30"><span>Popular</span> Brands</h3>
+                <h3 class="section-title mb-30">Brandlar<span></span> </h3>
                 <div class="carausel-6-columns-cover position-relative">
                     <div class="slider-arrow slider-arrow-2 carausel-6-columns-arrow" id="carausel-6-columns-arrows"></div>
                     <div class="carausel-6-columns" id="carausel-6-columns">
@@ -119,7 +119,7 @@
             <div class="container">
                 <div class="heading-tab d-flex">
                     <div class="heading-tab-left wow fadeIn animated">
-                        <h3 class="section-title style-1 mb-30">All <span>Cars</span></h3>
+                        <h3 class="section-title style-1 mb-30">Hamma <span>mashinalar</span></h3>
                     </div>
                 </div>
                 <!--End nav-tabs-->
@@ -150,8 +150,8 @@
                                         <h2><a href="{% url 'detailview' car.id %}">{{ car.model }}</a></h2><br>
                                         <div class="product-price" style="padding: 0 0 30px 0">
                                             {% if car.percentage %}
-												<span class="old-price"><del>Old price: {{ car.price }}$</del></span><br>
-												<span>New price: {{ car.get_new_price }}$</span>
+												<span class="old-price"><del>Eski narxi: {{ car.price }}$</del></span><br>
+												<span>Yangi narxi: {{ car.get_new_price }}$</span>
 												{% else %}
 												<span>Price: {{ car.price }}$</span>
                                             {% endif %}
@@ -184,7 +184,7 @@
         </section>
         <section class="section-padding-60">
             <div class="container wow fadeIn animated">
-                <h3 class="section-title style-1 mb-30">New Arrivals</h3>
+                <h3 class="section-title style-1 mb-30">Yangi qo'shilganlar</h3>
                 <div class="carausel-6-columns-cover arrow-center position-relative">
                     <div class="slider-arrow slider-arrow-2 carausel-6-columns-arrow" id="carausel-6-columns-2-arrows"></div>
                     <div class="carausel-6-columns carausel-arrow-center" id="carausel-6-columns-3">
@@ -209,10 +209,10 @@
                                 <br>
                                 <div class="product-price">
                                     {% if lcars.percentage %}
-                                        <span class="old-price"><del>Old Price: {{ lcars.price }}$</del></span><br>
-										<span>New Price: {{ lcars.get_new_price }}$</span>
+                                        <span class="old-price"><del>Eski narxi: {{ lcars.price }}$</del></span><br>
+										<span>Yangi narxi: {{ lcars.get_new_price }}$</span>
 										{% else %}
-										<span>Price: {{ lcars.price }}$</span>
+										<span>Narxi: {{ lcars.price }}$</span>
                                     {% endif %}
                                 </div>
                             </div>
@@ -227,7 +227,7 @@
             <div class="container">
                 <div class="heading-tab d-flex">
                     <div class="heading-tab-left wow fadeIn animated">
-                        <h3 class="section-title style-1 mb-30">Fetaured <span>Cars</span></h3>
+                        <h3 class="section-title style-1 mb-30">Mashhur <span>mashinalar</span></h3>
                     </div>
                 </div>
                 <div class="row">
@@ -293,15 +293,15 @@
                                         <div class="product-cart-wrap mb-30">
                                             <div class="product-img-action-wrap">
                                                 <div class="product-img product-img-zoom">
-                                                    <a href="shop-product-right.html">
+                                                    <a href="">
                                                         <img class="default-img" src="{% static 'assets/imgs/shop/product-3-1.jpg' %}" alt="">
                                                         <img class="hover-img" src="{% static 'assets/imgs/shop/product-3-2.jpg' %}" alt="">
                                                     </a>
                                                 </div>
                                                 <div class="product-action-1">
                                                     <a aria-label="Quick view" class="action-btn small hover-up"><i class="far fa-search"></i></a>
-                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html"><i class="far fa-heart"></i></a>
-                                                    <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html"><i class="far fa-exchange-alt"></i></a>
+                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href=""><i class="far fa-heart"></i></a>
+                                                    <a aria-label="Compare" class="action-btn small hover-up" href=""><i class="far fa-exchange-alt"></i></a>
                                                 </div>
                                                 <div class="product-badges product-badges-position product-badges-mrg">
                                                     <span class="hot">Hot</span>
@@ -309,9 +309,9 @@
                                             </div>
                                             <div class="product-content-wrap">
                                                 <div class="product-category">
-                                                    <a href="shop-grid-right.html">Watch</a>
+                                                    <a href="">Watch</a>
                                                 </div>
-                                                <h2><a href="shop-product-right.html">Leather Watch Band 2</a></h2>
+                                                <h2><a href="">Leather Watch Band 2</a></h2>
                                                 <div class="rating-result" title="90%">
                                                     <span>
                                                         <span>70%</span>
@@ -322,22 +322,22 @@
                                                     <span class="old-price">$245.8</span>
                                                 </div>
                                                 <div class="product-action-1 show">
-                                                    <a aria-label="Add To Cart" class="action-btn hover-up" href="shop-cart.html"><i class="fa-solid fa-cart-plus"></i></a>
+                                                    <a aria-label="Add To Cart" class="action-btn hover-up" href=""><i class="fa-solid fa-cart-plus"></i></a>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="product-cart-wrap mb-30">
                                             <div class="product-img-action-wrap">
                                                 <div class="product-img product-img-zoom">
-                                                    <a href="shop-product-right.html">
+                                                    <a href="">
                                                         <img class="default-img" src="{% static 'assets/imgs/shop/product-4-1.jpg' %}" alt="">
                                                         <img class="hover-img" src="{% static 'assets/imgs/shop/product-4-2.jpg' %}" alt="">
                                                     </a>
                                                 </div>
                                                 <div class="product-action-1">
                                                     <a aria-label="Quick view" class="action-btn small hover-up"><i class="far fa-search"></i></a>
-                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html"><i class="far fa-heart"></i></a>
-                                                    <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html"><i class="far fa-exchange-alt"></i></a>
+                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href=""><i class="far fa-heart"></i></a>
+                                                    <a aria-label="Compare" class="action-btn small hover-up" href=""><i class="far fa-exchange-alt"></i></a>
                                                 </div>
                                                 <div class="product-badges product-badges-position product-badges-mrg">
                                                     <span class="new">New</span>
@@ -345,9 +345,9 @@
                                             </div>
                                             <div class="product-content-wrap">
                                                 <div class="product-category">
-                                                    <a href="shop-grid-right.html">Watch</a>
+                                                    <a href="">Watch</a>
                                                 </div>
-                                                <h2><a href="shop-product-right.html">Smart Speaker</a></h2>
+                                                <h2><a href="">Smart Speaker</a></h2>
                                                 <div class="rating-result" title="90%">
                                                     <span>
                                                         <span>70%</span>
@@ -358,22 +358,22 @@
                                                     <span class="old-price">$145.8</span>
                                                 </div>
                                                 <div class="product-action-1 show">
-                                                    <a aria-label="Add To Cart" class="action-btn hover-up" href="shop-cart.html"><i class="far fa-shopping-bag"></i></a>
+                                                    <a aria-label="Add To Cart" class="action-btn hover-up" href=""><i class="far fa-shopping-bag"></i></a>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="product-cart-wrap mb-30">
                                             <div class="product-img-action-wrap">
                                                 <div class="product-img product-img-zoom">
-                                                    <a href="shop-product-right.html">
+                                                    <a href="">
                                                         <img class="default-img" src="{% static 'assets/imgs/shop/product-5-1.jpg' %}" alt="">
                                                         <img class="hover-img" src="{% static 'assets/imgs/shop/product-5-1.jpg' %}" alt="">
                                                     </a>
                                                 </div>
                                                 <div class="product-action-1">
                                                     <a aria-label="Quick view" class="action-btn small hover-up"><i class="far fa-search"></i></a>
-                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html"><i class="far fa-heart"></i></a>
-                                                    <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html"><i class="far fa-exchange-alt"></i></a>
+                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href=""><i class="far fa-heart"></i></a>
+                                                    <a aria-label="Compare" class="action-btn small hover-up" href=""><i class="far fa-exchange-alt"></i></a>
                                                 </div>
                                                 <div class="product-badges product-badges-position product-badges-mrg">
                                                     <span class="best">Best Sell</span>
@@ -381,9 +381,9 @@
                                             </div>
                                             <div class="product-content-wrap">
                                                 <div class="product-category">
-                                                    <a href="shop-grid-right.html">Watch</a>
+                                                    <a href="">Watch</a>
                                                 </div>
-                                                <h2><a href="shop-product-right.html">Hugy Speaker</a></h2>
+                                                <h2><a href="">Hugy Speaker</a></h2>
                                                 <div class="rating-result" title="90%">
                                                     <span>
                                                         <span>70%</span>
@@ -394,22 +394,22 @@
                                                     <span class="old-price">$156.8</span>
                                                 </div>
                                                 <div class="product-action-1 show">
-                                                    <a aria-label="Add To Cart" class="action-btn hover-up" href="shop-cart.html"><i class="far fa-shopping-bag"></i></a>
+                                                    <a aria-label="Add To Cart" class="action-btn hover-up" href=""><i class="far fa-shopping-bag"></i></a>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="product-cart-wrap mb-30">
                                             <div class="product-img-action-wrap">
                                                 <div class="product-img product-img-zoom">
-                                                    <a href="shop-product-right.html">
+                                                    <a href="">
                                                         <img class="default-img" src="{% static 'assets/imgs/shop/product-6-1.jpg' %}" alt="">
                                                         <img class="hover-img" src="{% static 'assets/imgs/shop/product-6-2.jpg' %}" alt="">
                                                     </a>
                                                 </div>
                                                 <div class="product-action-1">
                                                     <a aria-label="Quick view" class="action-btn small hover-up"><i class="far fa-search"></i></a>
-                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href="shop-wishlist.html"><i class="far fa-heart"></i></a>
-                                                    <a aria-label="Compare" class="action-btn small hover-up" href="shop-compare.html"><i class="far fa-exchange-alt"></i></a>
+                                                    <a aria-label="Add To Wishlist" class="action-btn small hover-up" href=""><i class="far fa-heart"></i></a>
+                                                    <a aria-label="Compare" class="action-btn small hover-up" href=""><i class="far fa-exchange-alt"></i></a>
                                                 </div>
                                                 <div class="product-badges product-badges-position product-badges-mrg">
                                                     <span class="hot">-12%</span>
@@ -417,9 +417,9 @@
                                             </div>
                                             <div class="product-content-wrap">
                                                 <div class="product-category">
-                                                    <a href="shop-grid-right.html">Watch</a>
+                                                    <a href="">Watch</a>
                                                 </div>
-                                                <h2><a href="shop-product-right.html">Smart Speaker</a></h2>
+                                                <h2><a href="">Smart Speaker</a></h2>
                                                 <div class="rating-result" title="90%">
                                                     <span>
                                                         <span>70%</span>
@@ -430,7 +430,7 @@
                                                     <span class="old-price">$245.8</span>
                                                 </div>
                                                 <div class="product-action-1 show">
-                                                    <a aria-label="Add To Cart" class="action-btn hover-up" href="shop-cart.html"><i class="far fa-shopping-bag"></i></a>
+                                                    <a aria-label="Add To Cart" class="action-btn hover-up" href=""><i class="far fa-shopping-bag"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -671,18 +671,18 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <h3 class="section-title style-1 mb-30 wow fadeIn animated">News & Trending</h3>
+                        <h3 class="section-title style-1 mb-30 wow fadeIn animated">Yangiliklar</h3>
                         <div class="post-list mb-4 mb-lg-0">
                             <article class="wow fadeIn animated">
                                 <div class="d-md-flex d-block">
                                     <div class="post-thumb d-flex mr-15 border-radius-10">
-                                        <a class="color-white" href="single.html">
+                                        <a class="color-white" href="">
                                             <img class="border-radius-10" src="{% static 'assets/imgs/blog/blog-2.jpg' %}" alt="">
                                         </a>
                                     </div>
                                     <div class="post-content">
                                         <div class="entry-meta mb-5 mt-10">
-                                            <a class="entry-meta meta-2" href="category.html"><span class="post-in text-danger font-x-small text-uppercase">Tech</span></a>
+                                            <a class="entry-meta meta-2" href=""><span class="post-in text-danger font-x-small text-uppercase">Tech</span></a>
                                         </div>
                                         <h4 class="post-title mb-25 text-limit-2-row">
                                             <a href="blog-details.html">Qualcomm is developing a Nintendo Switch-like console, report says</a>
@@ -692,7 +692,7 @@
                                                 <span class="post-on"> <i class="far fa-clock"></i> 14 April 2021</span>
                                                 <span class="hit-count has-dot">12M Views</span>
                                             </div>
-                                            <a href="blog-post-right.html">Read more <i class="fa fa-arrow-right font-xxs ml-5"></i></a>
+                                            <a href="">Read more <i class="fa fa-arrow-right font-xxs ml-5"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -778,7 +778,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 mb-sm-5 mb-md-0">
-                        <h4 class="section-title style-1 mb-30" >Top Selling</h4>
+                        <h4 class="section-title style-1 mb-30" >Ko'p sotilganlar</h4>
                         <div class="product-list-small wow fadeIn animated">
                             {% for msell in most_sell %}
                             <article class="row align-items-center">

@@ -25,7 +25,7 @@
                     <h1 style="padding: 30px; color: darkblue;"> To‘lov jarayoni 5 daqiqadan oshmasligi kerak</h1>
                     <div class="col-12">
                         <div class="col-lg-6 col-md-12">
-                            <form action="{% url 'order:checkout-payment' %}" method="POST" enctype="multipart/form-data">
+                            <form action="{% url 'order:payment' %}" method="POST" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <table class="table">
                                     <tbody>
@@ -35,7 +35,7 @@
                                         </tr>
                                         <tr>
                                             <td class="cart_total_label">Plastic Card</td>
-                                            <td class="cart_total_amount">{{ plastic_card }}</td>
+                                            <td class="cart_total_amount">860031986594881<span>(Abdullo Istamov)</span></td>
                                         </tr>
                                         <tr>
                                             <td class="cart_total_label">Payment check</td>
@@ -45,8 +45,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
-
-                                <button type="submit" class="btn btn-rounded">Proceed To CheckOut</button>
+                                <button type="submit" class="btn btn-rounded">Yuborish</button>
                             </form>
                         </div>
                     </div>

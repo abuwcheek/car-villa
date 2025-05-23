@@ -66,18 +66,18 @@
                         <div class="header-info header-info-right">
                             <ul>
                                 <li>
-                                    <a class="language-dropdown-active"> <i class="fa fa-globe-americas"></i> English <i class="fa fa-chevron-down"></i></a>
+                                    <a class="language-dropdown-active"> <i class="fa fa-globe-americas"></i> O'zbekcha <i class="fa fa-chevron-down"></i></a>
                                     <ul class="language-dropdown">
-                                        <li><a href="#">Français</a></li>
+                                        <li><a href="#">English</a></li>
                                         <li><a href="#">Deutsch</a></li>
                                         <li><a href="#">РУССКИЙ</a></li>
                                     </ul>
                                 </li>
                                 {% if user.is_authenticated %}
-                                    <li><a href="{% url 'users:logout' %}" style="text-decoration: #5f3f3f">Log Out</a></li>
+                                    <li><a href="{% url 'users:logout' %}" style="text-decoration: #5f3f3f">Chiqish</a></li>
                                 {% else %}
-                                    <li><a href="{% url 'users:register' %}" style="text-decoration: none;">Sign Up</a></li>
-                                    <li><a href="{% url 'users:login' %}" style="text-decoration: none;">Log In</a></li>
+                                    <li><a href="{% url 'users:register' %}" style="text-decoration: none;">Ro'yxatdan o'tish</a></li>
+                                    <li><a href="{% url 'users:login' %}" style="text-decoration: none;">Kirish</a></li>
                                 {% endif %}
                             </ul>
                         </div>
@@ -89,7 +89,7 @@
             <div class="container">
                 <div class="header-wrap header-space-between">
                     <div class="logo logo-width-1">
-                       <a href="{% url 'index' %}" style="font-size: 30px; text-decoration: none">CarUzb<img src="{% static 'assets/imgs/uzbbayroq.png' %}" style="width: 50px" alt="logo"></a>
+                    <a href="{% url 'index' %}" style="font-size: 30px; text-decoration: none">CarUzb<img src="{% static 'assets/imgs/uzbbayroq.png' %}" style="width: 50px" alt="logo"></a>
                     </div>
                     <div class="search-style-2">
                         <form action="{% url 'searchview' %}" method="get">
@@ -155,13 +155,13 @@
                     <div class="header-action-right d-block d-lg-none">
                         <div class="header-action-2">
                             <div class="header-action-icon-2">
-                                <a href="shop-wishlist.html">
+                                <a href="">
                                     <img alt="wowy" src="{% static 'assets/imgs/theme/icons/icon-heart-white.svg' %}">
                                     <span class="pro-count white">4</span>
                                 </a>
                             </div>
                             <div class="header-action-icon-2">
-                                <a class="mini-cart-icon" href="shop-cart.html">
+                                <a class="mini-cart-icon" href="">
                                     <img alt="wowy" src="{% static 'assets/imgs/theme/icons/icon-cart-white.svg' %}">
                                     <span class="pro-count white">02</span>
                                 </a>
@@ -169,10 +169,10 @@
                                     <ul>
                                         <li>
                                             <div class="shopping-cart-img">
-                                                <a href="shop-product-right.html"><img alt="wowy" src="{% static 'assets/imgs/shop/thumbnail-3.jpg' %}"></a>
+                                                <a href=""><img alt="wowy" src="{% static 'assets/imgs/shop/thumbnail-3.jpg' %}"></a>
                                             </div>
                                             <div class="shopping-cart-title">
-                                                <h4><a href="shop-product-right.html">Apple Watch Serial 7</a></h4>
+                                                <h4><a href="">Apple Watch Serial 7</a></h4>
                                                 <h3><span>1 × </span>$800.00</h3>
                                             </div>
                                             <div class="shopping-cart-delete">
@@ -181,10 +181,10 @@
                                         </li>
                                         <li>
                                             <div class="shopping-cart-img">
-                                                <a href="shop-product-right.html"><img alt="wowy" src="{% static 'assets/imgs/shop/thumbnail-4.jpg' %}"></a>
+                                                <a href=""><img alt="wowy" src="{% static 'assets/imgs/shop/thumbnail-4.jpg' %}"></a>
                                             </div>
                                             <div class="shopping-cart-title">
-                                                <h4><a href="shop-product-right.html">Macbook Pro 2022</a></h4>
+                                                <h4><a href="">Macbook Pro 2022</a></h4>
                                                 <h3><span>1 × </span>$3500.00</h3>
                                             </div>
                                             <div class="shopping-cart-delete">
@@ -197,14 +197,14 @@
                                             <h4>Total <span>$383.00</span></h4>
                                         </div>
                                         <div class="shopping-cart-button">
-                                            <a href="shop-cart.html">View cart</a>
-                                            <a href="shop-checkout.html">Checkout</a>
+                                            <a href="">View cart</a>
+                                            <a href="">Checkout</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="header-action-icon-2">
-                                <a href="page-login-register.html">
+                                <a href="">
                                     <img alt="wowy" src="{% static 'assets/imgs/theme/icons/icon-user-white.svg' %}">
                                 </a>
                             </div>
@@ -408,7 +408,7 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="widget-about font-md mb-md-5 mb-lg-0">
                             <div class="logo logo-width-1 wow fadeIn animated">
-                                <a href="index.html"><img src="{% static 'assets/imgs/theme/logo-default.png' %}" alt="logo"></a>
+                                <a href="{% url 'index' %}" style="font-size: 30px; text-decoration: none">CarUzb<img src="{% static 'assets/imgs/uzbbayroq.png' %}" style="width: 50px" alt="logo"></a>
                             </div>
                             <h4 class="mt-20 mb-10 fw-600 text-grey-4 wow fadeIn animated">Contact</h4>
                             <p class="wow fadeIn animated">

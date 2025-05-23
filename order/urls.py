@@ -13,5 +13,5 @@ urlpatterns = [
      path('delete-shop-cart/<uuid:uuid>/', delete_shop_cart, name='delete-shop-cart'),
      path('clear-cart/', clear_cart, name='clear-cart'),
      path('shop-address/', ShopAddressView.as_view(), name='shop-address'),
-     path('shop-payment/<uuid:uuid>/', CheckoutPaymentView.as_view(), name='payment'),
+     path('shop-payment/', CheckoutPaymentView.as_view(), name='payment'),
 ] 

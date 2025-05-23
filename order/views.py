@@ -133,66 +133,89 @@ def clear_cart(request):
     else:
         messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
         return redirect('users:login')
-    
-    
+
+
 
 class ShopAddressView(View):
     def get(self, request):
-        user = request.user
-        if user.is_authenticated:
-            form = ShopAddressForm()
-            context = {'form': form}
-            return render(request, 'order/shop-address.html', context)
-        else:
+        if not request.user.is_authenticated:
             messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
             return redirect('users:login')
+        
+        form = ShopAddressForm()
+        return render(request, 'order/shop-address.html', {'form': form})
 
     def post(self, request):
-        user = request.user
-        if user.is_authenticated:
-            orders = AddToShopCart.objects.filter(user=user, status="to'lanmagan")
-
-            form = ShopAddressForm(request.POST)
-            if form.is_valid():
-                payment = form.save(commit=False)
-                payment.user = user  # foydalanuvchini qo‘shib qo‘y
-
-                # 🛠 Avval payment obyektini saqlab olamiz, shunda u default bazaga tushadi
-                payment.save()
-
-                for order in orders:
-                    if order._state.db is None:
-                        order.save(using='default')
-                    payment.order.add(order)  # endi bu xato bermaydi
-
-                messages.success(request, "Manzil muvaffaqiyatli saqlandi!")
-                return redirect('order:payment', uuid=payment.id)
-            else:
-                messages.warning(request, "Manzil ma'lumotlari noto‘g‘ri kiritildi!")
-                return redirect('order:shop-address')  # login emas, shop-address ga qaytarsin
-        else:
+        if not request.user.is_authenticated:
             messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
             return redirect('users:login')
+
+        user = request.user
+        orders = AddToShopCart.objects.filter(user=user, status="to'lanmagan")
+        form = ShopAddressForm(request.POST)
+        
+        if form.is_valid():
+            payment = form.save(commit=False)
+            payment.user = user
+            payment.save()
+            for order in orders:
+                payment.order.add(order)
+            payment.save()
+
+            messages.success(request, "Manzil muvaffaqiyatli saqlandi!")
+            total = sum([order.total_price for order in orders])
+            context = {
+                'payment': payment,
+                'total': total,
+                'plastic_card': payment.plastic_card or '',
+            }
+            return render(request, 'order/cart-total.html', context)
+        else:
+            messages.warning(request, "Manzil ma'lumotlari noto‘g‘ri kiritildi!")
+            return render(request, 'order/shop-address.html', {'form': form})
 
 
 
 class CheckoutPaymentView(View):
     def post(self, request):
-        payment_check = request.FILES.get("paymentCheck")
-        
-        # ✅ Fayl yuklangan bo‘lsa, Payment yaratish
-        if payment_check:
-            payment = Payment.objects.create(
-                country=request.POST["country"],
-                address=request.POST["address"],
-                phone=request.POST["phone"],
-                payment_method=request.POST["payment_method"],
-                plastic_card=request.POST.get("plastic_card", ""),
-                card_name=request.POST.get("card_name", ""),
-                payment_check=payment_check,
-            )
-        
-        # ✅ Sotib olingan mahsulotlarni kartadan o‘chirish
-        request.session.pop("cart_items", None)
+        if not request.user.is_authenticated:
+            messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
+            return redirect('users:login')
 
+        payment_check = request.FILES.get("paymentCheck")
+        user = request.user
+
+        # User ga tegishli "to'lanmagan" savatcha buyurtmalarini olish
+        cart_items = AddToShopCart.objects.filter(user=user, status="to'lanmagan")
+
+        if not cart_items.exists():
+            messages.warning(request, "Savatchangiz bo'sh yoki to‘lovga tayyor buyurtma yo‘q.")
+            return redirect("shop:cart")  # Savat sahifasiga qaytish
+
+        # Yangi Payment yaratish yoki mavjud Paymentni olish uchun:
+        # Agar siz har doim yangi Payment yaratmoqchi bo'lsangiz:
+        payment = Payment.objects.create(
+            country=request.POST.get("country", ""),    # formadan olinadi, kerak bo'lsa qo'shing
+            address=request.POST.get("address", ""),
+            phone=request.POST.get("phone", ""),
+            payment_method=request.POST.get("payment_method", "card"),
+            plastic_card=request.POST.get("plastic_card", None),
+            card_name=request.POST.get("card_name", None),
+            # expiration_date ni default qoldirdim
+        )
+        # Savatcha buyurtmalarini Payment ga bog'lash
+        payment.order.set(cart_items)
+        
+        if payment_check:
+            payment.payment_check = payment_check
+            payment.save()
+
+        # Buyurtma holatini "tasdiqlangan" ga o'zgartirish
+        cart_items.update(status="tasdiqlangan")
+
+        # Sessiyadagi savatni tozalash (agar ishlatilsa)
+        if 'cart_items' in request.session:
+            del request.session['cart_items']
+
+        messages.success(request, "To‘lov muvaffaqiyatli amalga oshirildi!")
         return redirect("index")

@@ -28,7 +28,7 @@
                                 {% if brand_cars.count < 1 %}
                                 <p style="font-size: 30px">Hali bu brandga bog'liq mashinamiz mavjud emas!</p>
                                 {% else %}
-                                <p> We found <strong class="text-brand">{{ brand_cars.count }}</strong> items for you!</p>
+                                <p>Biz siz uchun <strong class="text-brand">{{ brand_cars.count }}</strong> ta mahsulot topdik!</p>
                                 {% endif %}
                             </div>
                             <div class="sort-by-product-area">
@@ -97,10 +97,10 @@
                                         <h2><a href="{% url 'detailview' bcars.id %}">{{ bcars.model }}</a></h2>
                                         <div class="product-price">
                                         {% if bcars.percentage %}
-                                        <span class="old-price">Old price: {{ bcars.price }}$</span><br>
-                                        <span>New price: {{ bcars.get_new_price }}$</span>
+                                        <span class="old-price">Eski narxi: {{ bcars.price }}$</span><br>
+                                        <span>Yangi narxi: {{ bcars.get_new_price }}$</span>
                                         {% else %}
-                                        <span>Price: {{ bcars.price }}$</span>
+                                        <span>Narxi: {{ bcars.price }}$</span>
                                         {% endif %}
                                         </div>
                                         <div class="product-action-1 show">

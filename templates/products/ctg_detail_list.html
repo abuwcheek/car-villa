@@ -25,7 +25,7 @@
                     <div class="col-lg-12">
                         <div class="shop-product-fillter">
                             <div class="totall-product">
-                                <p> We found <strong class="text-brand">{{ category_cars.count }}</strong> items for you!</p>
+                                <p>Biz siz uchun <strong class="text-brand">{{ category_cars.count }}</strong> ta mahsulot topdik!</p>
                             </div>
                             <div class="sort-by-product-area">
                                 <div class="sort-by-cover mr-10">
@@ -93,10 +93,10 @@
                                         <h2><a href="{% url 'detailview' ctg_cars.id %}">{{ ctg_cars.model }}</a></h2>
                                         <div class="product-price">
                                         {% if ctg_cars.percentage %}
-                                        <span class="old-price">Old price: {{ ctg_cars.price }}$</span><br>
-                                        <span>New price: {{ ctg_cars.get_new_price }}$</span>
+                                        <span class="old-price">Eski narxi: {{ ctg_cars.price }}$</span><br>
+                                        <span>Yangi narxi: {{ ctg_cars.get_new_price }}$</span>
                                         {% else %}
-                                        <span>Price: {{ ctg_cars.price }}$</span>
+                                        <span>Narxi: {{ ctg_cars.price }}$</span>
                                         {% endif %}
                                         </div>
                                         <div class="product-action-1 show">

@@ -28,11 +28,11 @@
                          <table class="table shopping-summery text-center">
                              <thead>
                                  <tr class="main-heading">
-                                     <th scope="col" colspan="2">Product</th>
-                                     <th scope="col">Price</th>
-                                     <th scope="col">Add Time</th>
-                                     <th scope="col">Action</th>
-                                     <th scope="col">Remove</th>
+                                     <th scope="col" colspan="2">Mahsulot</th>
+                                     <th scope="col">Narxi</th>
+                                     <th scope="col">Qo'shilgan vaqti</th>
+                                     <th scope="col">Savatchaga</th>
+                                     <th scope="col">O'chirish</th>
                                  </tr>
                              </thead>
                              <tbody>
@@ -40,13 +40,13 @@
                                  <tr>
                                      <td class="image product-thumbnail"><img src="{{ like.product.car_images.first.image_url }}" alt="#"></td>
                                      <td class="product-des product-name">
-                                         <p class="product-name"><a href="">{{ like.product.model }}</a></p>
+                                         <p class="product-name"><a href="{% url 'detailview' like.product.id %}">{{ like.product.model }}</a></p>
                                          <p class="font-xs">{{ like.product.backer }}
                                          </p>
                                      </td>
                                      <td class="price" data-title="Price"><span>{{ like.product.get_new_price }}$</span></td>
                                      <td class="text-center" data-title="Stock">
-                                         <span class="color3 font-weight-bold">askmasllmas</span>
+                                         <span class="color3 font-weight-bold">{{ like.product.created_at }}</span>
                                      </td>
                                      <style>
                                         .cart-button {
@@ -69,7 +69,7 @@
                                     
                                     <td class="text-center" data-title="Action">
                                         <a href="{% url 'order:addtoshopcart' like.product.id %}" class="cart-button text-primary">
-                                            Add to cart <i class="fa-solid fa-cart-shopping"></i>
+                                            Savatchaga qo'shish <i class="fa-solid fa-cart-shopping"></i>
                                         </a>
                                     </td>
                                     <td class="action" data-title="Remove"><a href="{% url 'order:removeproduct' like.id %}"><i class="fa fa-trash-alt"></i></a></td>
