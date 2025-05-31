@@ -179,43 +179,43 @@ class ShopAddressView(View):
 class CheckoutPaymentView(View):
     def post(self, request):
         if not request.user.is_authenticated:
-            messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
+            messages.warning(request, "Siz tizimga kirishingiz kerak.")
             return redirect('users:login')
 
-        payment_check = request.FILES.get("paymentCheck")
         user = request.user
+        payment_check = request.FILES.get("paymentCheck")
 
-        # User ga tegishli "to'lanmagan" savatcha buyurtmalarini olish
+        # 1. Foydalanuvchining to‘lanmagan buyurtmalari
         cart_items = AddToShopCart.objects.filter(user=user, status="to'lanmagan")
 
         if not cart_items.exists():
-            messages.warning(request, "Savatchangiz bo'sh yoki to‘lovga tayyor buyurtma yo‘q.")
-            return redirect("shop:cart")  # Savat sahifasiga qaytish
+            messages.warning(request, "Savat bo‘sh yoki to‘lovga tayyor buyurtma yo‘q.")
+            return redirect("order:shop-cart")
 
-        # Yangi Payment yaratish yoki mavjud Paymentni olish uchun:
-        # Agar siz har doim yangi Payment yaratmoqchi bo'lsangiz:
+        # 2. To‘lovni yaratish
         payment = Payment.objects.create(
-            country=request.POST.get("country", ""),    # formadan olinadi, kerak bo'lsa qo'shing
+            country=request.POST.get("country", ""),
             address=request.POST.get("address", ""),
             phone=request.POST.get("phone", ""),
             payment_method=request.POST.get("payment_method", "card"),
             plastic_card=request.POST.get("plastic_card", None),
             card_name=request.POST.get("card_name", None),
-            # expiration_date ni default qoldirdim
         )
-        # Savatcha buyurtmalarini Payment ga bog'lash
+
+        # 3. Buyurtmalarni to‘lovga bog‘lash
         payment.order.set(cart_items)
-        
+
+        # 4. Agar payment_check yuklangan bo‘lsa, saqlaymiz
         if payment_check:
             payment.payment_check = payment_check
             payment.save()
 
-        # Buyurtma holatini "tasdiqlangan" ga o'zgartirish
+        # 5. Buyurtmalar holatini "tasdiqlangan" ga o‘zgartiramiz
         cart_items.update(status="tasdiqlangan")
 
-        # Sessiyadagi savatni tozalash (agar ishlatilsa)
-        if 'cart_items' in request.session:
-            del request.session['cart_items']
+        # 6. Tasdiqlangan buyurtmalarni savatdan o‘chiramiz
+        AddToShopCart.objects.filter(user=user, status="tasdiqlangan").delete()
 
-        messages.success(request, "To‘lov muvaffaqiyatli amalga oshirildi!")
+        # 7. Muvaffaqiyatli xabar va asosiy sahifaga yo‘naltirish
+        messages.success(request, "To‘lov muvaffaqiyatli amalga oshirildi. Buyurtmalaringiz tasdiqlandi!")
         return redirect("index")

@@ -57,19 +57,15 @@ def validate_file_extension(value):
 
 class Payment(BaseModel):
      order = models.ManyToManyField(AddToShopCart, related_name="payment")
-     country = models.CharField(max_length=50)       # max_length qo‘shildi
-     address = models.CharField(max_length=255)      # max_length qo‘shildi
-     phone = models.CharField(max_length=13)         # max_length qo‘shildi
+     country = models.CharField(max_length=50)       
+     address = models.CharField(max_length=255)      
+     phone = models.CharField(max_length=13)         
      payment_method = models.CharField(max_length=20, choices=[
-          ("cash", "Naqd"),
           ("card", "Karta"),
-          ("click", "Click"),
-          ("payme", "Payme"),
+          ("cash", "Naqd pul"),
+          ("transfer", "O'tkazma"),
      ], default="card")
-     plastic_card = models.CharField(max_length=16, blank=True, null=True)
-     card_name = models.CharField(max_length=50, blank=True, null=True)
-     expiration_date = models.DateTimeField(default=now)
-     payment_check = models.FileField(upload_to="payment_check", validators=[validate_file_extension], blank=True, null=True)
+     
 
      def __str__(self):
           return f"Payment {self.id} - {self.payment_method}"

@@ -81,7 +81,7 @@ class CarVilla(BaseModel):
 
 
      def __str__(self):
-          return f'{self.model} -- {self.brand.name} -- {self.category.name} -- {self.year} -- {self.price} -- {self.views}'
+          return f'{self.model} -- {self.brand.name} -- {self.year} -- {self.price} -- {self.views}'
 
 
      @property

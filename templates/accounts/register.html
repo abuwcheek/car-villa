@@ -14,12 +14,12 @@
             <div class="container">
                 <div class="breadcrumb">
                     <a href="{% url 'index' %}" rel="nofollow" style="text-decoration: none;">Home</a>
-                    <span></span><a href="{% url 'users:login' %}"> Log In </a>
-                    <span></span> Register
+                    <span></span><a href="{% url 'users:login' %}">Kirish</a>
+                    <span></span> Ro'yxatdan o'tish
                 </div>
             </div>
         </div>
-        <section class="pt-150 pb-150">
+        <section class="pt-100 pb-100">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-10 m-auto">
@@ -29,7 +29,7 @@
                                 <div class="login_wrap widget-taber-content p-30 background-white border-radius-5">
                                     <div class="padding_eight_all bg-white">
                                         <div class="heading_s1">
-                                            <h3 class="mb-30" style="margin-left: 130px">Create an Account</h3>
+                                            <h3 class="mb-30" style="margin-left: 130px">Ro'yxatdan O'ting</h3>
                                         </div>
                                         <p class="mb-50 font-sm">
                                         </p>
@@ -37,7 +37,7 @@
                                             {% csrf_token %}
                                             <b>{{ form.as_p }}</b>
                                             <br>
-                                            <input type="submit" value="SUBMIT & REGISTER" class="btn btn-info">
+                                            <input type="submit" value="Ro'yxatdan O'tish" class="btn btn-info">
                                         </form>
                                         <div class="divider-text-center mt-15 mb-15">
                                             <span> or</span>
