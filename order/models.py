@@ -55,17 +55,31 @@ def validate_file_extension(value):
 
 
 
+# ========== 4. To'lov modeli ==========
 class Payment(BaseModel):
      order = models.ManyToManyField(AddToShopCart, related_name="payment")
-     country = models.CharField(max_length=50)       
-     address = models.CharField(max_length=255)      
-     phone = models.CharField(max_length=13)         
+     country = models.CharField(max_length=50)
+     address = models.CharField(max_length=255)
+     phone = models.CharField(max_length=13)
+
      payment_method = models.CharField(max_length=20, choices=[
           ("card", "Karta"),
           ("cash", "Naqd pul"),
           ("transfer", "O'tkazma"),
-     ], default="card")
-     
+     ], default="cash")
+
+
+     class Meta:
+          verbose_name = "To'lov"
+          verbose_name_plural = "To'lovlar"
 
      def __str__(self):
           return f"Payment {self.id} - {self.payment_method}"
+
+     @property
+     def total_price(self):
+          return sum([item.total_price for item in self.order.all()])
+
+     @property
+     def get_buyer(self):
+          return self.order.first().user.username if self.order.exists() else "-"

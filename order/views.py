@@ -167,55 +167,52 @@ class ShopAddressView(View):
             context = {
                 'payment': payment,
                 'total': total,
-                'plastic_card': payment.plastic_card or '',
             }
             return render(request, 'order/cart-total.html', context)
         else:
             messages.warning(request, "Manzil ma'lumotlari noto‘g‘ri kiritildi!")
             return render(request, 'order/shop-address.html', {'form': form})
+        
 
 
-
-class CheckoutPaymentView(View):
-    def post(self, request):
+class PaymentView(View):
+    def get(self, request):
         if not request.user.is_authenticated:
-            messages.warning(request, "Siz tizimga kirishingiz kerak.")
+            messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
             return redirect('users:login')
 
         user = request.user
-        payment_check = request.FILES.get("paymentCheck")
+        orders = AddToShopCart.objects.filter(user=user, status="to'lanmagan")
+        if not orders.exists():
+            messages.warning(request, "Savatcha bo'sh!")
+            return redirect('order:shop-cart')
 
-        # 1. Foydalanuvchining to‘lanmagan buyurtmalari
-        cart_items = AddToShopCart.objects.filter(user=user, status="to'lanmagan")
+        total = sum([order.total_price for order in orders])
+        context = {
+            'orders': orders,
+            'total': total,
+        }
+        return render(request, 'order/payment.html', context)
+    
+    def post(self, request):
+        if not request.user.is_authenticated:
+            messages.warning(request, "Siz oldin tizimga kirishingiz kerak")
+            return redirect('users:login')
 
-        if not cart_items.exists():
-            messages.warning(request, "Savat bo‘sh yoki to‘lovga tayyor buyurtma yo‘q.")
-            return redirect("order:shop-cart")
+        user = request.user
+        orders = AddToShopCart.objects.filter(user=user, status="to'lanmagan")
+        if not orders.exists():
+            messages.warning(request, "Savatcha bo'sh!")
+            return redirect('order:shop-cart')
 
-        # 2. To‘lovni yaratish
-        payment = Payment.objects.create(
-            country=request.POST.get("country", ""),
-            address=request.POST.get("address", ""),
-            phone=request.POST.get("phone", ""),
-            payment_method=request.POST.get("payment_method", "card"),
-            plastic_card=request.POST.get("plastic_card", None),
-            card_name=request.POST.get("card_name", None),
-        )
+        total = sum([order.total_price for order in orders])
+        payment = Payment(user=user, total_price=total)
+        payment.save()
 
-        # 3. Buyurtmalarni to‘lovga bog‘lash
-        payment.order.set(cart_items)
+        for order in orders:
+            order.status = "to'langan"
+            order.payment = payment
+            order.save()
 
-        # 4. Agar payment_check yuklangan bo‘lsa, saqlaymiz
-        if payment_check:
-            payment.payment_check = payment_check
-            payment.save()
-
-        # 5. Buyurtmalar holatini "tasdiqlangan" ga o‘zgartiramiz
-        cart_items.update(status="tasdiqlangan")
-
-        # 6. Tasdiqlangan buyurtmalarni savatdan o‘chiramiz
-        AddToShopCart.objects.filter(user=user, status="tasdiqlangan").delete()
-
-        # 7. Muvaffaqiyatli xabar va asosiy sahifaga yo‘naltirish
-        messages.success(request, "To‘lov muvaffaqiyatli amalga oshirildi. Buyurtmalaringiz tasdiqlandi!")
-        return redirect("index")
+        messages.success(request, "To'lov muvaffaqiyatli amalga oshirildi!")
+        return redirect('order:shop-cart')
