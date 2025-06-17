@@ -14,7 +14,7 @@
             <div class="container">
                 <div class="breadcrumb">
                     <a href="{% url 'index' %}" rel="nofollow" style="text-decoration: none;">Home</a>
-                    <span></span> Account
+                    <span></span> Profil
                 </div>
             </div>
         </div>
@@ -39,7 +39,7 @@
                                             <a class="nav-link" id="address-tab" data-bs-toggle="tab" href="#address" role="tab" aria-controls="address" aria-selected="true"><i class="fa fa-map-marked mr-15"></i>Mening manzilim</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="fa fa-user-edit mr-15"></i>Akaunt sozlamalari</a>
+                                            <a class="nav-link" id="account-detail-tab" data-bs-toggle="tab" href="#account-detail" role="tab" aria-controls="account-detail" aria-selected="true"><i class="fa fa-user-edit mr-15"></i>Profil sozlamalari</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="{% url 'users:logout' %}"><i class="fa fa-lock mr-15"></i>Chiqish</a>
@@ -62,7 +62,7 @@
                                     <div class="tab-pane fade" id="orders" role="tabpanel" aria-labelledby="orders-tab">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h5 class="mb-0">Your Orders</h5>
+                                                <h5 class="mb-0">Sotib olish tarixi</h5>
                                             </div>
                                             <div class="card-body">
                                                 <div class="table-responsive">
@@ -107,7 +107,7 @@
                                     <div class="tab-pane fade" id="track-orders" role="tabpanel" aria-labelledby="track-orders-tab">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h5 class="mb-0">Orders tracking</h5>
+                                                <h5 class="mb-0">Sotib olishni kuzatish</h5>
                                             </div>
                                             <div class="card-body contact-from-area">
                                                 <p>To track your order please enter your OrderID in the box below and press "Track" button. This was given to you on your receipt and in the confirmation email you should have received.</p>
@@ -134,7 +134,7 @@
                                             <div class="col-lg-6">
                                                 <div class="card mb-3 mb-lg-0">
                                                     <div class="card-header">
-                                                        <h5 class="mb-0">Billing Address</h5>
+                                                        <h5 class="mb-0">Mening manzilim</h5>
                                                     </div>
                                                     <div class="card-body">
                                                         <address>3522 Interstate<br> 75 Business Spur,<br> Sault Ste. <br>Marie, MI 49783</address>
@@ -161,7 +161,7 @@
                                     <div class="tab-pane fade" id="account-detail" role="tabpanel" aria-labelledby="account-detail-tab">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h5>Account Details</h5>
+                                                <h5>Profil sozlamalari</h5>
                                             </div>
                                             <div class="card-body">
                                                 {% if user.image_user %}
@@ -185,7 +185,7 @@
                                                         <div class="form-group col-md-12">
                                                             <table border="1" style="border-collapse: collapse;">
                                                             <tr>
-                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px">First Name*</td>
+                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px">Ism*</td>
                                                             </tr>
                                                             <tr>
                                                             <td style="font-size: 20px">{{ user.first_name }}</td>
@@ -195,7 +195,7 @@
                                                         <div class="form-group col-md-12">
                                                             <table border="1" style="border-collapse: collapse;">
                                                             <tr>
-                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px; font-family: Bahnschrift">Last Name*</td>
+                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px; font-family: Bahnschrift">Familya*</td>
                                                             </tr>
                                                             <tr>
                                                             <td style="font-size: 20px">{{ user.last_name }}</td>
@@ -205,7 +205,7 @@
                                                         <div class="form-group col-md-12">
                                                             <table border="1" style="border-collapse: collapse;">
                                                             <tr>
-                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px; font-family: Bahnschrift">Location*</td>
+                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px; font-family: Bahnschrift">Yashash Manzil*</td>
                                                             </tr>
                                                             <tr>
                                                             <td style="font-size: 20px">{{ user.user_location }}</td>
@@ -215,7 +215,7 @@
                                                         <div class="form-group col-md-12">
                                                             <table border="1" style="border-collapse: collapse;">
                                                             <tr>
-                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px; font-family: Bahnschrift">Email Adress*</td>
+                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px; font-family: Bahnschrift">Email manzil*</td>
                                                             </tr>
                                                             <tr>
                                                             <td style="font-size: 20px">{{ user.email }}</td>
@@ -225,7 +225,7 @@
                                                         <div class="form-group col-md-12">
                                                             <table border="1" style="border-collapse: collapse;">
                                                             <tr>
-                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px; font-family: Bahnschrift">Phone Numara*</td>
+                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px; font-family: Bahnschrift">Telefon nomer*</td>
                                                             </tr>
                                                             <tr>
                                                             <td style="font-size: 20px">{{ user.phone }}</td>
@@ -235,7 +235,7 @@
                                                         <div class="form-group col-md-12">
                                                             <table border="1" style="border-collapse: collapse;">
                                                             <tr>
-                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px; font-family: Bahnschrift">Last Login*</td>
+                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px; font-family: Bahnschrift">Oxirgi kirish*</td>
                                                             </tr>
                                                             <tr>
                                                             <td style="font-size: 20px">{{ user.last_login }}</td>
@@ -245,7 +245,7 @@
                                                         <div class="form-group col-md-12">
                                                             <table border="1" style="border-collapse: collapse;">
                                                             <tr>
-                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px; font-family: Bahnschrift">Profile date*</td>
+                                                            <td style="font-weight: bold; color: #146c43; font-size: 17px; font-family: Bahnschrift">Biz bilan birga*</td>
                                                             </tr>
                                                             <tr>
                                                             <td style="font-size: 20px">{{ user.date_joined }}</td>
@@ -253,7 +253,7 @@
                                                             </table>
                                                         </div>
                                                     </div>
-                                                        <a class="btn btn-primary" href="{% url 'users:updateuser' %}" role="button" style="margin-left: 210px">Update Profile</a>
+                                                        <a class="btn btn-primary" href="{% url 'users:updateuser' %}" role="button" style="margin-left: 210px">Profilni yangilash</a>
                                                 </form>
                                             </div>
                                         </div>

@@ -1,0 +1,17 @@
+nav ul li a {
+     text-decoration: none;
+     font-weight: bold;
+     color: lightskyblue;
+     background-color: transparent;
+     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+     /* padding: 8px 12px; */
+     border-radius: 5px;
+     display: inline-block;
+     transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+     color: white;
+     background-color: darkslateblue;
+     transform: scale(1.05); /* sekin kattalashadi */
+}

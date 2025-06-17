@@ -36,6 +36,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
     <link rel="stylesheet" href="{% static 'assets/btn-css.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/alert.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/base.css' %}">
 </head>
 
 <body>
@@ -126,7 +127,7 @@
                 </div>
             </div>
         </div>
-        <div class="header-bottom header-bottom-bg-color sticky-bar gray-bg sticky-blue-bg">
+        <div class="header-bottom header-bottom-bg-color sticky-bar gray-bg sticky-blue-bg" style="background-color: #5f3f3f;">
             <div class="container">
                 <div class="header-wrap header-space-between position-relative">
                     <div class="logo logo-width-1 d-block d-lg-none">
@@ -135,51 +136,23 @@
                     <div class="main-menu main-menu-padding-1 main-menu-lh-2 d-none d-lg-block main-menu-light-white hover-boder hover-boder-white">
                         <nav>
                             <ul style="padding-left: 330px;">
-                                <li><a class="active" href="{% url 'index' %}" style=" text-decoration: none; font-weight: bold">Bosh sahifa</a>
+                                <li class="link-hover"><a class="active" href="{% url 'index' %}" style=" text-decoration: none; font-weight: bold; color: lightskyblue; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Bosh sahifa</a>
                                 </li>
                                 <li>
-                                    <a href="" style=" text-decoration: none; font-weight: bold">Haqimizda</a>
+                                    <a href="" style=" text-decoration: none; font-weight: bold; color: lightskyblue; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Haqimizda</a>
                                 </li>
                                 {% for ktg in kategoriyalar %}
-                                <li><a href="{% url 'categoryview' ktg.id %}" style=" text-decoration: none; font-weight: bold">{{ ktg.name }}</a>
+                                <li><a href="{% url 'categoryview' ktg.id %}"  style=" text-decoration: none; font-weight: bold; color: lightskyblue; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">{{ ktg.name }}</a>
                                 </li>
                                 {% endfor %}
                                 <li>
-                                    <a href="{% url 'contactview' %}" style=" text-decoration: none; font-weight: bold; ">Aloqa</a>
+                                    <a href="{% url 'contactview' %}" style=" text-decoration: none; font-weight: bold; color: lightskyblue; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Aloqa</a>
                                 </li>
                             </ul>
                         </nav>
                     </div>
                     <div class="hotline d-none d-lg-block">
-                        <p><i class="fa fa-phone-alt"></i><span>Qisqa raqam</span>(10-34)</p>
-                    </div>
-                    <div class="header-action-right d-block d-lg-none">
-                        <div class="header-action-2">
-                            <div class="header-action-icon-2">
-                                <a href="">
-                                    <img alt="wowy" src="{% static 'assets/imgs/theme/icons/icon-heart-white.svg' %}">
-                                    <span class="pro-count white">4</span>
-                                </a>
-                            </div>
-                            <div class="header-action-icon-2">
-                                <a class="mini-cart-icon" href="">
-                                    <img alt="wowy" src="{% static 'assets/imgs/theme/icons/icon-cart-white.svg' %}">
-                                    <span class="pro-count white">02</span>
-                                </a>
-                            </div>
-                            <div class="header-action-icon-2">
-                                <a href="">
-                                    <img alt="wowy" src="{% static 'assets/imgs/theme/icons/icon-user-white.svg' %}">
-                                </a>
-                            </div>
-                            <div class="header-action-icon-2 d-block d-lg-none">
-                                <div class="burger-icon burger-icon-white">
-                                    <span class="burger-icon-top"></span>
-                                    <span class="burger-icon-mid"></span>
-                                    <span class="burger-icon-bottom"></span>
-                                </div>
-                            </div>
-                        </div>
+                        <p style="font-family: Verdana, Geneva, Tahoma, sans-serif;"><i class="fa fa-phone-alt"></i><span>Qisqa raqam</span>(10-34)</p>
                     </div>
                 </div>
             </div>
@@ -225,11 +198,11 @@
                             </p>
                             <h4 class="mb-10 mt-20 fw-600 text-grey-4 wow fadeIn animated">Follow Us</h4>
                             <div class="mobile-social-icon wow fadeIn animated mb-sm-5 mb-md-0">
-                                <a class="facebook" href="{{ about.facebook }}"><i class="fab fa-facebook-f"></i></a>
-                                <a class="twitter" href="{{ about.twitter }}"><i class="fab fa-twitter"></i></a>
-                                <a class="tumblr" href="{{ about.telegram }}"><i class="fab fa-telegram"></i></a>
-                                <a class="instagram" href="{{ about.instagram }}"><i class="fab fa-instagram"></i></a>
-                                <a class="instagram" href="{{ about.youtube }}"><i class="fab fa-youtube"></i></a>
+                                <a class="facebook" href="{{ about.facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                <a class="twitter" href="{{ about.twitter }}" target="_blank"><i class="fab fa-twitter"></i></a>
+                                <a class="tumblr" href="{{ about.telegram }}" target="_blank"><i class="fab fa-telegram"></i></a>
+                                <a class="instagram" href="{{ about.instagram }}" target="_blank"><i class="fab fa-instagram"></i></a>
+                                <a class="instagram" href="{{ about.youtube }}" target="_blank"><i class="fab fa-youtube"></i></a>
                             </div>
                         </div>
                     </div>
